@@ -26,6 +26,7 @@ public class UserController {
     public String subLogin(User user) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        //kykiuy
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
