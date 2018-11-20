@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
+
     @RequestMapping(value = "/subLogin", method = RequestMethod.POST,
             produces = "application/json;charset=utf-8")
     @ResponseBody
@@ -33,6 +34,7 @@ public class UserController {
             return e.getMessage();
         }
         return "登录成功";
+//        System.out.println("jdskjfkg");
     }
 
 }
