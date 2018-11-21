@@ -1,7 +1,34 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="utf-8"?>
+<web-app
+        version="3.0"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
   <display-name>Archetype Created Web Application</display-name>
+  <!-- spring监听器 开始 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis-config.xml</param-value>
+  </context-param>
+  <!-- spring监听器 结束-->
+
+  <!-- 配置总的调度器 开始 -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 不配置init-param这个配置，默认框架会去找与web.xml同级目录下名字为hello-servlet.xml的文件 -->
+    <init-param>
+      <!-- spring源码加载自定义配置文件的时候，默认调用contextConfigLocation名称，所以是固定的，不能更改-->
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc-config.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <!-- 配置总的调度器 结束 -->
 </web-app>
