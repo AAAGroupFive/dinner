@@ -13,14 +13,15 @@ import java.util.Map;
  * author:邢芳彬
  * createTime:2018-11-22 14:59
  */
-@CacheNamespace(implementation = RedisCache.class)
 
+@CacheNamespace(implementation = RedisCache.class)
 public interface test1 {
     /**
      * 员工列表方法
      * @param map
      * @return
      */
-    @Select("select * from tab_emp")
+    @Select("select * from tab_type")
+
     List<Map> getList(Map map);
 }

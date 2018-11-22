@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * className:testImp
- * discription:
- * author:panjing
- * createTime:2018-11-22 15:04
+ * className:testImpl
+ * describe:
+ * author:邢芳彬
+ * createTime:2018-11-22 15:11
  */
 @Service
-public class testImp implements test{
+public class testImpl implements test {
 
     @Autowired
     private test1 test1;
 
     @Override
     public List<Map> getList(Map map) {
-        return null;
+        return test1.getList(map);
     }
 }
