@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * createTime:2018-11-09 14:02
  */
 @SpringBootApplication
-@MapperScan("com.xfb.sm.dao")
+@MapperScan("com.dinner.dao")
 public class SpringBootMainApp {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMainApp.class);
