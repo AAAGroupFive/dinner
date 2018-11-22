@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * createTime:2018-11-22 10:56
  */
 @Controller
-@RequestMapping("/test")
 public class TestServlet {
     @RequestMapping("/test")
     public String test(){
