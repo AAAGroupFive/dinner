@@ -1,10 +1,5 @@
 package com.dinner.service.registerService;
 
-import com.dinner.dao.register.dao.RegisterDao;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.apache.ibatis.annotations.Insert;
-
-import java.security.PrivateKey;
 import java.util.List;
 import java.util.Map;
 
@@ -20,5 +15,5 @@ public interface RegisterService {
     /**
      * @return
      */
-    List<Map> registerUserLoginMessage(Map map);
+    int registerUserLoginMessage();
 }

@@ -1,4 +1,4 @@
-package com.dinner.dao.register.dao;
+package com.dinner.dao.registerDao;
 
 import org.apache.ibatis.annotations.Insert;
 
@@ -14,9 +14,9 @@ import java.util.Map;
 public interface RegisterDao {
     /**
      *
-     * @param map
+     * @param
      * @return
      */
-    @Insert(value = "insert  into tab_vip values (1,'wxz','13253536393',666888,1,555,1)")
-    List<Map> registerUserLoginMessage(Map map);
+    @Insert("insert  into tab_vip values (1,'wxz2','13253536393',666888,1,555,1)")
+    int registerUserLoginMessage();
 }

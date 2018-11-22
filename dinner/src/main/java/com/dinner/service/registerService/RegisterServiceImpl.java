@@ -1,6 +1,6 @@
 package com.dinner.service.registerService;
 
-import com.dinner.dao.register.dao.RegisterDao;
+import com.dinner.dao.registerDao.RegisterDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class RegisterServiceImpl implements  RegisterService{
     @Autowired
     private RegisterDao registerDao;
     @Override
-    public List<Map> registerUserLoginMessage(Map map) {
-        return registerDao.registerUserLoginMessage(map);
+    public int registerUserLoginMessage() {
+        return registerDao.registerUserLoginMessage();
     }
 }
