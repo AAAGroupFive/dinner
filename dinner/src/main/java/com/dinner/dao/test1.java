@@ -1,6 +1,8 @@
 package com.dinner.dao;
 
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Select;
+import org.mybatis.caches.redis.RedisCache;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import java.util.Map;
  * author:邢芳彬
  * createTime:2018-11-22 14:59
  */
+@CacheNamespace(implementation = RedisCache.class)
 
 public interface test1 {
     /**
@@ -18,6 +21,6 @@ public interface test1 {
      * @param map
      * @return
      */
-    @Select("select * from emp")
+    @Select("select * from tab_emp")
     List<Map> getList(Map map);
 }
