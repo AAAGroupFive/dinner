@@ -13,7 +13,7 @@ import java.util.Map;
  * author:邢芳彬
  * createTime:2018-11-22 14:59
  */
-@CacheNamespace(implementation = RedisCache.class)
+//@CacheNamespace(implementation = RedisCache.class)
 public interface TableDao {
 
     /**
