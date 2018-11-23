@@ -1,5 +1,6 @@
 package com.dinner.controller.tableController;
 
+
 import com.dinner.service.tabService.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

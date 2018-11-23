@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.emp.EmpDao">
-    <select id="getEmp" resultType="Emp">
+    <select id="getEmp" resultType="com.dinner.entity.Emp">
         select EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PASS as password,EMP_SEX as sex,EMP_AGE as age,EMP_PHONE as phone,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
     </select>
 </mapper>
