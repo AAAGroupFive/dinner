@@ -26,12 +26,13 @@
                             <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
+
                                         <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>1号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type == 1}">空闲</cite>
+                                                    <cite th:if="${type == 2}">使用</cite>
                                                 </p>
                                             </a>
                                         </li>
