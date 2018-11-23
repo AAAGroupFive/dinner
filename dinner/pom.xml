@@ -50,6 +50,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!--springboot 整合mybatis需要的包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -143,6 +150,7 @@
 
 
     <build>
+
         <finalName>springboot</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
@@ -178,4 +186,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>
