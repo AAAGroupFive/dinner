@@ -8,18 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * className:test1
+ * className:TableDao
  * describe:
  * author:邢芳彬
  * createTime:2018-11-22 14:59
  */
 @CacheNamespace(implementation = RedisCache.class)
-public interface test1 {
+public interface TableDao {
+
     /**
-     * 员工列表方法
-     * @param map
+     * 查询桌子
+     * @param
      * @return
      */
-    @Select("select * from tab_type")
-    List<Map> getList(Map map);
+    @Select("select * from tab_table")
+    List<Map> getList();
 }

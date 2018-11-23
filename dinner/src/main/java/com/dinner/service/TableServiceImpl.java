@@ -1,6 +1,6 @@
 package com.dinner.service;
 
-import com.dinner.dao.test1;
+import com.dinner.dao.TableDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * className:testImpl
+ * className:TableServiceImpl
  * describe:
  * author:邢芳彬
- * createTime:2018-11-22 15:11
+ * createTime:2018-11-22 22:10
  */
 @Service
-public class testImpl implements test {
+public class TableServiceImpl implements TableService{
 
     @Autowired
-    private test1 test1;
+    private TableDao tableDao;
 
     @Override
-    public List<Map> getList(Map map) {
-        return test1.getList(map);
+    public List<Map> getList() {
+        return tableDao.getList();
     }
 }

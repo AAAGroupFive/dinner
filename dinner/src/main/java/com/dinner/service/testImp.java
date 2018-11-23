@@ -1,6 +1,6 @@
 package com.dinner.service;
 
-import com.dinner.dao.test1;
+import com.dinner.dao.TableDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 public class testImp implements test{
 
     @Autowired
-    private test1 test1;
+    private TableDao test1;
 
     @Override
     public List<Map> getList(Map map) {
