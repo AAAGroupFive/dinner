@@ -1,6 +1,6 @@
 package com.dinner.service.VipService;
 
-import com.dinner.dao.VipDao;
+import com.dinner.dao.VipDao.VipDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

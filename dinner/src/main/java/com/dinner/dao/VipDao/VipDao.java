@@ -1,6 +1,5 @@
-package com.dinner.dao;
+package com.dinner.dao.VipDao;
 
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
