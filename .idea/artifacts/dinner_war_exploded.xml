@@ -54,9 +54,6 @@
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.1.RELEASE" />
           <element id="library" level="project" name="Maven: com.alibaba:druid-spring-boot-starter:1.1.9" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.9" />
@@ -64,6 +61,15 @@
           <element id="library" level="project" name="Maven: redis.clients:jedis:2.8.0" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.5.0" />
           <element id="library" level="project" name="Maven: org.mybatis.caches:mybatis-redis:1.0.0-beta2" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: ognl:ognl:3.1.12" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
+          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: net.sourceforge.nekohtml:nekohtml:1.9.22" />
+          <element id="library" level="project" name="Maven: xerces:xercesImpl:2.11.0" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.4.01" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.6" />
         </element>
       </element>
