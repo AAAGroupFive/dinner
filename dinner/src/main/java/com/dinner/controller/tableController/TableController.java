@@ -24,16 +24,17 @@ public class TableController {
 
     @RequestMapping("/tableList")
     public String tableList(Model model) {
-        List<Map> list = tableService.getList();
-        System.out.println(list.get(0).get("TAB_TYPE"));
-        model.addAttribute("type",list.get(0).get("TAB_TYPE"));
         return "after/index";
     }
     @RequestMapping("/toMain")
     public String toMain(Model model){
         List<Map> list = tableService.getList();
-        System.out.println(list.get(0).get("TAB_TYPE"));
-        model.addAttribute("type",list.get(0).get("TAB_TYPE"));
+        System.out.println(list);
+        for (Map map : list) {
+            model.addAttribute("type",map.get("TAB_TYPE"));
+            System.out.println(model);
+        }
+
         return "after/welcome";
     }
 }
