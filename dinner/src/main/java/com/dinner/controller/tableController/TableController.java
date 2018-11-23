@@ -29,4 +29,11 @@ public class TableController {
         model.addAttribute("type",list.get(0).get("TAB_TYPE"));
         return "after/index";
     }
+    @RequestMapping("/toMain")
+    public String toMain(Model model){
+        List<Map> list = tableService.getList();
+        System.out.println(list.get(0).get("TAB_TYPE"));
+        model.addAttribute("type",list.get(0).get("TAB_TYPE"));
+        return "after/welcome";
+    }
 }
