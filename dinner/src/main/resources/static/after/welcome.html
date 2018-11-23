@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.0</title>
@@ -9,6 +10,8 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../css/font.css">
         <link rel="stylesheet" href="../css/xadmin.css">
+
+
         <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	    <script src="../lib/layui/layui.js" charset="utf-8"></script>
 	    <script type="text/javascript" src="../js/xadmin.js"></script>
@@ -29,7 +32,7 @@
                                         <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>1号桌</h3>
-                                                <p>
+                                                <p th:text="${type}">
                                                     <cite>空闲中</cite>
                                                 </p>
                                             </a>

@@ -1,8 +1,9 @@
-package com.dinner.controller;
+package com.dinner.controller.tableController;
 
 import com.dinner.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -22,9 +23,10 @@ public class TableController {
     private TableService tableService;
 
     @RequestMapping("/tableList")
-    public String tableList() {
+    public String tableList(Model model) {
         List<Map> list = tableService.getList();
-        System.out.println(list);
+        System.out.println(list.get(0).get("TAB_TYPE"));
+        model.addAttribute("type",list.get(0).get("TAB_TYPE"));
         return "after/index";
     }
 }
