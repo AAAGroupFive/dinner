@@ -50,6 +50,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!--springboot 整合mybatis需要的包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,6 +104,28 @@
             <version>1.0.0-beta2</version>
         </dependency>
 
+        <!-- thymeleaf 依赖包 -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>3.0.9.RELEASE</version>
+        </dependency>
+
+
+        <!-- spring整合thymeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>3.0.9.RELEASE</version>
+        </dependency>
+
+
+        <!-- 引入该包为了让application.properites中的 spring.thymeleaf.mode=LEGACYHTML5 生效，
+        是为了解决 thymeleaf模板引擎过于严格的HTML校验-->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
 
         <!-- jedis包 -->
         <dependency>
@@ -121,6 +150,7 @@
 
 
     <build>
+
         <finalName>springboot</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
@@ -156,4 +186,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>

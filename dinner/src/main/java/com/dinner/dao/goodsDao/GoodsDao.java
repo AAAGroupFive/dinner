@@ -1,6 +1,7 @@
 package com.dinner.dao.goodsDao;
 
 import org.apache.ibatis.annotations.CacheNamespace;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.mybatis.caches.redis.RedisCache;
 
@@ -13,13 +14,14 @@ import java.util.Map;
  * author:王朝军
  * createTime:2018-11-22 20:45
  */
-@CacheNamespace(implementation = RedisCache.class)
+/*@CacheNamespace(implementation = RedisCache.class)*/
 public interface GoodsDao {
     /**
      * 获取商品列表
      * @param map
      * @return
      */
-    @Select(value = "select * from tab_goods")
+    //@Select(value = "select * from tab_goods")
     List<Map> goodsList(Map map);
+    int updateInventory(Map map);
 }
