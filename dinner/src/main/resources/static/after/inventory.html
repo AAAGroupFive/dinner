@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>盘点</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+</head>
+
+<body>
+<div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
+    商品名称：
+    <div class="layui-inline">
+        <input class="layui-input" name="order_number" id="demoReload" autocomplete="off">
+    </div>
+    <div class="layui-btn" data-type="reload" id="searchBtn"><i class="layui-icon">&#xe615;</i>搜索</div>
+    <div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>
+</div>
+<table class="layui-hide" id="orderlist" lay-filter="demo"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#orderlist'
+            ,title: '用户数据表'
+            ,height:790
+            ,width:2000
+            ,url: 'goodsList'
+            ,toolbar: '#toolbarDemo'
+            ,page: true
+            ,even: true
+            ,size: 'lg'
+            ,cols:[ [
+                {field: 'GOODS_ID', title: '商品id', width:180, sort: true, unresize: true ,fixed: 'left'}
+                ,{field:'GOODS_NUMBER', title: '商品编号',width:150}
+                ,{field: 'GOODS_NAME', title: '食材名称', width: 240, sort: true}
+                ,{field: 'GOODS_PRICE', title: '单价', width: 180}
+                ,{field: 'GOODS_STOCK', title: '食材数量', width:200}
+                ,{field: 'GOODS_UNIT', title: '规格', width: 240}
+                ,{field: '', title:'操作', toolbar: '#barDemo', width:400}
+            ]]
+            ,id: 'testReload'
+        })
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit2'){
+                layer.open({
+                    title: '修改用户信息'
+                    ,type: 1
+                    ,area: ['500px', '440px']
+                    ,anim: 1
+                    ,content:$("#editDemo").html()
+                    ,success:function(layero,index){
+                        var nodes=layero[0];
+                        $("#client_id").val(data.client_id);
+                        $("#client_name").val(data.client_name);
+                        $("#client_pwd").val(data.client_pwd);
+                        $("#client_username").val(data.client_username);
+                        $("#client_type").val(data.client_type);
+                        $("#client_phone").val(data.client_phone);
+                        $("#client_address").val(data.client_address);
+                        $("#client_email").val(data.client_email);
+                        $("#client_papers").val(data.client_papers);
+                        $("#sbt").click(function(){
+                            $.ajax({
+                                url: "user/userUpdate",
+                                type: "post",
+                                data:{"client_id":data.client_id,"client_name":$("#client_name").val(),"client_pwd":data.client_pwd,"client_username":data.client_username,"client_type":data.client_type,"client_phone":data.client_phone,"client_address":data.client_address,"client_email":data.client_email,"client_papers":data.client_papers},
+                                dataType: "json",
+                                success: function(data){
+                                    //获取当前的页码
+                                    var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                    if(data.issuc==true){
+                                        layer.close(index);
+                                        layer.msg("修改成功", {icon: 6});
+                                        setTimeout(function () {
+                                            //修改页码input框的值为当前页码
+                                            $(".layui-laypage-skip .layui-input").val(pageNum);
+                                            //触发页码确定按钮 实现只刷新当前页面
+                                            $(".layui-laypage-btn").trigger("click");
+                                        }, 700);
+                                    }else{
+                                        layer.msg("修改失败", {icon: 5});
+                                    }
+                                }   //success
+                            });  //ajax
+                        });  //#sbt
+
+                        //弹出层取消按钮
+                        $("#cancel").click(function(){
+                            layer.closeAll('page');
+                        })
+                    }  //success(layero)
+
+                }) //open
+            } else if(obj.event === 'edit'){
+                layer.open({
+                    title: '修改用户信息'
+                    ,type: 1
+                    ,area: ['500px', '440px']
+                    ,anim: 1
+                    ,content:$("#editDemo").html()
+                    ,success:function(layero,index){
+                        var nodes=layero[0];
+                        $("#client_id").val(data.client_id);
+                        $("#client_name").val(data.client_name);
+                        $("#client_pwd").val(data.client_pwd);
+                        $("#client_username").val(data.client_username);
+                        $("#client_type").val(data.client_type);
+                        $("#client_phone").val(data.client_phone);
+                        $("#client_address").val(data.client_address);
+                        $("#client_email").val(data.client_email);
+                        $("#client_papers").val(data.client_papers);
+                        $("#sbt").click(function(){
+                            $.ajax({
+                                url: "user/userUpdate",
+                                type: "post",
+                                data:{"client_id":data.client_id,"client_name":$("#client_name").val(),"client_pwd":data.client_pwd,"client_username":data.client_username,"client_type":data.client_type,"client_phone":data.client_phone,"client_address":data.client_address,"client_email":data.client_email,"client_papers":data.client_papers},
+                                dataType: "json",
+                                success: function(data){
+                                    //获取当前的页码
+                                    var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                    if(data.issuc==true){
+                                        layer.close(index);
+                                        layer.msg("修改成功", {icon: 6});
+                                        setTimeout(function () {
+                                            //修改页码input框的值为当前页码
+                                            $(".layui-laypage-skip .layui-input").val(pageNum);
+                                            //触发页码确定按钮 实现只刷新当前页面
+                                            $(".layui-laypage-btn").trigger("click");
+                                        }, 700);
+                                    }else{
+                                        layer.msg("修改失败", {icon: 5});
+                                    }
+                                }   //success
+                            });  //ajax
+                        });  //#sbt
+
+                        //弹出层取消按钮
+                        $("#cancel").click(function(){
+                            layer.closeAll('page');
+                        })
+                    }  //success(layero)
+
+                }) //open
+            }  //edit
+        });
+    })
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">余量<i class="layui-icon">&#xe642;</i></a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit2">增添<i class="layui-icon">&#xe642;</i></a>
+</script>
+<!-- 编辑框弹出模板-->
+<script type="text/html" id="editDemo">
+    <form id="updateForm">
+        <div class="layui-form-item" align="center">
+            <div class="layui-inline">
+                <label class="layui-form-label">商品ID</label>
+                <div class="layui-input-inline">
+                    <input name="GOODS_ID" class="layui-input" id="GOODS_ID" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">食材名称</label>
+                <div class="layui-input-inline">
+                    <input name="GOODS_NAME" class="layui-input" id="GOODS_NAME">
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">原有数量</label>
+                <div class="layui-input-inline">
+                    <input name="GOODS_STOCK" class="layui-input" id="GOODS_STOCK">
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">剩余数量</label>
+                <div class="layui-input-inline">
+                    <input name="GOODS_REMNAT_NUMBER" class="layui-input" id="GOODS_REMNAT_NUMBER">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div align="center">
+        <input type="button" value="确认提交" id="sbt" class="layui-btn layui-btn-sm" />
+        <input type="button" value="取消" id="cancel" class="layui-btn layui-btn-sm layui-btn-normal" />
+    </div>
+</script>
+</body>
+
+</html>

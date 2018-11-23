@@ -13,7 +13,7 @@ import java.util.Map;
  * author:王朝军
  * createTime:2018-11-22 20:45
  */
-@CacheNamespace(implementation = RedisCache.class)
+/*@CacheNamespace(implementation = RedisCache.class)*/
 public interface GoodsDao {
     /**
      * 获取商品列表
