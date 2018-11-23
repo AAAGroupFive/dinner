@@ -1,6 +1,7 @@
 package com.dinner.dao.goodsDao;
 
 import org.apache.ibatis.annotations.CacheNamespace;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.mybatis.caches.redis.RedisCache;
 
@@ -20,6 +21,7 @@ public interface GoodsDao {
      * @param map
      * @return
      */
-    @Select(value = "select * from tab_goods")
+    //@Select(value = "select * from tab_goods")
     List<Map> goodsList(Map map);
+    int updateInventory(Map map);
 }

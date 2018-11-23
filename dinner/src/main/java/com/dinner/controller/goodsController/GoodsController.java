@@ -26,7 +26,7 @@ public class GoodsController {
     public String tologin(Map map){
         List<Map> maps = goodsService.goodsList(map);
         System.out.println(maps);
-        return "after/details";
+        return "after/inventory";
     }
     @RequestMapping("/goodsList")
     @ResponseBody
