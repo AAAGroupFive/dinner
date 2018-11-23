@@ -17,4 +17,10 @@ public interface VipDao {
      * @return
      */
     List<Map> VipQuery(Map map);
+
+    /**
+     * 分页数量
+     * @return
+     */
+    int VipGetPageCount();
 }
