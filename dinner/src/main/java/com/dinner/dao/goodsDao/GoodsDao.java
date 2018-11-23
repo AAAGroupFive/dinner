@@ -1,4 +1,4 @@
-package com.dinner.dao;
+package com.dinner.dao.goodsDao;
 
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Select;

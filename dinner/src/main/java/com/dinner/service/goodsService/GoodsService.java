@@ -1,4 +1,4 @@
-package com.dinner.service;
+package com.dinner.service.goodsService;
 
 import java.util.List;
 import java.util.Map;

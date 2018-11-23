@@ -1,6 +1,6 @@
-package com.dinner.service;
+package com.dinner.service.goodsService;
 
-import com.dinner.dao.GoodsDao;
+import com.dinner.dao.goodsDao.GoodsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
