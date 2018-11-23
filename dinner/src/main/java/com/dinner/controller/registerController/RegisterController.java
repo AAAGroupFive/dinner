@@ -26,4 +26,8 @@ public class RegisterController {
         System.out.println(i+"------------");
 
     }
+    @RequestMapping("/bbb")
+    public String chengelocation(){
+        return "before/index.html";
+    }
 }
