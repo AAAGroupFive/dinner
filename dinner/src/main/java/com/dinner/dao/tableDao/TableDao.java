@@ -1,8 +1,6 @@
-package com.dinner.dao;
+package com.dinner.dao.tableDao;
 
-import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Select;
-import org.mybatis.caches.redis.RedisCache;
 
 import java.util.List;
 import java.util.Map;
@@ -11,16 +9,14 @@ import java.util.Map;
  * className:TableDao
  * describe:
  * author:邢芳彬
- * createTime:2018-11-22 14:59
+ * createTime:2018-11-23 16:25
  */
-//@CacheNamespace(implementation = RedisCache.class)
 public interface TableDao {
-
     /**
      * 查询桌子
      * @param
      * @return
      */
-    @Select("select * from tab_table")
+    @Select("select tab_type from tab_table")
     List<Map> getList();
 }

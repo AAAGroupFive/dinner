@@ -1,16 +1,17 @@
-package com.dinner.service;
+package com.dinner.service.tabService;
+
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * className:TableService
+ * className:TableDao
  * describe:
  * author:邢芳彬
- * createTime:2018-11-22 22:08
+ * createTime:2018-11-23 16:25
  */
 public interface TableService {
-
     /**
      * 查询桌子
      * @param

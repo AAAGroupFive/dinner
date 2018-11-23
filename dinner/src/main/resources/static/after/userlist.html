@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工查询</title>
+
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+<link rel="stylesheet" href="../lib/layui/css/layui.css">
+<script src="../lib/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        var page = layui.laypage;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 500
+            ,url: '../emp/list' //数据接口
+            ,page: true //开启分页
+            ,response:{
+                statusName: 'code' //数据状态的字段名称，默认：code
+                ,statusCode: 0 //成功的状态码，默认：0
+                ,msgName: 'msg' //状态信息的字段名称，默认：msg
+                ,countName: 'count' //数据总数的字段名称，默认：count
+                ,dataName: 'data' //数据列表的字段名称，默认：data
+                ,limt:10
+            }
+            ,cols: [[ //表头
+                {field: 'EMPID', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'EMPNAME', title: '姓名', width:80}
+                ,{field: 'USERNAME', title: '用户名', width:80, sort: true}
+                ,{field: 'PASSWORD', title: '密码', width:80}
+                ,{field: 'SEX', title: '性别', width: 80,templet:'#SEX'}
+                ,{field: 'AGE', title: '年龄', width: 80, sort: true}
+                ,{field: 'PHONE', title: '手机', width: 150, sort: true}
+                ,{field: 'ADDR', title: '地址', width: 80}
+                ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#ROLE'}
+            ]]
+        });
+    });
+</script>
+<script type="text/html" id="SEX">
+    {{# if (d.SEX=== 0) { }}
+    <a>男</a>
+    {{# } else if(d.SEX=== 1) { }}
+    <a>女</a>
+    {{# } }}
+</script>
+<script type="text/html" id="ROLE">
+    {{# if (d.ROLE=== 0) { }}
+    <a>服务员</a>
+    {{# } else if(d.ROLE=== 1) { }}
+    <a>收银</a>
+    {{# } else if(d.ROLE=== 2) { }}
+    <a>仓库</a>
+    {{# } else if(d.ROLE=== 3) { }}
+    <a>老板</a>
+    {{# } }}
+</script>
+</body>
+</html>
