@@ -1,4 +1,4 @@
-package com.dinner.service;
+package com.dinner.service.tabService;
 
 import java.util.List;
 import java.util.Map;
