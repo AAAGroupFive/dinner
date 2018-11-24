@@ -19,8 +19,15 @@ public class VipServiceLmpl implements VipService {
     private VipDao vipDao;
     @Override
     public List<Map> VipQuery(Map map) {
-        int pageNo=Integer.valueOf(map.get("page")==null?"2":map.get("page")+"");
-        int pageSize=Integer.valueOf(map.get("limit")==null?"10":map.get("limit")+"");
-        return null;
+        int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo") + "");
+        int pageSize =  map.get("pageSize") == null ? 10 : Integer.valueOf(map.get("pageSize") + "");
+        map.put("start",(pageNo-1)*pageSize);
+        map.put("end",pageNo*pageSize+1);
+        return vipDao.VipQuery(map);
+    }
+
+    @Override
+    public int VipGetPageCount() {
+        return vipDao.VipGetPageCount();
     }
 }

@@ -16,4 +16,9 @@ public interface VipService {
      * @return
      */
     List<Map> VipQuery(Map map);
+    /**
+     * 分页数量
+     * @return
+     */
+    int VipGetPageCount();
 }
