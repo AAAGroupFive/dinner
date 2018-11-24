@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <title>首页</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
     <!----------------Global css------------------->
-    <link rel="stylesheet" href="../src/main/resources/static/before/css/bootstrap.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/revolution-slider/css/layers.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/revolution-slider/css/navigation.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/revolution-slider/css/settings.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/imagehover/css/imagehover.min.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/animate/animate.min.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/iCheck/css/all.css">
-    <link rel="stylesheet" href="../src/main/resources/static/before/vendors/sweetalert2/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/layers.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/navigation.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/settings.css">
+    <link rel="stylesheet" href="../vendors/imagehover/css/imagehover.min.css">
+    <link rel="stylesheet" href="../vendors/animate/animate.min.css">
+    <link rel="stylesheet" href="../vendors/iCheck/css/all.css">
+    <link rel="stylesheet" href="../vendors/sweetalert2/css/sweetalert2.min.css">
     <!----------------custo css----------------->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
 </head>
 <body>
 <!-------------------Preloader---------------->
@@ -35,7 +35,7 @@
     top: 50%;
     background-position: center;
     margin:-25px 0 0 -25px;">
-        <img src="images/loader.gif" alt="loading...">
+        <img src="../images/loader.gif" alt="loading...">
     </div>
 </div>
 <!----------------Preloader end----------------->
@@ -71,13 +71,13 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                <a class="navbar-brand" href="index.html">
-                    <img src="images/3.png" class="img-responsive" alt="company-logo">
+                <a class="navbar-brand" href="Bindex.html">
+                    <img src="../images/3.png" class="img-responsive" alt="company-logo">
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myMegamenu">
                 <ul class="nav navbar-nav">
-                    <li class="list2"><a href="index.html" class="hvr-underline-from-center">首页</a></li>
+                    <li class="list2"><a href="Bindex.html" class="hvr-underline-from-center">首页</a></li>
                     <li class="list2"><a href="services.html" class="hvr-underline-from-center">服务</a></li>
                     <li class="list2"><a href="reserve.html" class="hvr-underline-from-center">餐桌预定</a></li>
                     <li class="list2"><a href="contact_us.html" class="hvr-underline-from-center">联系我们</a></li>
@@ -94,7 +94,7 @@
             <li data-index="rs-10" data-transition="fade" data-slotamount="7" class="bg-light"
                 data-easein="Power4.easeInOut" data-delay="5000" data-easeout="Power4.easeInOut" data-masterspeed="2000"
                 data-rotate="0" data-saveperformance="off" data-title="Love it?" data-description="">
-                <img src="images/new_slider1.jpg" alt="systemimg" data-kenburns="off" data-bgposition="center center"
+                <img src="../images/new_slider1.jpg" alt="systemimg" data-kenburns="off" data-bgposition="center center"
                      data-duration="10000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120"
                      data-rotatestart="0" data-rotateend="0" data-offsetstart="0 -500" data-bgfit="cover"
                      data-offsetend="0 500" data-bgparallax="10" class="rev-slidebg" data-no-retina>
@@ -142,7 +142,7 @@
             <li data-transition="Curtain from Middle" data-slotamount="7" data-delay="5000" data-masterspeed="600"
                 class="bg-light">
 
-                <img src="images/new_slider4.png" alt="girlimg" data-bgposition="right bottom"
+                <img src="../images/new_slider4.png" alt="girlimg" data-bgposition="right bottom"
                      data-duration="11000" data-ease="Linear.easeNone" data-bgfit="cover"
                      data-bgpositionend="left top">
                 <div class="tp-caption grey_heavy_72 sfb tp-resizeme" data-x="center"
@@ -189,7 +189,7 @@
             <li data-index="rs-82" data-transition="fade" data-slotamount="7" data-masterspeed="500" data-delay="5000"
                 data-saveperformance="on"
                 data-title="Intro Slide" data-bgfit="cover">
-                <img src="images/new_slider3.png" alt="girlimg" data-bgposition="right bottom"
+                <img src="../images/new_slider3.png" alt="girlimg" data-bgposition="right bottom"
                      data-duration="11000" data-ease="Linear.easeNone" data-bgfit="cover"
                      data-bgpositionend="left top">
 
@@ -268,6 +268,14 @@
                                                class="form-control input-medium" placeholder="请输入密码" >
                                     </div>
                                 </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="passwordinput"><span
+                                            class="glyphicon glyphicon-hdd text-primary"></span> 验证码 :</label>
+                                    <div class="controls">
+                                        <input type="password" id="passCodeinput" name="passwordinput"
+                                               class="form-control input-medium" placeholder="请输入图片上的内容.." >
+                                    </div>
+                                </div>
                                 <div class="checkbox">
                                     <label><input type="checkbox" class="blue">记住我</label>
                                 </div>
@@ -284,11 +292,11 @@
                         <form class="form-horizontal">
                             <fieldset>
                                 <div class="control-group section-top-10">
-                                    <label for="user"><span class="glyphicon glyphicon-user text-primary"></span> 用户名
+                                    <label for="user"><span class="glyphicon glyphicon-user text-primary"></span> 用户名/手机号
                                         :</label>
                                     <div class="controls">
                                         <input id="user" name="userid" class="form-control input-large" type="text"
-                                               placeholder="请输入你想要注册 的用户名" >
+                                               placeholder="请输入您的手机号码.." >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
@@ -316,6 +324,15 @@
                                         <input id="reenterpassword" class="form-control input-large"
                                                name="reenterpassword" type="password" placeholder="保证两次输入的密码相同"
                                                >
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="reenterpassword"><span
+                                            class="glyphicon glyphicon-envelope text-primary"></span> 短信验证码:</label>
+                                    <div class="controls">
+                                        <input id="letterCode" class="form-control input-large"
+                                               name="reenterpassword" type="password" placeholder="手机短信的验证码.."
+                                        >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
@@ -349,7 +366,7 @@
 
     <div class="row">
         <div class="col-sm-5">
-            <img src="images/index3.png" alt="boyimg" class="img-responsive">
+            <img src="../images/index3.png" alt="boyimg" class="img-responsive">
         </div>
         <div class="col-sm-7 section-top-40">
             <div class="row">
@@ -357,14 +374,14 @@
                     <div class="about_col_space">
                         <div class="row profile1">
                             <div class="col-md-3 col-sm-3 col-xs-3 section-top-20">
-                                <img src="images/responsible-energy-use.png" class="img-responsive"
+                                <img src="../images/responsible-energy-use.png" class="img-responsive"
                                      alt="about_icons">
                             </div>
 
                             <div class="profile_data col-md-9 col-sm-9 col-xs-9 section-top-20">
-                                <a href="about_us.html"><h5 class="profile_data">我们的责任</h5></a>
+                                <a href="./contact_us.html"><h5 class="profile_data">我们的责任</h5></a>
                                 <p class="profile_data">安全卫生 最好的服务
-                                    <br/><a href="about_us.html" class="text-success">
+                                    <br/><a href="./contact_us.html" class="text-success">
                                         阅读更多</a>
                                 </p>
                             </div>
@@ -373,7 +390,7 @@
                     <div class="about_col_space">
                         <div class="row profile1">
                             <div class="col-md-3  col-xs-3 section-top-20">
-                                <img src="images/global.png" class="img-responsive" alt="about_icons">
+                                <img src="../images/global.png" class="img-responsive" alt="about_icons">
                             </div>
                             <div class="profile_data col-md-9  col-xs-9 section-top-20">
                                 <a href="about_us.html"><h5 class="profile_data">全球连锁</h5></a>
@@ -389,7 +406,7 @@
                     <div class="about_col_space">
                         <div class="row profile1">
                             <div class="col-md-3  col-xs-3 section-top-20">
-                                <img src="images/diversity.png" class="img-responsive" alt="about_icons">
+                                <img src="../images/diversity.png" class="img-responsive" alt="about_icons">
                             </div>
                             <div class="profile_data col-md-9  col-xs-9 section-top-20">
                                 <a href="about_us.html"><h5 class="profile_data">多元化服务</h5></a>
@@ -403,7 +420,7 @@
                     <div class="about_col_space">
                         <div class="row profile1">
                             <div class="col-md-3 col-sm-3 col-xs-3 section-top-20">
-                                <img src="images/leadrship.png" class="img-responsive" alt="about_icons">
+                                <img src="../images/leadrship.png" class="img-responsive" alt="about_icons">
                             </div>
                             <div class="profile_data col-md-9 col-sm-9 col-xs-9 section-top-20">
                                 <a href="about_us.html"><h5 class="profile_data"> 领导班子</h5></a>
@@ -459,7 +476,7 @@
         </div>
         <div class="row m-t-50">
             <div class="col-sm-4">
-                <img src="images/home2_slider_layer3.png" alt="img" class="img-responsive center-block">
+                <img src="../images/home2_slider_layer3.png" alt="img" class="img-responsive center-block">
             </div>
             <div class="col-sm-4">
                 <ul class="list-unstyled">
@@ -483,33 +500,26 @@
             </div>
         </div>
     </div>
-
-
 </section>
-
 <!-------------Services Section End------------>
-
 <!-------------------Subscribe Section----------->
 <section class="subscribe_section parallax m-t-70">
     <div class="container m-t-50">
         <div class="row section-top-25">
-            
         </div>
     </div>
     <br/>
 </section>
-
-
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="vendors/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
-<script src="vendors/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
-<script src="vendors/iCheck/js/icheck.js"></script>
-<script src="vendors/countup/js/countUp.min.js"></script>
-<script src="vendors/sweetalert2/js/sweetalert2.min.js"></script>
-<script src="vendors/jribbble/js/jribbble.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../vendors/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+<script src="../vendors/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+<script src="../vendors/iCheck/js/icheck.js"></script>
+<script src="../vendors/countup/js/countUp.min.js"></script>
+<script src="../vendors/sweetalert2/js/sweetalert2.min.js"></script>
+<script src="../vendors/jribbble/js/jribbble.min.js"></script>
 <!----------------------page Level Js-------------------------->
-<script src="js/custom.js"></script>
+<script src="../js/custom.js"></script>
 <script type="text/javascript"> 
 		//时间显示
 		function gettime(){
@@ -529,10 +539,10 @@
         var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
         var seconds=Math.round(leave3/1000)
         //$('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒"")
-       var qaq=days+"天 "+hours+":"+minutes+":"+seconds+""
+       var aaa=days+"天 "+hours+":"+minutes+":"+seconds+""
 //     setInterval($('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒""),1000)
         //$('#Overseas').html(111);
-      	  $('#Overseas').html(qaq);
+      	  $('#Overseas').html(aaa);
    		}
       	setInterval('gettime()',1000);
       //时间显示 函数结束  
