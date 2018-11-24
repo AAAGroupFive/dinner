@@ -26,10 +26,10 @@ public class EmpController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object getEmp(Map map){
+    public Object getEmp(@RequestParam Map map){
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp(map);
-        System.out.println(countEmp);
+        //System.out.println(countEmp);
         Map map1 = new HashMap();
         map1.put("code",0);
         map1.put("msg","");

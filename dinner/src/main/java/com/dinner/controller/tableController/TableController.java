@@ -30,10 +30,10 @@ public class TableController {
     @RequestMapping("/toMain")
     public String toMain(Model model){
         List<Map> list = tableService.getList();
-        System.out.println(list);
+        //System.out.println(list);
         for (Map map : list) {
             model.addAttribute("type",map.get("TAB_TYPE"));
-            System.out.println(model);
+            //System.out.println(model);
         }
 
         return "after/welcome";

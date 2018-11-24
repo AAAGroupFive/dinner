@@ -37,7 +37,16 @@
                 ,{field: 'PHONE', title: '手机', width: 150, sort: true}
                 ,{field: 'ADDR', title: '地址', width: 80}
                 ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#ROLE'}
-            ]]
+            ]] ,request: {
+                pageName: 'pageNo', //页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            limits: [5, 10, 15], //显示
+            limit: 10 //每页默认显示的数量
+            ,initSort: {
+                field: 'EMPID' //排序字段，对应 cols 设定的各字段名
+                ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
+            }
         });
     });
 </script>
