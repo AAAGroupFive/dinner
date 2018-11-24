@@ -9,23 +9,23 @@
 
         <where>
 
-        and rownum &lt; #{end}
+                and rownum &lt; #{end}
 
-        <if test="VipName!=null and VipName!=''">
-            and vip_name like '%'||#{VipName}||'%'
-        </if>
-        <if test="VipPhone!=null and VipPhone!=''">
-            and vip_phone like '%'||#{VipPhone}||'%'
+            <if test="VipName!=null and VipName!=''">
+                and vip_name like '%'||#{VipName}||'%'
+            </if>
+            <if test="VipPhone!=null and VipPhone!=''">
+                and vip_phone like '%'||#{VipPhone}||'%'
 
-        </if>
-        <if test="VipCard!=null and VipCard!=''">
-            and vip_card like '%'||#{VipCard}||'%'
+            </if>
+            <if test="VipCard!=null and VipCard!=''">
+                and vip_card like '%'||#{VipCard}||'%'
 
-        </if>
-        <if test="VipState!=null and VipState!=''">
-            and vip_state like '%'||#{VipState}||'%'
+            </if>
+            <if test="VipState!=null and VipState!=''">
+                and vip_state like '%'||#{VipState}||'%'
 
-        </if>
+            </if>
         </where>
 
         )a where a.rn &gt; #{start}

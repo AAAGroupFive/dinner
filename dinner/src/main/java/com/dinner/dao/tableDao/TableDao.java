@@ -17,6 +17,6 @@ public interface TableDao {
      * @param
      * @return
      */
-    //@Select("select tab_type from tab_table")
+    @Select("select tab_type from tab_table")
     List<Map> getList();
 }

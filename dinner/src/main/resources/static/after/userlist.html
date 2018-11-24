@@ -3,33 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>员工查询</title>
-
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-<table id="demo" lay-filter="test"></table>
-<link rel="stylesheet" href="../lib/layui/css/layui.css">
-<script src="../lib/layui/layui.js" charset="utf-8"></script>
+<div class="x-nav">
+
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<table id="demo" lay-filter="test">
+    <div class="layui-btn-group">
+        <button class="layui-btn" onclick="x_admin_show()">添加</button>
+        <button class="layui-btn">编辑</button>
+        <button class="layui-btn">删除</button>
+    </div>
+</table>
 <script>
+    function x_admin_show() {
+        location.href="./userAdd.html";
+    }
     layui.use('table', function(){
         var table = layui.table;
-        var page = layui.laypage;
         //第一个实例
         table.render({
             elem: '#demo'
             ,height: 500
             ,url: '../emp/list' //数据接口
             ,page: true //开启分页
+            ,even: true
             ,cols: [[ //表头
-                {field: 'EMPID', title: 'ID', width:80, sort: true, fixed: 'left'}
+                {checkbox: true, fixed: true}
+                ,{field: 'EMPID', title: 'ID', width:80, sort: true}
                 ,{field: 'EMPNAME', title: '姓名', width:80}
                 ,{field: 'USERNAME', title: '用户名', width:80, sort: true}
                 ,{field: 'PASSWORD', title: '密码', width:80}
-                ,{field: 'SEX', title: '性别', width: 80,templet:'#SEX'}
+                ,{field: 'SEX', title: '性别', width: 80,templet:'#sex'}
                 ,{field: 'AGE', title: '年龄', width: 80, sort: true}
                 ,{field: 'PHONE', title: '手机', width: 150, sort: true}
                 ,{field: 'ADDR', title: '地址', width: 80}
-                ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#ROLE'}
-            ]] ,request: {
+                ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#role'}
+            ]]
+            ,request: {
                 pageName: 'pageNo', //页码的参数名称，默认：page
                 limitName: 'pageSize' //每页数据量的参数名，默认：limit
             },
@@ -39,17 +55,18 @@
                 field: 'EMPID' //排序字段，对应 cols 设定的各字段名
                 ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
             }
+
         });
     });
 </script>
-<script type="text/html" id="SEX">
+<script type="text/html" id="sex">
     {{# if (d.SEX=== 0) { }}
     <a>男</a>
     {{# } else if(d.SEX=== 1) { }}
     <a>女</a>
     {{# } }}
 </script>
-<script type="text/html" id="ROLE">
+<script type="text/html" id="role">
     {{# if (d.ROLE=== 0) { }}
     <a>服务员</a>
     {{# } else if(d.ROLE=== 1) { }}

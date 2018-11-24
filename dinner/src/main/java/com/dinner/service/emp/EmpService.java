@@ -22,8 +22,7 @@ public interface EmpService {
 
     /**
      * 雇员分页
-     * @param map
      * @return
      */
-    int getCountEmp(Map map);
+    int getCountEmp();
 }

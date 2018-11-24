@@ -23,9 +23,8 @@ public interface EmpDao {
 
     /**
      * 雇员分页
-     * @param map
      * @return
      */
     //@Select("select count(*) as cnt from tab_emp")
-    int getCountEmp(Map map);
+    int getCountEmp();
 }

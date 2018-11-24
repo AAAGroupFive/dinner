@@ -7,23 +7,24 @@ package com.dinner.entity;
  * createTime:2018-11-23-10:00
  */
 public class Emp {
-    private int empId;
+    private Integer empId;
     private String EmpName;
     private String userName;
     private String passWord;
-    private int sex;
-    private int age;
-    private int phone;
+    private Integer sex;
+    private Integer age;
+    private String phone;
     private String addr;
-    private int role;
+    private Integer role;
 
-    public int getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
+
     public String getEmpName() {
         return EmpName;
     }
@@ -48,27 +49,27 @@ public class Emp {
         this.passWord = passWord;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -80,11 +81,11 @@ public class Emp {
         this.addr = addr;
     }
 
-    public int getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 }
