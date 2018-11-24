@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.0</title>
@@ -17,7 +17,7 @@
     <div class="x-body layui-anim layui-anim-up">
         <blockquote class="layui-elem-quote">欢迎管理员：
             <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53</blockquote>
-        <fieldset class="layui-elem-field">
+        <fieldset class="layui-elem-field" id="tableList" lay-filter="demo">
             <legend>散座</legend>
             <div class="layui-field-box">
                 <div class="layui-col-md12">
@@ -26,61 +26,62 @@
                             <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
-
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',800,750)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=1',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>1号桌</h3>
+                                                <h3 th:text="${id0}+'号桌'">1号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲</cite>
-                                                    <cite th:if="${type == 2}">使用</cite>
+                                                    <cite th:if="${type0 == 1}">空闲中</cite>
+                                                    <cite th:if="${type0 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',800,750)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=2',800,750)">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3 th:text="${id1}+'号桌'">2号桌</h3>
+                                                <p>
+                                                    <cite th:if="${type1 == 1}">空闲中</cite>
+                                                    <cite th:if="${type1 == 2}" style="color: #d66a1dba">使用中</cite>
+                                                </p>
+                                                <p th:text="${type}"></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=3',800,750)">
                                             <a href="javascript:void(0)" class="x-admin-backlog-body">
-                                                <h3>2号桌</h3>
+                                                <h3 th:text="${id2}+'号桌'">3号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type2 == 1}">空闲中</cite>
+                                                    <cite th:if="${type2 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',800,750)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=4',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>3号桌</h3>
+                                                <h3 th:text="${id3}+'号桌'">4号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type3 == 1}">空闲中</cite>
+                                                    <cite th:if="${type3 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=5',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>4号桌</h3>
+                                                <h3 th:text="${id4}+'号桌'">5号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type4 == 1}">空闲中</cite>
+                                                    <cite th:if="${type4 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=6',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>5号桌</h3>
+                                                <h3 th:text="${id5}+'号桌'">6号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type5 == 1}">空闲中</cite>
+                                                    <cite th:if="${type5 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>6号桌</h3>
-                                                <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
-                                                </p>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -98,57 +99,58 @@
                             <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=7',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间1</h3>
+                                                <h3 th:text="${'包间'+id6}">包间1</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+
+                                                    <cite th:if="${type6 == 1}">空闲中</cite>
+                                                    <cite th:if="${type6 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=8',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间2</h3>
+                                                <h3 th:text="${'包间'+id7}">包间2</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type7 == 1}">空闲中</cite>
+                                                    <cite th:if="${type7 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=9',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间3</h3>
+                                                <h3 th:text="${'包间'+id8}">包间3</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type8 == 1}">空闲中</cite>
+                                                    <cite th:if="${type8 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=10',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间4</h3>
+                                                <h3 th:text="${'包间'+id9}">包间4</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type9 == 1}">空闲中</cite>
+                                                    <cite th:if="${type9 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=11',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间5</h3>
+                                                <h3 th:text="${'包间'+id10}">包间5</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type10 == 1}">空闲中</cite>
+                                                    <cite th:if="${type10 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
-                                        <li class="layui-col-xs2" onclick="x_admin_show('添加用户','./begin-table.html',1500,700)">
+                                        <li class="layui-col-xs2" onclick="x_admin_show('开桌','/dinner/order/begin?number=12',800,750)">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间6</h3>
+                                                <h3 th:text="${'包间'+id11}">6号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type == 1}">空闲中</cite>
-                                                    <cite th:if="${type == 2}">使用中</cite>
+                                                    <cite th:if="${type11 == 1}">空闲中</cite>
+                                                    <cite th:if="${type11 == 2}" style="color: #d66a1dba">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -241,6 +243,62 @@
         <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote>-->
     </div>
         <script>
+            layui.use('fieldset', function() {
+                var fieldset = layui.fieldset;
+
+                //监听工具条
+                fieldset.on('tool(demo)', function(obj){
+                    var data = obj.data;
+                    if(obj.event === 'edit2'){
+                        layer.open({
+                            title: '盘点剩余数量'
+                            ,type: 1
+                            ,area: ['500px', '440px']
+                            ,anim: 1
+                            ,content:$("#editDemo").html()
+                            ,success:function(layero,index){
+                                var nodes=layero[0];
+                                $("#GOODS_NAME").val(data.GOODS_NAME);
+                                $("#GOODS_STOCK").val(data.GOODS_STOCK);
+                                $("#GOODS_UNIT").val(data.GOODS_UNIT);
+                                $("#sbt").click(function(){
+                                    $.ajax({
+                                        url: "updateInventory",
+                                        type: "post",
+                                        data:{"GOODS_NAME":$("#GOODS_NAME").val(),"GOODS_STOCK":$("#GOODS_STOCK").val(),"GOODS_REMNAT_NUMBER":$("#GOODS_REMNAT_NUMBER").val(),"GOODS_UNIT":$("#GOODS_UNIT").val()},
+                                        dataType: "json",
+                                        success: function(data){
+                                            //获取当前的页码
+                                            var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                            if(data.issuc==true){
+                                                layer.close(index);
+                                                layer.msg("成功", {icon: 6});
+                                                setTimeout(function () {
+                                                    //修改页码input框的值为当前页码
+                                                    //$(".layui-laypage-skip .layui-input").val(pageNum);
+                                                    //触发页码确定按钮 实现只刷新当前页面
+                                                    $(".layui-laypage-btn").trigger("click");
+                                                }, 700);
+                                            }else{
+                                                layer.msg("失败", {icon: 5});
+                                            }
+                                        }   //success
+                                    });  //ajax
+                                });  //#sbt
+
+                                //弹出层取消按钮
+                                $("#cancel").click(function(){
+                                    layer.closeAll('page');
+                                })
+                            }  //success(layero)
+
+                        }) //open
+                    }
+                });
+
+            })
+
+
         var _hmt = _hmt || [];
         (function() {
           var hm = document.createElement("script");
