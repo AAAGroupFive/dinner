@@ -19,14 +19,6 @@
             ,height: 500
             ,url: '../emp/list' //数据接口
             ,page: true //开启分页
-            ,response:{
-                statusName: 'code' //数据状态的字段名称，默认：code
-                ,statusCode: 0 //成功的状态码，默认：0
-                ,msgName: 'msg' //状态信息的字段名称，默认：msg
-                ,countName: 'count' //数据总数的字段名称，默认：count
-                ,dataName: 'data' //数据列表的字段名称，默认：data
-                ,limt:10
-            }
             ,cols: [[ //表头
                 {field: 'EMPID', title: 'ID', width:80, sort: true, fixed: 'left'}
                 ,{field: 'EMPNAME', title: '姓名', width:80}
