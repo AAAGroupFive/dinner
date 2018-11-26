@@ -29,7 +29,7 @@ public class EmpController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object getEmp(@RequestParam Map map){//g
+    public Object getEmp(@RequestParam Map map){
         
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp();
