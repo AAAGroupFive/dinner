@@ -34,15 +34,15 @@
             ,page: true //开启分页
             ,even: true
             ,cols: [[ //表头
-                {checkbox: true, fixed: true}
-                ,{field: 'EMPID', title: 'ID', width:80,hide:true}
-                ,{field: 'EMPNAME', title: '姓名', width:80}
-                ,{field: 'USERNAME', title: '用户名', width:80}
-                ,{field: 'PASSWORD', title: '密码', width:80}
-                ,{field: 'SEX', title: '性别', width: 80,templet:'#sex'}
-                ,{field: 'PHONE', title: '手机', width: 150, sort: true}
-                ,{field: 'ADDR', title: '地址', width: 80}
-                ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#role'}
+                {field: 'EMPID', title: 'ID', width:80,fixed: true,hide:true}
+                ,{field: 'EMPNAME', title: '姓名',fixed: true, width:80}
+                ,{field: 'USERNAME', title: '用户名',fixed: true, width:80}
+                ,{field: 'PASSWORD', title: '密码',fixed: true, width:80}
+                ,{field: 'SEX', title: '性别',fixed: true, width: 80,templet:'#sex'}
+                ,{field: 'PHONE', title: '手机',fixed: true, width: 150, sort: true}
+                ,{field: 'ADDR', title: '地址',fixed: true, width: 80}
+                ,{field: 'ROLE', title: '职位',fixed: true, width: 135, sort: true,templet:'#role'}
+                ,{field:'operate',title:'操作',fixed: true,width:150,templet:'#operate'}
             ]]
             ,request: {
                 pageName: 'pageNo', //页码的参数名称，默认：page
@@ -57,13 +57,6 @@
 
         });
     });
-    function checkData() {
-        table.on('edit(test)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
-            console.log(obj.value); //得到修改后的值
-            console.log(obj.field); //当前编辑的字段名
-            console.log(obj.data); //所在行的所有相关数据
-        });
-    }
 </script>
 <script type="text/html" id="sex">
     {{# if (d.SEX=== 0) { }}
@@ -71,6 +64,10 @@
     {{# } else if(d.SEX=== 1) { }}
     <a>女</a>
     {{# } }}
+</script>
+<script type="text/html" id="operate">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="role">
     {{# if (d.ROLE=== 0) { }}
