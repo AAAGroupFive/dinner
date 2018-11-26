@@ -14,12 +14,6 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <table id="demo" lay-filter="test">
-    <div class="layui-input-inline">
-        会 员 名: <input class="layui-input"/>
-        手 机 号: <input class="layui-input"/>
-        会员卡号: <input class="layui-input"/>
-        会员生日:<input class="layui-input" name="birthday" id="start">
-    </div>
     <div class="layui-btn-group">
         <button class="layui-btn" onclick="x_admin_show()">添加</button>
         <button class="layui-btn">编辑</button>
@@ -41,7 +35,7 @@
             ,even: true
             ,cols: [[ //表头
                 {checkbox: true, fixed: true}
-                ,{field: 'EMPID', title: 'ID', width:80, sort: true}
+                ,{field: 'EMPID', title: 'ID', width:80, sort: true,hide:true}
                 ,{field: 'EMPNAME', title: '姓名', width:80}
                 ,{field: 'USERNAME', title: '用户名', width:80, sort: true}
                 ,{field: 'PASSWORD', title: '密码', width:80}
@@ -57,8 +51,8 @@
             limits: [5, 10, 15], //显示
             limit: 10 //每页默认显示的数量
             ,initSort: {
-                field: 'EMPID' //排序字段，对应 cols 设定的各字段名
-                ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
+                field: 'ROLE' //排序字段，对应 cols 设定的各字段名
+                ,type: 'desc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
             }
 
         });
