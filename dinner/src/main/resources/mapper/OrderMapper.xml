@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.order.OrderDao">
+    <select id="goodList" resultType="map">
+        select * from tab_food
+    </select>
+    <insert id="order">
+        <!--<selectKey keyProperty="CON_ID" order="AFTER" resultType="int">
+            insert into TABLE_CON_RECORD value(CON_ID,"#")
+        </selectKey>-->
+        insert into TAB_CONSUME(CON_ID,CON_TYPE,CON_TIME,CON_ROOM,CON_STATE) value(1,"#{contrller}","#{start}","#{number}",0)
+    </insert>
+</mapper>

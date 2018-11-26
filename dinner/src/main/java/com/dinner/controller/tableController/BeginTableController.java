@@ -1,12 +1,16 @@
 package com.dinner.controller.tableController;
 
 import com.dinner.service.goodsService.GoodsService;
+import com.dinner.service.orderService.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +25,7 @@ import java.util.Map;
 public class BeginTableController {
 
     @Autowired
-    private GoodsService goodsService;
+    private OrderService orderService;
 
     /**
      * 跳转到开桌页面
@@ -33,11 +37,29 @@ public class BeginTableController {
         return "after/begin-table";
     }
 
+    /**
+     * 获取开单时商品列表
+     * @return
+     */
+    @ResponseBody
     @RequestMapping("/goodsList")
-    public Map goodsList(Map map) {
-        List<Map> maps = goodsService.goodsList(map);
-        map.put("goodsId", maps.get(0).get("GOODSID"));
-        System.out.println(map);
-        return map;
+    public Map goodsList() {
+        Map tempMap = new HashMap();
+        tempMap.put("code", 0);
+        tempMap.put("msg", "");
+        tempMap.put("data",orderService.goodList());
+        return tempMap;
+    }
+
+    @ResponseBody
+    @RequestMapping("/order")
+    public void order(@RequestParam Map map) {
+        String orderIds = (String) map.get("orderIds");
+        String[] split = orderIds.split(",");
+        Map map1 = new HashMap();
+        for (int i = 0; i < split.length; i++) {
+             map1.put("id"+i, split[i]);
+        }
+        orderService.order(map,map1);
     }
 }

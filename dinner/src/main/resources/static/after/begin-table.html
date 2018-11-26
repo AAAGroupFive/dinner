@@ -42,7 +42,7 @@
                   <span class="x-red"></span>桌号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" disabled="disabled" id="L_username" name="username" required="" lay-verify="nikename"
+                  <input type="text" disabled="disabled" id="L_username" name="number" required="" lay-verify="nikename"
                   autocomplete="off" class="layui-input" th:value="${number}">
               </div>
           </div>
@@ -51,7 +51,7 @@
                   <span class="x-red">*</span>顾客人数
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_pass" name="pass" required="" lay-verify="pass"
+                  <input type="text" id="L_pass" name="person" required="" lay-verify="pass"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -63,13 +63,14 @@
                   <input class="layui-input" placeholder="开单时间" name="start" id="start">
               </div>
           </div>
-          <table class="layui-table" lay-data="{url:'/dinner/goodsList', id:'test3'}" lay-filter="test3">
+          <table class="layui-table" lay-data="{url:'/dinner/order/goodsList', id:'test3'}" lay-filter="test3">
 					  <thead>
 					    <tr>
 					      <th lay-data="{type:'checkbox'}">ID</th>
-					      <th lay-data="{field:'goodsId', width:80, sort: true}">ID</th>
-					      <th lay-data="{field:'GOODSNAME', width:120, sort: true, edit: 'text'}">菜品名称</th>
-					      <th lay-data="{field:'GOODSPRICE', edit: 'text', minWidth: 150}">菜品单价</th>
+					      <th lay-data="{field:'FOOD_ID', width:80}">ID</th>
+					      <th lay-data="{field:'FOOD_NAME', width:120, edit: 'text'}">菜品名称</th>
+					      <th lay-data="{field:'FOOD_PRICE', edit: 'text',sort: true}">菜品单价</th>
+					      <th lay-data="{field:'FOOD_NUM', edit: 'text',sort: true}">菜品数量</th>
 					    </tr>
 					  </thead>
           </table>
@@ -120,8 +121,20 @@
           ,layer = layui.layer;
           //监听提交
 		      form.on('submit(add)', function(data){
-		        console.log(data);
-		        //发异步，把数据提交给php
+                  var cked = $(".layui-table-body input[name='layTableCheckbox']:checked");
+                  var orderIds="";
+                  cked.each(function(){
+                      var order_id = ($(this).parent().parent().next().children().html());
+                      orderIds+=order_id+",";
+
+                  })
+		        $.ajax({
+                    url: "/dinner/order/order" ,
+                    type: "post",
+                    datatype:"json",
+                    data: {"orderIds":orderIds,"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person,"start":data.field.start},
+
+                });
 		        layer.alert("开桌成功", {icon: 6},function () {
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);

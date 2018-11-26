@@ -1,7 +1,6 @@
 package com.dinner.service.tabService;
 
 import com.dinner.dao.tableDao.TableDao;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
