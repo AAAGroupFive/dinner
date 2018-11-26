@@ -36,8 +36,8 @@
         insert into tab_vip values (seq_tab_vip_id.nextval,#{VIPname},#{VIPnumber},to_char(sysdate,'yyyymmddhh24miss'),#{sex},#{VIPbalance},0,#{VIPaddress})
 
     </insert>
-    <!--会员更新-->
-    <update id="VipUpdate">
-        update tab_vip set VIP_PHONE='#{VIP_PHONE}' where VIP_ID=#{}
-    </update>
+    <!--&lt;!&ndash;会员更新&ndash;&gt;-->
+    <!--<update id="VipUpdate">-->
+        <!--update tab_vip set VIP_PHONE='#{VIP_PHONE}' where VIP_ID='#{VIP_ID}'-->
+    <!--</update>-->
 </mapper>

@@ -53,7 +53,7 @@ public class VipServiceLmpl implements VipService {
     @Override
     public int VipUpdate(Map map) {
 
-        return vipDao.VipUpdate(map);;
+        return vipDao.VipUpdate(map);
     }
 
     @Override

@@ -105,9 +105,11 @@ public class VipController {
      * @return
      */
     @RequestMapping("/VipUpdate")
-    public String VipUpdate(@RequestParam Map map){
+    public int  VipUpdate(@RequestParam Map map){
+        System.out.println(map);
 
-        return "after/CheckCar";
+
+        return  vipService.VipUpdate(map);
     }
 
     @RequestMapping("/VipDelet")
