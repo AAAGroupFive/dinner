@@ -32,4 +32,11 @@ public interface EmpService {
      * @return
      */
     int addEmp(Map map);
+
+    /**
+     *
+     * @param empId
+     * @return
+     */
+    int updateEmp(int empId);
 }

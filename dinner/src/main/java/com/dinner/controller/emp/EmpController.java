@@ -52,4 +52,11 @@ public class EmpController {
         }
         return null;
     }
+
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Object empUpdate(@RequestParam int empId){
+        return null;
+    }
 }
