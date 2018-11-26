@@ -46,6 +46,17 @@
                   autocomplete="off" class="layui-input" th:value="${number}">
               </div>
           </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red"></span>状态
+                </label>
+                <div class="layui-input-inline">
+                    <p name="state">
+                        <cite th:if="${number == 0}">空闲中</cite>
+                        <cite th:if="${number == 1}">使用中</cite>
+                    </p>
+                </div>
+            </div>
           <div class="layui-form-item">
               <label for="L_pass" class="layui-form-label">
                   <span class="x-red">*</span>顾客人数

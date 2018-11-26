@@ -23,5 +23,12 @@ public interface OrderService {
      * @param map
      * @return
      */
-    int order(Map map,Map map1);
+    int order(Map map);
+
+    /**
+     * 改变桌子状态
+     * @param tabNo
+     * @return
+     */
+    int update(int tabNo);
 }

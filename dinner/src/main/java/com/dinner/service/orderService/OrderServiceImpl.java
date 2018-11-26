@@ -20,9 +20,14 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public int order(Map map,Map map1) {
-        System.out.println(map+"-----"+map1);
-        return orderDao.order(map,map1);
+    public int update(int tabNo) {
+        return orderDao.update(tabNo);
+    }
+
+    @Override
+    public int order(Map map) {
+        System.out.println(map);
+        return orderDao.order(map);
     }
 
     @Override
