@@ -44,6 +44,7 @@ public class EmpController {
     @RequestMapping("/add")
     @ResponseBody
     public Object empAdd(@RequestParam Map map){
+        //sss
         System.out.println("QAQ`");
         System.out.println(map);
         int i = empService.addEmp(map);
