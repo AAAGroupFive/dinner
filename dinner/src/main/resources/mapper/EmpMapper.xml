@@ -31,6 +31,9 @@
         select count(*) from tab_emp
     </select>
     <insert id="addEmp" parameterType="map">
-        insert into tab_emp values(13,#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone})
+        <selectKey keyProperty="empNo" order="BEFORE" resultType="int">
+            select seq_emp_id.nextval from dual
+        </selectKey>
+        insert into tab_emp values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone})
     </insert>
 </mapper>
