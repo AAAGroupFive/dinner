@@ -56,10 +56,9 @@ public class BeginTableController {
     public void order(@RequestParam Map map) {
         String orderIds = (String) map.get("orderIds");
         String[] split = orderIds.split(",");
-        Map map1 = new HashMap();
         for (int i = 0; i < split.length; i++) {
-             map1.put("id"+i, split[i]);
+             map.put("id"+i, split[i]);
         }
-        orderService.order(map,map1);
+        orderService.order(map);
     }
 }
