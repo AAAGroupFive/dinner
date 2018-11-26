@@ -36,15 +36,27 @@
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
+        <label class="layui-form-label">出生年月</label>
+        <div class="layui-input-block">
+            <input type="text" name="birth" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">手机号</label>
         <div class="layui-input-block">
             <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="width: 700px">
-        <label class="layui-form-label">地1231址</label>
+        <label class="layui-form-label">地址</label>
         <div class="layui-input-block">
-            <input type="text" name="addr" required  lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
+            <select id="edit_exam_school">
+                <option value="">请选择</option>
+                <option value="0">服务员</option>
+                <option value="1">收银</option>
+                <option value="2">仓库</option>
+                <option value="3">老板</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
@@ -62,6 +74,13 @@
 </form>
 
 <script>
+    layui.use(['form', 'laydate',"upload","jquery"], function(){
+        laydate = layui.laydate;
+        laydate.render({ //发布时间
+            elem: '#date'
+        });
+    });
+
     //Demo
     layui.use('form', function(){
         var form = layui.form;

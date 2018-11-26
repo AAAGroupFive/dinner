@@ -31,4 +31,9 @@ public class EmpServiceImpl implements EmpService {
     public int getCountEmp() {
         return empDao.getCountEmp();
     }
+
+    @Override
+    public int addEmp(Map map) {
+        return empDao.addEmp(map);
+    }
 }

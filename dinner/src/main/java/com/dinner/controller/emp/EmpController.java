@@ -46,6 +46,10 @@ public class EmpController {
     public Object empAdd(@RequestParam Map map){
         System.out.println("QAQ`");
         System.out.println(map);
+        int i = empService.addEmp(map);
+        if (i==1){
+            System.out.println("添加成功！！！");
+        }
         return null;
     }
 }

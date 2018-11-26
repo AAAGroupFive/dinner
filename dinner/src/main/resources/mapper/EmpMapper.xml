@@ -5,7 +5,7 @@
 <mapper namespace="com.dinner.dao.emp.EmpDao">
     <select id="getEmp" resultType="map">
         select * from(
-          select rownum rn,EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PHONE as phone,EMP_PASS as password,EMP_SEX as sex,EMP_AGE as age,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
+          select rownum rn,EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PHONE as phone,EMP_PASS as password,EMP_SEX as sex,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
         <where>
             and rownum &lt; #{end}
 
@@ -30,4 +30,7 @@
     <select id="getCountEmp" resultType="int">
         select count(*) from tab_emp
     </select>
+    <insert id="addEmp" parameterType="map">
+        insert into tab_emp values(seq_emp_id.nextval,#{EmpName},#{sex},#{userName},#{password},#{phone},#{addr},#{role})
+    </insert>
 </mapper>

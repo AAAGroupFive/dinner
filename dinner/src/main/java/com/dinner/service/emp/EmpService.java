@@ -25,4 +25,11 @@ public interface EmpService {
      * @return
      */
     int getCountEmp();
+
+    /***
+     * 雇员添加
+     * @param map
+     * @return
+     */
+    int addEmp(Map map);
 }

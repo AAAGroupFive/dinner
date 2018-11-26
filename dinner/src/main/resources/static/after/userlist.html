@@ -14,6 +14,12 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <table id="demo" lay-filter="test">
+    <div class="layui-input-inline">
+        会 员 名: <input class="layui-input"/>
+        手 机 号: <input class="layui-input"/>
+        会员卡号: <input class="layui-input"/>
+        会员生日:<input class="layui-input" name="birthday" id="start">
+    </div>
     <div class="layui-btn-group">
         <button class="layui-btn" onclick="x_admin_show()">添加</button>
         <button class="layui-btn">编辑</button>
@@ -40,7 +46,6 @@
                 ,{field: 'USERNAME', title: '用户名', width:80, sort: true}
                 ,{field: 'PASSWORD', title: '密码', width:80}
                 ,{field: 'SEX', title: '性别', width: 80,templet:'#sex'}
-                ,{field: 'AGE', title: '年龄', width: 80, sort: true}
                 ,{field: 'PHONE', title: '手机', width: 150, sort: true}
                 ,{field: 'ADDR', title: '地址', width: 80}
                 ,{field: 'ROLE', title: '职位', width: 135, sort: true,templet:'#role'}
