@@ -30,7 +30,7 @@ public class EmpController {
     @RequestMapping("/list")
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
-        
+        System.out.println(1111);
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp();
         Map tempMap = new HashMap();
