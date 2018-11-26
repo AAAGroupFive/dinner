@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,15 +27,28 @@ public class EmpController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object getEmp(Map map){
+    public Object getEmp(@RequestParam Map map){//g
+        System.out.println(1111);
         List<Map> emp = empService.getEmp(map);
-        int countEmp = empService.getCountEmp(map);
-        System.out.println(countEmp);
-        Map map1 = new HashMap();
-        map1.put("code",0);
-        map1.put("msg","");
-        map1.put("count",countEmp);
-        map1.put("data",emp);
-        return map1;
+        int countEmp = empService.getCountEmp();
+        Map tempMap = new HashMap();
+        tempMap.put("code",0);
+        tempMap.put("msg","");
+        tempMap.put("count",countEmp);
+        tempMap.put("data",emp);
+        return tempMap;
+    }
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public Object empAdd(@RequestParam Map map){
+        //sss
+        System.out.println("QAQ`");
+        System.out.println(map);
+        int i = empService.addEmp(map);
+        if (i==1){
+            System.out.println("添加成功！！！");
+        }
+        return null;
     }
 }
