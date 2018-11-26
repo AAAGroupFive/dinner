@@ -38,6 +38,6 @@
     </insert>
     <!--会员更新-->
     <update id="VipUpdate">
-        update tab_vip set VIP_PHONE='#{VIP_PHONE}' where VIP_ID=#{}
+        update tab_vip set VIP_PHONE=#{VIP_PHONE} where VIP_ID=#{VIP_ID}
     </update>
 </mapper>
