@@ -8,22 +8,6 @@
           select rownum rn,EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PHONE as phone,EMP_PASS as password,emp_birth as birth,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
         <where>
             and rownum &lt; #{end}
-
-            <if test="VipName!=null and VipName!=''">
-                and vip_name like '%'||#{VipName}||'%'
-            </if>
-            <if test="VipPhone!=null and VipPhone!=''">
-                and vip_phone like '%'||#{VipPhone}||'%'
-
-            </if>
-            <if test="VipCard!=null and VipCard!=''">
-                and vip_card like '%'||#{VipCard}||'%'
-
-            </if>
-            <if test="VipState!=null and VipState!=''">
-                and vip_state like '%'||#{VipState}||'%'
-
-            </if>
         </where>
         ) a where a.rn &gt; #{start}
     </select>
