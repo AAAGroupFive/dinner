@@ -21,4 +21,11 @@ public interface VipService {
      * @return
      */
     int VipGetPageCount();
+
+    /**
+     * 新增会员
+     * @param map
+     * @return
+     */
+    int VipAdd (Map map);
 }

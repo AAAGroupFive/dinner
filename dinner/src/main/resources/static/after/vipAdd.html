@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../js/xadmin.js"></script>
-    <script type="text/javascript" src="../js/address.js" ></script>
-    <script type="text/javascript" src="../js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <script type="text/javascript" src="/dinner/js/address.js" ></script>
+    <script type="text/javascript" src="/dinner/js/jquery.min.js" ></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -21,20 +21,20 @@
     <![endif]-->
   </head>
 	<body>
-		<form class="layui-form layui-form-pane" action="">
+		<form class="layui-form layui-form-pane">
 		 
 		  
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">会员姓名</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="VIPname" lay-verify="required" class="layui-input">
+			      <input type="text" id="VIPname" name="VIPname" lay-verify="required" class="layui-input">
 			    </div>
 		    
 		    </div>
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">手机号</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="VIPnumber" lay-verify="phone" class="layui-input">
+			      <input type="text" id="VIPnumber" name="VIPnumber" lay-verify="phone" class="layui-input">
 			    </div>
 		    
 		    </div>
@@ -42,35 +42,24 @@
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">会员卡号</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="VIPcode" lay-verify="number" class="layui-input">
+			      <input type="text" id="VIPcard" name="VIPcard" lay-verify="number" class="layui-input">
 			    </div>
 		    
 		    </div>
 		    
-		    <div class="layui-form-item" pane>
-			    <label class="layui-form-label">出生日期</label>
-			    <div class="layui-input-block">
-			      <input type="text" name="VIPbirthday" id="start" class="layui-input">
-			    </div>
-		    
-		    </div>
-		    
+
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">单选框</label>
 			    <div class="layui-input-block">
-			      <input type="radio" name="sex" value="男" title="男">
-			      <input type="radio" name="sex" value="女" title="女" checked>
+			      <input type="radio" name="sex" value="0" title="男">
+			      <input type="radio" name="sex" value="1" title="女" checked>
 			    </div>
 		   	</div>
 		   	
 		   	<div class="layui-form-item" pane>
 			    <label class="layui-form-label">操作员工</label>
 			    <div class="layui-input-block">
-			      	<select name="contrller">
-		              <option value="0">全部</option>
-		              <option value="1">正常</option>
-		              <option value="2">停用</option>
-           			 </select>
+			      	<input class="layui-input" id="EmpName" type="text" readonly/>
 			    </div>
 					    
 		    </div>
@@ -78,7 +67,7 @@
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">初始余额</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="VIPbirthday" lay-verify="number" class="layui-input">
+			      <input type="text" id="VIPbalance" name="VIPbalance" lay-verify="number" class="layui-input">
 			    </div>
 		    
 		    </div>
@@ -86,27 +75,14 @@
 		    <div class="layui-form-item" pane>
 			    <label class="layui-form-label">联系地址</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="VIPbirthday"  class="layui-input">
+			      <input type="text" id="VIPaddress" name="VIPaddress"  class="layui-input">
 			    </div>
 		    
 		    </div>
 		
-		    <button class="layui-btn layui-btn-fluid" lay-submit  lay-filter="tijiao">注册会员</button>
+		    <button class="layui-btn layui-btn-fluid" id="zhuce">注册会员</button>
 		</form>
-		<!--<div class="layui-row">
-			<form class="layui-form layui-col-md12 x-so">
-				会员姓名：<input class="layui-input" />      手机号码：<input class="layui-input" />
-				会员卡号：<input class="layui-input" />      出生日期：<input class="layui-input" />
-		      	 性别：<input type="radio" name="sex" value="nan" title="男">
-					 <input type="radio" name="sex" value="nv" title="女" checked>
-		      	 <div class="layui-input-inline">
-			            <select name="contrller">
-			              <option value="1">男</option>
-			              <option value="2">女</option>
-			            </select>
-		 		 	 </div>
-		 	</form>	 	 
- 		</div> 	 -->
+
 	</body>.
 	<script type="text/javascript">  
 		
@@ -123,44 +99,72 @@
           elem: '#start' //指定元素
         });
       });
-		
-		
-		
-		
-		
-		
-		
-		$(function  () {            
-			layui.use('form', function(){
-				var form = layui.form;              
-				//监听提交
-		form.on('submit(tijiao)', function(data){ 
-			var param=data.field;//定义临时变量获取表单提交过来的数据，非json格式
-        	console.log(JSON.stringify(param));//测试是否获取到表单数据，调试模式下在页面控制台查看
-			
-			$.ajax({
-		          url:"client/add",
-		          type:'post',//method请求方式，get或者post
-		          dataType:'json',//预期服务器返回的数据类型
-		          data:JSON.stringify(param),//表格数据序列化
-		          contentType: "application/json; charset=utf-8",
-		          success:function(res){//res为相应体,function为回调函数
-		            if(res.status==200){
-		              layer.alert('添加客户信息成功',{icon:1});
-		              //$("#res").click();//调用重置按钮将表单数据清空
-		            }else{
-		              layer.alert(data.msg,{icon: 5});
-		            }
-		          },
-		          error:function(){
-		            layer.alert('操作失败！！！',{icon:5});
-		          }
-		        });
 
-			
-		       });
-			});        
-		})		
+
+
+
+
+
+
+        $("#zhuce").click(function() {
+            $.ajax({
+                url: "/dinner/VIP/VipAdd",
+                type: 'post',//method请求方式，get或者post
+                dataType: 'json',//预期服务器返回的数据类型
+                data: {
+                    "VIPname":$("#VIPname").val(),
+                    "VIPnumber":$("#VIPnumber").val(),
+                    "VIPcard":$("#VIPcard").val(),
+                    "VIPbalance":$("#VIPbalance").val(),
+					"VIPaddress":$("#VIPaddress").val(),
+					"sex":$('input:radio:checked').val()
+				},//表格数据序列化
+
+                success: function (res) {//res为相应体,function为回调函数
+                    console.log(res);
+                    if (res != null) {
+                        layer.alert('添加客户信息成功', {icon: 1});
+                        //$("#res").click();//调用重置按钮将表单数据清空
+                    }
+                },
+                error: function () {
+                    layer.alert('操作失败！！！', {icon: 5});
+                }
+            });
+        })
+
+
+
+
+        $(function  () {
+            $.ajax({
+                url:"/dinner/VIP/GetSession",
+                type:'post',//method请求方式，get或者post
+                dataType:'json',//预期服务器返回的数据类型
+                contentType: "application/json; charset=utf-8",
+
+                success:function(res){//res为相应体,function为回调函数
+                    $(this).val(""); //清空上次input框里的数据
+
+
+                    var array = new Array();
+				//遍历，先获取，然后map在array中是栈，先进后出，因此pop出来。
+
+                    $.each(res,function(i,val){
+                        array.push(val);
+                    });
+                    var q1 = JSON.stringify(array.pop());
+
+                    $('#EmpName').val(q1);
+                },
+                error:function(){
+                    layer.alert('操作失败！！！',{icon:5});
+                }
+            });
+
+
+		})
+
 	</script>
 
 </html>

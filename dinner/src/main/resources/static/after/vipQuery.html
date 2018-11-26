@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet"  href="./css/font.css">
-    <link rel="stylesheet"  href="./css/xadmin.css">
+    <link rel="stylesheet"  href="/dinner/css/font.css">
+    <link rel="stylesheet"  href="/dinner/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -29,35 +29,36 @@
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-        	
-          <div class="layui-input-inline">
-          
-      	 	 会 员 名: <input class="layui-input"/>
-        	 手 机 号: <input class="layui-input"/>
-        	 会员卡号: <input class="layui-input"/>
-        	 会员生日:<input class="layui-input" name="birthday" id="start">
-          </div>
-         
+          <form class="layui-form layui-col-md12 x-so">
 
-          <div class="layui-input-inline">
-          
-            <select name="contrller">
-            	<option value="">会员状态</option>
-              <option value="0">全部</option>
-              <option value="1">正常</option>
-              <option value="2">停用</option>
-            </select>
-          </div>
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach">
-          	<i class="layui-icon">&#xe615;</i>
-          </button>
-        </form>
+
+              <div class="layui-input-inline">
+
+                 会 员 名: <input class="layui-input"  id="QueryName" name="QueryName"/>
+                 手 机 号: <input class="layui-input" id="QueryPhone" name="QueryPhone"/>
+                 会员卡号: <input class="layui-input" id="QueryCard" name="QueryCard"/>
+              </div>
+
+
+              <div class="layui-input-inline">
+
+                <select name="contrller" id="QueryState">
+                  <option value="">会员状态</option>
+                  <option value="0">全部</option>
+                  <option value="1">正常</option>
+                  <option value="2">停用</option>
+                </select>
+              </div>
+
+              <div class="layui-btn" data-type="reload"  id="searchBtn">
+                <i class="layui-icon">&#xe615;</i>
+              </div>
+            </form>
       </div>
         <xblock id="xk1">
           <button class="layui-btn layui-btn-danger" onclick="delAll()">
               <i class="layui-icon"></i>批量删除</button>
-          <button class="layui-btn"  onclick="x_admin_show('添加会员','./after/vipAdd.html')">
+          <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/vipAdd.html')">
               <i class="layui-icon"></i>新增会员</button>
           <span class="x-right" style="line-height:40px">共有数据：88 条</span>
         </xblock>
@@ -67,11 +68,11 @@
     </div>
     <script>
 
-    	layui.use('laydate', function(){
-        var laydate = layui.laydate;
+    	layui.use('table', function(){
+        var table = layui.table;
         
 
-        laydate.render({
+        table.render({
           elem: '#start'
         });
       });
@@ -84,7 +85,7 @@
                 ,title: '用户数据表'
                 ,height:790
                 ,width:2000
-                ,url: 'VipQuery'
+                ,url: '/dinner/VIP/VipQuery'
                 ,toolbar: '#toolbarDemo'
                 ,page: true
                 ,even: true
@@ -92,17 +93,201 @@
                 ,cols:[ [
                     {checkbox: true, fixed: true}
                     , {field: 'VIP_ID', title: '序号', width: 100, sort: true, unresize: true, fixed: 'left'}
-                    , {field: 'VIP_NAME', title: '所属门店', width: 105}
-                    , {field: 'VIP_PHONE', title: '司机姓名', width: 120, sort: true}
-                    , {field: 'VIP_CARD', title: '车辆类型', width: 130}
-                    , {field: 'VIP_SEX', title: '车牌号', width: 150}
-                    , {field: 'VIP_BALANCE', title: '车辆颜色', width: 152, sort: true}
+                    , {field: 'VIP_NAME', title: '会员姓名', width: 105}
+                    , {field: 'VIP_PHONE', title: '会员手机号', width: 120, sort: true}
+                    , {field: 'VIP_CARD', title: '会员卡号', width: 150}
+                    , {field: 'sex', title: '会员性别', width: 150}
+                    , {field: 'VIP_BALANCE', title: '会员余额', width: 120, sort: true}
+                    , {field: 'VIP_STATE',title:'状态', width: 120}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
                 ]]
                 ,id: 'testReload'
-            })
-        })
+                ,done: function(res, page, count){
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
 
+                    //分类显示中文名称
+
+                    $("[data-field='VIP_STATE']").children().each(function(){
+                        if($(this).text()=='0'){
+                            $(this).text("启用")
+
+                        }else if($(this).text()=='1'){
+                            $(this).text("禁用")
+                        }
+                    })
+
+                }
+
+            })
+
+            //监听工具条
+            table.on('tool(demo)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'edit'){
+                    layer.open({
+                        title: '修改车辆信息'
+                        ,type: 1
+                        ,area: ['500px', '440px']
+                        ,anim: 1//修改弹出层动画
+                        ,content:$("#editDemo").html()
+                        ,success:function(layero,index){
+                            var nodes=layero[0];
+                            $("#VIP_ID").val(data.VIP_ID);
+                            $("#VIP_NAME").val(data.VIP_NAME);
+                            $("#VIP_PHONE").val(data.VIP_PHONE);
+                            $("#VIP_CARD").val(data.VIP_CARD);
+                            $("#sex").val(data.sex);
+                            $("#VIP_BALANCE").val(data.car_color);
+
+
+                            $("#sbt").click(function(){
+                                $.ajax({
+                                    url: " ",
+                                    type: "post",
+                                    data:{"car_id":$("#car_id").val(),"car_driver":$("#car_driver").val(),"car_type":$("#car_type").val(),"car_driver_papers":$("#car_driver_papers").val(),"car_color":$("#car_color").val(),"car_bulk":$("#car_bulk").val(),"car_load":$("#car_load").val(),"car_state":$("#car_state").val()},
+                                    dataType: "json",
+                                    success: function(data){
+                                        //获取当前的页码
+                                        var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                        if(data.issuc==true){
+                                            layer.close(index);
+                                            layer.msg("修改成功", {icon: 6});
+                                            setTimeout(function () {
+                                                //修改页码input框的值为当前页码
+                                                $(".layui-laypage-skip .layui-input").val(pageNum);
+                                                //触发页码确定按钮 实现只刷新当前页面
+                                                $(".layui-laypage-btn").trigger("click");
+                                            }, 700);
+                                        }else{
+                                            layer.msg("修改失败", {icon: 5});
+                                        }
+                                    }   //success
+                                });  //ajax
+                            });  //#sbt
+
+                            //弹出层取消按钮
+                            $("#cancel").click(function(){
+                                layer.closeAll('page');
+                            })
+                        }  //success(layero)
+
+                    }) //open
+                }  //edit
+            });
+
+            //获取搜索框的内容
+        var $ = layui.$, active = {
+            reload: function(){
+                var QueryName = $('#QueryName');
+                var QueryPhone = $('#QueryPhone');
+                var QueryCard = $('#QueryCard');
+                var QueryState =$('#QueryState');
+                table.reload('testReload', {
+                    where: {
+                        QueryName: QueryName.val(),
+                        QueryPhone:QueryPhone.val(),
+                        QueryCard: QueryCard.val(),
+                        QueryState : QueryState.val()
+
+                    }
+                });
+            }
+        };
+
+        //搜索按钮
+        $("#searchBtn").on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+  });
+
+    </script>
+    <script type="text/html" id="vipState">
+        if({{d.VIP_STATE}}=='0')
+        {
+            启用
+        }else if({{d.VIP_STATE}}=='1')
+        {
+            禁用
+        }
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon">&#xe642;</i></a>
+    </script>
+
+    <!-- 编辑框弹出模板-->
+    <script type="text/html" id="editDemo">
+        <form id="updateForm">
+            <div class="layui-form-item" align="center">
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员序号</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_ID" class="layui-input" id="car_id" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员姓名</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_NAME" class="layui-input" id="car_driver" >
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员手机号</label>
+                    <div class="layui-input-inline">
+                        <input name="car_type" class="layui-input" id="car_type">
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员</label>
+                    <div class="layui-input-inline">
+                        <input name="car_driver_papers" class="layui-input" id="car_driver_papers">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">车辆颜色</label>
+                    <div class="layui-input-inline">
+                        <input name="car_color" class="layui-input" id="car_color">
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">车辆体积</label>
+                    <div class="layui-input-inline">
+                        <input name="car_bulk" class="layui-input" id="car_bulk">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">车辆载重</label>
+                    <div class="layui-input-inline">
+                        <input name="car_load" class="layui-input" id="car_load">
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">车辆状态</label>
+                    <div class="layui-input-inline">
+                        <input name="car_state" class="layui-input" id="car_state">
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div align="center">
+            <input type="button" value="确认更新" id="sbt" class="layui-btn layui-btn-sm" />
+            <input type="button" value="取消" id="cancel" class="layui-btn layui-btn-sm layui-btn-normal" />
+        </div>
     </script>
   </body>
 

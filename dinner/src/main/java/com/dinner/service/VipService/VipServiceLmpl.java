@@ -23,11 +23,30 @@ public class VipServiceLmpl implements VipService {
         int pageSize =  map.get("pageSize") == null ? 10 : Integer.valueOf(map.get("pageSize") + "");
         map.put("start",(pageNo-1)*pageSize);
         map.put("end",pageNo*pageSize+1);
-        return vipDao.VipQuery(map);
+        List<Map> maps = vipDao.VipQuery(map);
+
+        for (Map map1 : maps) {
+
+            Object vip_sex = map1.get("VIP_SEX");
+
+            if(map1.get("VIP_SEX").toString().equals("0")){
+                map1.put("sex","男");
+            }else {
+                map1.put("sex","女");
+            }
+        }
+
+        return maps;
     }
 
     @Override
     public int VipGetPageCount() {
         return vipDao.VipGetPageCount();
+    }
+
+    @Override
+    public int VipAdd(Map map) {
+
+        return vipDao.VipAdd(map);
     }
 }

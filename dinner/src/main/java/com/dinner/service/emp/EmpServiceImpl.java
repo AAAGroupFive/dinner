@@ -23,7 +23,10 @@ public class EmpServiceImpl implements EmpService {
         int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo") + "");
         int pageSize = map.get("pageSize") == null ? 10 : Integer.valueOf(map.get("pageSize") + "");
         map.put("start",(pageNo-1)*pageSize);
+
         map.put("end",pageNo*pageSize+1);
+
+
         return empDao.getEmp(map);
     }
 
