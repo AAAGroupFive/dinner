@@ -31,9 +31,13 @@
         select count(*) from tab_vip
     </select>
 
-
+    <!--新增会员-->
     <insert id="VipAdd">
         insert into tab_vip values (seq_tab_vip_id.nextval,#{VIPname},#{VIPnumber},to_char(sysdate,'yyyymmddhh24miss'),#{sex},#{VIPbalance},0,#{VIPaddress})
 
     </insert>
+    <!--会员更新-->
+    <update id="VipUpdate">
+        update tab_vip set VIP_PHONE='#{VIP_PHONE}' where VIP_ID=#{}
+    </update>
 </mapper>

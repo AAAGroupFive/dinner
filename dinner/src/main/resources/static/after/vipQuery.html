@@ -126,7 +126,7 @@
                 var data = obj.data;
                 if(obj.event === 'edit'){
                     layer.open({
-                        title: '修改车辆信息'
+                        title: '会员信息'
                         ,type: 1
                         ,area: ['500px', '440px']
                         ,anim: 1//修改弹出层动画
@@ -138,14 +138,14 @@
                             $("#VIP_PHONE").val(data.VIP_PHONE);
                             $("#VIP_CARD").val(data.VIP_CARD);
                             $("#sex").val(data.sex);
-                            $("#VIP_BALANCE").val(data.car_color);
+                            $("#VIP_BALANCE").val(data.VIP_BALANCE);
 
 
                             $("#sbt").click(function(){
                                 $.ajax({
-                                    url: " ",
+                                    url: "/dinner/VIP/VipUpdate",
                                     type: "post",
-                                    data:{"car_id":$("#car_id").val(),"car_driver":$("#car_driver").val(),"car_type":$("#car_type").val(),"car_driver_papers":$("#car_driver_papers").val(),"car_color":$("#car_color").val(),"car_bulk":$("#car_bulk").val(),"car_load":$("#car_load").val(),"car_state":$("#car_state").val()},
+                                    data:{"VIP_PHONE":$("#VIP_PHONE").val(),"VIP_ID":$("#VIP_ID").val()},
                                     dataType: "json",
                                     success: function(data){
                                         //获取当前的页码
@@ -175,6 +175,66 @@
                     }) //open
                 }  //edit
             });
+
+            var $ = layui.$, active = {
+
+                delAll: function(){ //批量删除
+                    var checkStatus = table.checkStatus('testReload')
+                    var dataall='';
+                    data = checkStatus.data;
+                    //循环把所有要删除的ID整成12,13,545
+                    for(var i=0;i<checkStatus.data.length;i++){
+                        dataall += data[i].id+",";
+                    }
+                    dataall=dataall.substring(0,dataall.length-1)
+                    //layer.alert(dataall);
+                    layer.confirm('真的删除行么', function(index){
+                        //obj.del();
+                        //id= data.id;
+                        datatablename="manage";
+                        layer.close(index);
+                        $.ajax({
+                            url:'',
+                            type:"post",
+                            data:{id:dataall,datatablename:datatablename},
+                        async:true,
+                            success:function(data){
+                            if(data[0]==1){
+                                layer.msg('成功！');
+                                table.reload('idTest');//重新加载表格数据
+                            }else{
+                                layer.msg('失败！'+data[1]);
+                            }
+                        },
+                        error:function(){
+                            layer.msg('页面跳转失败！');
+                        }
+                    });
+                    });
+
+                }
+                ,getCheckLength: function(){ //获取选中数目
+                    var checkStatus = table.checkStatus('idTest')
+                        ,data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                }
+                ,isAll: function(){ //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选': '未全选')
+                },
+                //搜索
+                reload: function(){
+                    var demoReload = $('#input-search').val();
+                    table.reload('idTest', {
+                        where: {
+                            sotype: $("#searchtype").val()
+                            ,type: $('#searchselect').val()
+                            ,key: $('#input-search').val()
+                        }
+                    });
+                }
+            };
+
 
             //获取搜索框的内容
         var $ = layui.$, active = {
@@ -224,61 +284,45 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">会员序号</label>
                     <div class="layui-input-inline">
-                        <input name="VIP_ID" class="layui-input" id="car_id" readonly="readonly">
+                        <input name="VIP_ID" class="layui-input" id="VIP_ID"  readonly>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">会员姓名</label>
                     <div class="layui-input-inline">
-                        <input name="VIP_NAME" class="layui-input" id="car_driver" >
+                        <input name="VIP_NAME" class="layui-input" id="VIP_NAME" readonly >
                     </div>
                 </div>
 
                 <div class="layui-inline">
                     <label class="layui-form-label">会员手机号</label>
                     <div class="layui-input-inline">
-                        <input name="car_type" class="layui-input" id="car_type">
+                        <input name="VIP_PHONE" class="layui-input" id="VIP_PHONE">
                     </div>
                 </div>
 
                 <br/>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">会员</label>
+                    <label class="layui-form-label">会员卡号</label>
                     <div class="layui-input-inline">
-                        <input name="car_driver_papers" class="layui-input" id="car_driver_papers">
+                        <input name="VIP_CARD" class="layui-input" id="VIP_CARD" readonly>
                     </div>
                 </div>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">车辆颜色</label>
+                    <label class="layui-form-label">会员性别</label>
                     <div class="layui-input-inline">
-                        <input name="car_color" class="layui-input" id="car_color">
-                    </div>
-                </div>
-
-                <br/>
-
-                <div class="layui-inline">
-                    <label class="layui-form-label">车辆体积</label>
-                    <div class="layui-input-inline">
-                        <input name="car_bulk" class="layui-input" id="car_bulk">
-                    </div>
-                </div>
-
-                <div class="layui-inline">
-                    <label class="layui-form-label">车辆载重</label>
-                    <div class="layui-input-inline">
-                        <input name="car_load" class="layui-input" id="car_load">
+                        <input name="sex" class="layui-input" id="sex" readonly>
                     </div>
                 </div>
 
                 <br/>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">车辆状态</label>
+                    <label class="layui-form-label">会员余额</label>
                     <div class="layui-input-inline">
-                        <input name="car_state" class="layui-input" id="car_state">
+                        <input name="VIP_BALANCE" class="layui-input" id="VIP_BALANCE">
                     </div>
                 </div>
 

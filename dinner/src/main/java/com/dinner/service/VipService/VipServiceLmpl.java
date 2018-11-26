@@ -49,4 +49,16 @@ public class VipServiceLmpl implements VipService {
 
         return vipDao.VipAdd(map);
     }
+
+    @Override
+    public int VipUpdate(Map map) {
+
+        return vipDao.VipUpdate(map);;
+    }
+
+    @Override
+    public int VipDelete(Map map) {
+
+        return vipDao.VipDelete(map);
+    }
 }

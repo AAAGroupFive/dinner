@@ -28,4 +28,16 @@ public interface VipService {
      * @return
      */
     int VipAdd (Map map);
+    /**
+     * 会员更新
+     * @param map
+     * @return
+     */
+    int VipUpdate(Map map);
+    /**
+     * 会员删除
+     * @param map
+     * @return
+     */
+    int VipDelete(Map map);
 }

@@ -99,8 +99,20 @@ public class VipController {
 
         return map1;
     }
-    @RequestMapping("/qwe")
-    public String qwe(){
+
+    /**
+     * 会员更新
+     * @return
+     */
+    @RequestMapping("/VipUpdate")
+    public String VipUpdate(@RequestParam Map map){
+
+        return "after/CheckCar";
+    }
+
+    @RequestMapping("/VipDelet")
+    public String VipDelet(@RequestParam Map map){
+
         return "after/CheckCar";
     }
 
