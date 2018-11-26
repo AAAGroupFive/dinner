@@ -16,7 +16,7 @@
 <table id="demo" lay-filter="test">
     <div class="layui-btn-group">
         <button class="layui-btn" onclick="x_admin_show()">添加</button>
-        <button class="layui-btn">编辑</button>
+        <button class="layui-btn" onclick="checkData()">编辑</button>
         <button class="layui-btn">删除</button>
     </div>
 </table>
@@ -35,9 +35,9 @@
             ,even: true
             ,cols: [[ //表头
                 {checkbox: true, fixed: true}
-                ,{field: 'EMPID', title: 'ID', width:80, sort: true,hide:true}
+                ,{field: 'EMPID', title: 'ID', width:80,hide:true}
                 ,{field: 'EMPNAME', title: '姓名', width:80}
-                ,{field: 'USERNAME', title: '用户名', width:80, sort: true}
+                ,{field: 'USERNAME', title: '用户名', width:80}
                 ,{field: 'PASSWORD', title: '密码', width:80}
                 ,{field: 'SEX', title: '性别', width: 80,templet:'#sex'}
                 ,{field: 'PHONE', title: '手机', width: 150, sort: true}
@@ -57,6 +57,13 @@
 
         });
     });
+    function checkData() {
+        table.on('edit(test)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+            console.log(obj.value); //得到修改后的值
+            console.log(obj.field); //当前编辑的字段名
+            console.log(obj.data); //所在行的所有相关数据
+        });
+    }
 </script>
 <script type="text/html" id="sex">
     {{# if (d.SEX=== 0) { }}
