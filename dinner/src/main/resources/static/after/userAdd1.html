@@ -47,7 +47,7 @@
             <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item" style="width: 700px">
+    <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">职位</label>
         <div class="layui-input-block">
             <select id="edit_exam_school" name="role">
@@ -59,10 +59,10 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item" style="width: 500px">
+    <div class="layui-form-item" style="width: 700px">
         <label class="layui-form-label">地址</label>
         <div class="layui-input-block">
-            <input type="text" name="addr" required  lay-verify="required" placeholder="请输入职位" autocomplete="off" class="layui-input">
+            <input type="text" name="addr" required  lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -78,6 +78,7 @@
         laydate = layui.laydate;
         laydate.render({ //发布时间
             elem: '#date'
+            ,max:0
         });
     });
 

@@ -29,8 +29,8 @@ public class EmpController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object getEmp(@RequestParam Map map){
-        
+    public Object getEmp(@RequestParam Map map){//g
+        System.out.println(1111);
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp();
         Map tempMap = new HashMap();
@@ -44,6 +44,7 @@ public class EmpController {
     @RequestMapping("/add")
     @ResponseBody
     public Object empAdd(@RequestParam Map map){
+        //sss
         System.out.println("QAQ`");
         System.out.println(map);
         int i = empService.addEmp(map);
