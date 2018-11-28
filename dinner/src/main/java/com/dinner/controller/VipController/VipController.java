@@ -58,13 +58,11 @@ public class VipController {
     @RequestMapping("/VipQuery")
     @ResponseBody
     public Map VipQuery(@RequestParam Map map, HttpServletRequest request){
+        System.out.println(map);
 
         Map temp=new HashMap();
-        map.put("pageSize",5);
 
-        System.out.println("VipQuery"+vipService.VipQuery(map));
-        int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo") + "");
-        String stringPage = new PageUntil(pageNo, 5, vipService.VipQuery(map), vipService.VipGetPageCount(), request).getStringPage();
+
         temp.put("code",0);
         temp.put("msg","");
         temp.put("count",vipService.VipGetPageCount());
@@ -82,40 +80,69 @@ public class VipController {
 
     @ResponseBody
     @RequestMapping("/VipAdd")
-    public Object VipAdd(@RequestParam Map map){
+    public Map VipAdd(@RequestParam Map map){
         Object viPname = map.get("VIPname");
         Object viPcard = map.get("VIPcard");
 
         int i = vipService.VipAdd(map);
 
-        Map map1 = new HashMap();
-        if(i>0){
-            map1.put("viPname",viPname);
-            map1.put("viPcard",viPcard);
-            map1.put("msg",i);
 
+        Map temp=new HashMap();
+
+        if(i>-1){
+            temp.put("issuc",true);
+        }else{
+            temp.put("issuc",false  );
         }
 
 
-        return map1;
+
+
+        return temp ;
+
+
+
     }
 
     /**
      * 会员更新
      * @return
      */
+    @ResponseBody
     @RequestMapping("/VipUpdate")
-    public int  VipUpdate(@RequestParam Map map){
+    public Map  VipUpdate(@RequestParam Map map){
+        System.out.println(map);
+
+        int i = vipService.VipUpdate(map);
+        Map temp=new HashMap();
+
+            temp.put("issuc",i);
+
+
+
+        return temp ;
+    }
+
+    /**
+     * 会员删除
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/VipDelete")
+    public int VipDelete(@RequestParam Map map){
         System.out.println(map);
 
 
-        return  vipService.VipUpdate(map);
+        return  vipService.VipDelete(map);
     }
+    @ResponseBody
+    @RequestMapping("/State")
+    public int State(@RequestParam Map map){
+        System.out.println(map);
 
-    @RequestMapping("/VipDelet")
-    public String VipDelet(@RequestParam Map map){
 
-        return "after/CheckCar";
+        return  1;
     }
 
 }

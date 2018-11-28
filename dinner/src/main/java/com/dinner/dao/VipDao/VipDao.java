@@ -43,5 +43,5 @@ public interface VipDao {
      * @param map
      * @return
      */
-    int VipDelete(Map map);
+    int VipDelete(String[] map);
 }

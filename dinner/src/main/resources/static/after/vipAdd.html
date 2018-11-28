@@ -83,13 +83,10 @@
 		    <button class="layui-btn layui-btn-fluid" id="zhuce">注册会员</button>
 		</form>
 
-	</body>.
+	</body>
 	<script type="text/javascript">  
 		
-  
-		
-		
-		
+
 		//日期
     	layui.use('laydate', function(){
         var laydate = layui.laydate;
@@ -99,9 +96,6 @@
           elem: '#start' //指定元素
         });
       });
-
-
-
 
 
 
@@ -120,12 +114,16 @@
 					"sex":$('input:radio:checked').val()
 				},//表格数据序列化
 
-                success: function (res) {//res为相应体,function为回调函数
-                    console.log(res.viPname);
-                    if (res != null) {
-                        layer.alert('添加客户信息成功', {icon: 1});
-                        //$("#res").click();//调用重置按钮将表单数据清空
-                    }
+                success: function (data) {//res为相应体,function为回调函数
+                    console.log(data.issuc);
+
+                    if (data.issuc == true) {
+                        alert(data.issuc);
+                        layer.close(index);
+
+                        layer.msg("修改成功", {icon: 6});
+
+               		 }
                 },
                 error: function () {
                     layer.alert('操作失败！！！', {icon: 5});
