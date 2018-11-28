@@ -30,7 +30,7 @@ public class BeginTableController {
      */
     @RequestMapping("/begin")
     public String begin(String number, Model model) {
-        System.out.println("进来了了");
+        System.out.println("进来了");
         model.addAttribute("number", number);
         return "after/begin-table2";
     }

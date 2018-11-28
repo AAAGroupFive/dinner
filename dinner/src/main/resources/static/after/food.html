@@ -3,70 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/dinner/css/font.css">
-    <link rel="stylesheet" href="/dinner/css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
 
 </head>
 <body>
-<table class="layui-table" lay-data="{url:'/dinner/order/goodsList', id:'test3'}" lay-filter="test3">
-    <thead>
-    <tr>
-        <th lay-data="{type:'checkbox'}">ID</th>
-        <th lay-data="{field:'FOOD_ID', width:80}">ID</th>
-        <th lay-data="{field:'FOOD_NAME', width:120, edit: 'text'}">菜品名称</th>
-        <th lay-data="{field:'FOOD_PRICE', edit: 'text',sort: true}">菜品单价</th>
-        <th lay-data="{field:'FOOD_NUM', edit: 'text',sort: true}">菜品数量</th>
-    </tr>
-    </thead>
-</table>
+<div style="margin-left: 350px;margin-right: 365px">
+    <div id="app">
+        <h2>{{ message }}</h2>
+    </div>
+
+    <div id="tableView">
+        <!--列表顶部搜索和工具条-->
+        <el-row>
+            <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+
+                <el-form-item label="名称">
+                    <el-input v-model="searchForm.name" placeholder="名称"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" icon="search" @click="searchClick">查询</el-button>
+                </el-form-item>
+            </el-form>
+        </el-row>
+        <!--列表-->
+        <el-row>
+            <el-table
+                    :data="tableData"
+                    v-loading.body="loading"
+                    border
+                    @selection-change="selectionChange"
+                    style="width: 100%">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
+                <el-table-column
+                        prop="ENAME"
+                        label="菜名"
+                        width="105">
+                </el-table-column>
+                <el-table-column
+                        prop="HIREDATE"
+                        label="单价"
+                        width="150">
+                </el-table-column>
+                <!--<el-table-column
+                        label="操作">
+                    <template scope="scope">
+                        <el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>
+                        <el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>-->
+            </el-table>
+        </el-row>
+
+        <!--列表底部工具条和分页符-->
+        <el-row style="margin-top: 20px" type="flex" justify="end">
+            <el-col :span="6" >
+                <el-button :plain="true" type="danger" size="small" icon="delete" @click="removeSelection">确认点菜</el-button>
+            </el-col>
+            <el-col :span="18" >
+                <el-pagination
+                        style="float: right"
+                        @size-change="pageSizeChange"
+                        @current-change="currentPageChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10, 20, 30, 50]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </el-col>
+        </el-row>
+
+        <!--编辑界面-->
+        <!--<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
+            <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+                <el-form-item label="姓名" prop="ENAME">
+                    <el-input v-model="editForm.ENAME" auto-complete="off"></el-input>
+                </el-form-item>
+                &lt;!&ndash; <el-form-item label="性别">
+                     <el-radio-group v-model="editForm.sex">
+                         <el-radio class="radio" :label="1">男</el-radio>
+                         <el-radio class="radio" :label="0">女</el-radio>
+                     </el-radio-group>  EMPNO: 0,
+                     ENAME: '',
+                     JOB: '',
+                     SAL: 0,
+                     HIREDATE: ''
+                 </el-form-item>&ndash;&gt;
+                <el-form-item label="薪水">
+                    <el-input-number v-model="editForm.SAL" :min="0" :max="20000"></el-input-number>
+                </el-form-item>
+                <el-form-item label="雇佣日期">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="editForm.HIREDATE"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="职位">
+                    <el-input type="textarea" v-model="editForm.JOB"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="editFormVisible = false">取消</el-button>
+                <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+            </div>
+        </el-dialog>-->
+
+    </div>
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: '菜品列表'
+            }
+        });
+
+        var tableView = new Vue({
+            el: '#tableView',
+            data: {
+                //列表数据
+                tableData: [],
+                //显示加载中样式
+                loading:false,
+                //搜索表单
+                searchForm: {
+                    name: '',
+                },
+                //多选值
+                multipleSelection: [],
+                //当前页
+                currentPage:1,
+                //分页大小
+                pageSize:10,
+                //总记录数
+                total:800,
+                //删除的弹出框
+                deleteVisible:false,
+                //编辑界面是否显示
+                editFormVisible: false,
+                editLoading: false,
+                goUrl:'',
+                editFormRules: {
+                    name: [
+                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                    ]
+                },
+                //编辑界面数据
+                editForm: {
+                    EMPNO: 0,
+                    ENAME: '',
+                    JOB: '',
+                    SAL: 0,
+                    HIREDATE: ''
+                },
+            },
+            created:function(){
+                //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
+                var self = this;
+                var start =(this.currentPage-1)*this.pageSize;
+                var end =this.currentPage*this.pageSize+1;
+                axios.post('/emp/list',{'start':start,'end':end}).then(function(response){
+                    // console.log(response.data);
+                    //alert(response.data.total);
+                    self.total=response.data.total;
+                    self.tableData = response.data.data;
+                    // self.multipleSelection=response.data.data;
+                })
+            },
+            methods:{
+                //表格重新加载数据
+                loadingData:function() {
+                    var _self = this;
+                    _self.loading = true;
+                    var self = this;
+                    var start =(this.currentPage-1)*this.pageSize;
+                    var end =this.currentPage*this.pageSize+1;
+                    var searchForm={'start':start,'end':end,'id':this.searchForm.id,'name':this.searchForm.name,'deptNo':this.searchForm.deptNo};
+                    //   alert(JSON.stringify(searchForm));
+                    axios.post('/emp/list',searchForm).then(function(response){
+                        // console.log(response.data);
+                        // alert(222);
+                        _self.total=response.data.total;
+                        _self.tableData = response.data.data;
+                        //_self.multipleSelection=response.data.data;
+                    })
+                    console.log(_self.currentPage);
+                    setTimeout(function(){
+                        console.info("加载数据成功");
+                        _self.loading = false;
+                    },300);
+                },
+                //表格编辑事件
+                editClick:function(row) {
+                    this.goUrl="/emp/update";
+                    this.editFormVisible = true;
+                    this.editForm = Object.assign({}, row);
+                },
+                //表格删除事件
+                deleteClick:function(row) {
+                    var _self = this;
+                    this.$confirm('确认删除' + row.EMPNO +'吗?', '提示', {
+                        type: 'warning'
+                    }).then(function(){
+                        var  url="/emp/del/"+row.EMPNO;
+                        axios.get(url).then(function (response) {
+                            //alert(response.data);
+                            if(response.data>0){
+                                _self.$message({
+                                    message: row.EMPNO + '删除成功',
+                                    type: 'success'
+                                });
+                                _self.loadingData();//重新加载数据
+                            }
+                        });
+                    }).catch(function(e){
+                        if(e != "cancel")
+                            console.log("出现错误：" + e);
+                    });
+                },
+                //新建事件
+                addClick:function() {
+                    //alert(111);
+                    this.goUrl="/emp/add";
+                    var _self = this;
+                    this.editFormVisible = true;//弹出层，让隐藏的弹出层显示
+                    _self.loadingData();//重新加载数据
+                },
+                //表格查询事件
+                searchClick:function() {
+                    var self = this;
+                    /* var start =(this.currentPage-1)*this.pageSize;
+                     var end =this.currentPage*this.pageSize+1;
+                     //var searchForm =this.searchForm;
+
+                     var searchForm={'start':start,'end':end,'id':this.id,'name':this.name,'deptNo':this.deptNo};
+                     alert(searchForm);
+                     //formData.push({'start':start}).push({'end':end})
+                     axios.post('/emp/list',searchForm).then(function(response){
+                         // console.log(response.data);
+                         //alert(response.data.total);
+                         self.total=response.data.total;
+                         self.tableData = response.data.data;
+                         // self.multipleSelection=response.data.data;
+                     })*/
+                    self.loadingData();//重新加载数据
+                },
+                //表格勾选事件
+                selectionChange:function(val) {
+                    for(var i=0;i<val.length;i++) {
+                        var row = val[i];
+                    }
+                    this.multipleSelection = val;
+                    console.info(val);
+                },
+                //删除所选，批量删除
+                removeSelection:function() {
+                    var _self = this;
+                    var multipleSelection = this.multipleSelection;
+                    if(multipleSelection.length < 1) {
+                        _self.$message({
+                            message: '请至少选中一条记录',
+                            type: 'error'
+                        });
+                        return;
+                    }
+                    var ids = "";
+                    for(var i=0;i<multipleSelection.length;i++) {
+                        var row = multipleSelection[i];
+                        ids += row.EMPNO + ","
+                    }
+                    this.$confirm('确认删除' + ids +'吗?', '提示', {
+                        type: 'warning'
+                    }).then(function(){
+                        var  url="/emp/batchDel/"+ids;
+                        axios.get(url).then(function (response) {
+                            //alert(response.data);
+                            var temp="";
+                            if(response.data>0){
+                                temp="删除成功";
+                            }else {
+                                temp="删除失败";
+                            }
+                            _self.$message({
+                                message: ids + temp,
+                                type: 'success'
+                            });
+                            _self.loadingData();//重新加载数据
+                        });
+
+                    }).catch(function(e){
+                        if(e != "cancel")
+                            console.log("出现错误：" + e);
+                    });
+                },
+                //分页大小修改事件
+                pageSizeChange:function(val) {
+                    console.log('每页 ' + val +' 条');
+                    this.pageSize = val;
+                    var _self = this;
+                    _self.loadingData();//重新加载数据
+                },
+                //当前页修改事件
+                currentPageChange:function(val) {
+                    this.currentPage = val;
+                    console.log('当前页: ' + val);
+                    var _self = this;
+                    _self.loadingData();//重新加载数据
+                },
+                //保存点击事件
+                editSubmit:function(){
+                    var _self = this;
+                    _self.loading = true;
+                    var formData =this.editForm;
+                    //alert(formData);
+                    var goUrl=this.goUrl;
+                    //alert(goUrl);
+                    //alert(JSON.stringify(formData));
+                    axios.post(goUrl,formData).then(function(response){
+                        // console.log(response.data);
+                        // alert(222);
+                        // self.total=response.data.total;
+                        if(response.data>0){
+                            _self.editFormVisible = false;// 让弹出层隐藏
+                            _self.loadingData();//重新加载数据
+                        }
+                    })
+                    console.info(this.editForm);
+                }
+            }
+
+        })
+    </script>
+</div>
 </body>
-<script>
-    layui.use('table', function(){
-        var table = layui.table;
-
-        //监听单元格编辑
-        table.on('edit(test3)', function(obj){
-            var value = obj.value //得到修改后的值
-                ,data = obj.data //得到所在行所有键值
-                ,field = obj.field; //得到字段
-            layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-        });
-    });
-    layui.use(['form','layer'], function(){
-        $ = layui.jquery;
-        var form = layui.form
-            ,layer = layui.layer;
-        //监听提交
-        form.on('submit(add)', function(data){
-            var cked = $(".layui-table-body input[name='layTableCheckbox']:checked");
-            var orderIds="";
-            cked.each(function(){
-                var order_id = ($(this).parent().parent().next().children().html());
-                orderIds+=order_id+",";
-
-            })
-            $.ajax({
-                url: "/dinner/order/order" ,
-                type: "post",
-                datatype:"json",
-                data: {"orderIds":orderIds,"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person,"start":data.field.start},
-
-            });
-            layer.alert("开桌成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-        });
-    });
-</script>
-</script>
 </html>
