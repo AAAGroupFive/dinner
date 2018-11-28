@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="x-nav">
+
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+
+
+            <div class="layui-input-inline">
+
+                会 员 名: <input class="layui-input"  id="QueryName" name="QueryName"/>
+                手 机 号: <input class="layui-input" id="QueryPhone" name="QueryPhone"/>
+                会员卡号: <input class="layui-input" id="QueryCard" name="QueryCard"/>
+            </div>
+
+
+            <div class="layui-input-inline">
+
+                <select name="contrller" id="QueryState">
+                    <option value="">会员状态</option>
+                    <option value="0">正常</option>
+                    <option value="1">停用</option>
+                </select>
+            </div>
+
+            <div class="layui-btn" data-type="reload"  id="searchBtn">
+                <i class="layui-icon">&#xe615;</i>
+            </div>
+        </form>
+    </div>
+    <xblock id="xk1">
+        <div class="layui-btn layui-btn-danger" data-type="delAll" id="delAll">
+            <i class="layui-icon"></i>批量删除</div>
+        <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/vipAdd.html')">
+            <i class="layui-icon"></i>新增会员</button>
+
+    </xblock>
+    <table class="layui-hide" id="orderlist" lay-filter="demo">
+
+    </table>
+
+
+</div>
+
+</body>
+</html>

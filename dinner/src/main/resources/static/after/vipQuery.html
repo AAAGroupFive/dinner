@@ -44,9 +44,8 @@
 
                 <select name="contrller" id="QueryState">
                   <option value="">会员状态</option>
-                  <option value="0">全部</option>
-                  <option value="1">正常</option>
-                  <option value="2">停用</option>
+                  <option value="0">正常</option>
+                  <option value="1">停用</option>
                 </select>
               </div>
 
@@ -56,13 +55,15 @@
             </form>
       </div>
         <xblock id="xk1">
-          <button class="layui-btn layui-btn-danger" onclick="delAll()">
-              <i class="layui-icon"></i>批量删除</button>
+          <div class="layui-btn layui-btn-danger" data-type="delAll" id="delAll">
+              <i class="layui-icon"></i>批量删除</div>
           <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/vipAdd.html')">
               <i class="layui-icon"></i>新增会员</button>
-          <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+
         </xblock>
-        <table class="layui-hide" id="orderlist" lay-filter="demo"></table>
+        <table class="layui-hide" id="orderlist" lay-filter="demo">
+
+        </table>
       
 
     </div>
@@ -98,11 +99,22 @@
                     , {field: 'VIP_CARD', title: '会员卡号', width: 150}
                     , {field: 'sex', title: '会员性别', width: 150}
                     , {field: 'VIP_BALANCE', title: '会员余额', width: 120, sort: true}
-                    , {field: 'VIP_STATE',title:'状态', width: 120}
+                    , {field: 'VIP_ADDRESS',title:'联系地址', width: 200 }
+                    , {field: 'VIP_STATE',title:'状态', width: 120
+                        ,templet: function(d){
+                        if(d.VIP_STATE==1){
+                            return '<button class="layui-btn layui-btn-danger" id="jinyong">禁用</button>'
+                        }else {
+                            return '<button class="layui-btn " id="qiyong">启用</button>'
+                        }
+                          /*  return 'ID：'+ d.id +'，标题：<span style="color: #c00;">'+ d.title +'</span>'*/
+                        }
+                    }
+
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
                 ]]
                 ,id: 'testReload'
-                ,done: function(res, page, count){
+                /*,done: function(res, page, count){
                     //如果是异步请求数据方式，res即为你接口返回的信息。
                     //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
 
@@ -117,13 +129,14 @@
                         }
                     })
 
-                }
+                }*/
 
             })
 
             //监听工具条
             table.on('tool(demo)', function(obj){
                 var data = obj.data;
+
                 if(obj.event === 'edit'){
                     layer.open({
                         title: '会员信息'
@@ -137,20 +150,27 @@
                             $("#VIP_NAME").val(data.VIP_NAME);
                             $("#VIP_PHONE").val(data.VIP_PHONE);
                             $("#VIP_CARD").val(data.VIP_CARD);
+                            $("#VIP_STATE").val(data.VIP_STATE);
                             $("#sex").val(data.sex);
                             $("#VIP_BALANCE").val(data.VIP_BALANCE);
+                            $("#VIP_ADDRESS").val(data.VIP_ADDRESS);
 
 
                             $("#sbt").click(function(){
                                 $.ajax({
                                     url: "/dinner/VIP/VipUpdate",
                                     type: "post",
-                                    data:{"VIP_PHONE":$("#VIP_PHONE").val(),"VIP_ID":$("#VIP_ID").val()},
-                                    dataType: "json",
+                                    data:{
+                                        "VIP_PHONE":$("#VIP_PHONE").val(),
+                                        "VIP_ID":$("#VIP_ID").val(),
+                                        "VIP_ADDRESS":$("#VIP_ADDRESS").val(),
+                                        "VIP_STATE":$("#VIP_STATE").val()},
+                                        dataType: "json",
                                     success: function(data){
+                                        console.log(data);
                                         //获取当前的页码
                                         var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
-                                        if(data.issuc==true){
+                                        if(data.issuc>0){
                                             layer.close(index);
                                             layer.msg("修改成功", {icon: 6});
                                             setTimeout(function () {
@@ -174,6 +194,7 @@
 
                     }) //open
                 }  //edit
+                //监听工具条
             });
 
             var $ = layui.$, active = {
@@ -182,9 +203,10 @@
                     var checkStatus = table.checkStatus('testReload')
                     var dataall='';
                     data = checkStatus.data;
+
                     //循环把所有要删除的ID整成12,13,545
                     for(var i=0;i<checkStatus.data.length;i++){
-                        dataall += data[i].id+",";
+                        dataall += data[i].VIP_ID+",";
                     }
                     dataall=dataall.substring(0,dataall.length-1)
                     //layer.alert(dataall);
@@ -194,16 +216,17 @@
                         datatablename="manage";
                         layer.close(index);
                         $.ajax({
-                            url:'',
+                            url:'/dinner/VIP/VipDelete',
                             type:"post",
-                            data:{id:dataall,datatablename:datatablename},
+                            data:{VIP_ID:dataall,datatablename:datatablename},
                         async:true,
                             success:function(data){
-                            if(data[0]==1){
-                                layer.msg('成功！');
-                                table.reload('idTest');//重新加载表格数据
+                                console.log(data);
+                            if(data==1){
+                                layer.msg('成功!');
+                                table.reload('testReload');//重新加载表格数据
                             }else{
-                                layer.msg('失败！'+data[1]);
+                                layer.msg('失败！');
                             }
                         },
                         error:function(){
@@ -214,28 +237,34 @@
 
                 }
                 ,getCheckLength: function(){ //获取选中数目
-                    var checkStatus = table.checkStatus('idTest')
+                    var checkStatus = table.checkStatus('testReload')
                         ,data = checkStatus.data;
                     layer.msg('选中了：'+ data.length + ' 个');
                 }
                 ,isAll: function(){ //验证是否全选
-                    var checkStatus = table.checkStatus('idTest');
+                    var checkStatus = table.checkStatus('testReload');
                     layer.msg(checkStatus.isAll ? '全选': '未全选')
                 },
                 //搜索
-                reload: function(){
-                    var demoReload = $('#input-search').val();
-                    table.reload('idTest', {
+                reload: function() {
+                    var QueryName = $('#QueryName');
+                    var QueryPhone = $('#QueryPhone');
+                    var QueryCard = $('#QueryCard');
+                    var QueryState = $('#QueryState');
+                    table.reload('testReload', {
                         where: {
-                            sotype: $("#searchtype").val()
-                            ,type: $('#searchselect').val()
-                            ,key: $('#input-search').val()
+                            QueryName: QueryName.val(),
+                            QueryPhone: QueryPhone.val(),
+                            QueryCard: QueryCard.val(),
+                            QueryState: QueryState.val()
+
                         }
                     });
                 }
+
             };
 
-
+/*
             //获取搜索框的内容
         var $ = layui.$, active = {
             reload: function(){
@@ -253,25 +282,43 @@
                     }
                 });
             }
-        };
+        };*/
 
         //搜索按钮
         $("#searchBtn").on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+        //批量删除按钮
+        $("#delAll").on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        //禁用启用
+        $("#jinyong").on('click', function(){
+            $.ajax({
+                url:'/dinner/VIP/State',
+                type:"post",
+                data:{"state":$("#jinyong").val()},
+                success:function(data){
+                    console.log(data);
+                    if(data==1){
+                        layer.msg('成功!');
+                        table.reload('testReload');//重新加载表格数据
+                    }else{
+                        layer.msg('失败！');
+                    }
+                },
+                error:function(){
+                    layer.msg('页面跳转失败！');
+                }
+            });
+
+        });
   });
 
     </script>
-    <script type="text/html" id="vipState">
-        if({{d.VIP_STATE}}=='0')
-        {
-            启用
-        }else if({{d.VIP_STATE}}=='1')
-        {
-            禁用
-        }
-    </script>
+
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon">&#xe642;</i></a>
@@ -311,6 +358,12 @@
                 </div>
 
                 <div class="layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_STATE" class="layui-input" id="VIP_STATE">
+                    </div>
+                </div>
+                <div class="layui-inline">
                     <label class="layui-form-label">会员性别</label>
                     <div class="layui-input-inline">
                         <input name="sex" class="layui-input" id="sex" readonly>
@@ -323,6 +376,12 @@
                     <label class="layui-form-label">会员余额</label>
                     <div class="layui-input-inline">
                         <input name="VIP_BALANCE" class="layui-input" id="VIP_BALANCE">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系地址</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_ADDRESS" class="layui-input" id="VIP_ADDRESS">
                     </div>
                 </div>
 

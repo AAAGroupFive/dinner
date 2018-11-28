@@ -4,6 +4,7 @@ import com.dinner.dao.VipDao.VipDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,8 @@ public class VipServiceLmpl implements VipService {
     private VipDao vipDao;
     @Override
     public List<Map> VipQuery(Map map) {
-        int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo") + "");
-        int pageSize =  map.get("pageSize") == null ? 10 : Integer.valueOf(map.get("pageSize") + "");
+        int pageNo = map.get("page") == null ? 1 : Integer.valueOf(map.get("page") + "");
+        int pageSize =  map.get("limit") == null ? 10 : Integer.valueOf(map.get("limit") + "");
         map.put("start",(pageNo-1)*pageSize);
         map.put("end",pageNo*pageSize+1);
         List<Map> maps = vipDao.VipQuery(map);
@@ -52,13 +53,26 @@ public class VipServiceLmpl implements VipService {
 
     @Override
     public int VipUpdate(Map map) {
+        Object vip_state = map.get("VIP_STATE");
+        if(vip_state.equals("禁用")){
+            map.put("state",1);
+        }else if(vip_state.equals("启用")){
+            map.put("state",0);
+        }
 
-        return vipDao.VipUpdate(map);
+        int i = vipDao.VipUpdate(map);
+        return i;
     }
 
     @Override
     public int VipDelete(Map map) {
+        System.out.println(map);
+        Map temp = new HashMap();
+        String VIP_ID =map.get("VIP_ID").toString();
+        String[] split = VIP_ID.split(",");
 
-        return vipDao.VipDelete(map);
+
+
+        return  vipDao.VipDelete(split);
     }
 }

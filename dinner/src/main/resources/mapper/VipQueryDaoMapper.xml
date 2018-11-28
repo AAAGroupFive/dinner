@@ -4,8 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.VipDao.VipDao">
     <select id="VipQuery" resultType="map">
-
-        select rownum rn, vip_id,vip_name,vip_phone,vip_card,vip_sex,vip_balance,vip_state from tab_vip
+        select  * from
+        (
+        select rownum rn, vip_id,vip_name,vip_phone,vip_card,vip_sex,vip_balance,vip_state,vip_address from tab_vip
 
         <where>
             <if test="QueryName!=null and QueryName!=''">
@@ -23,6 +24,9 @@
                 and vip_state = #{QueryState}
 
             </if>
+            <if test="page!=null and page!=''">
+                and rownum &lt; #{end} )a where a.rn &gt; #{start}
+            </if>
         </where>
 
     </select>
@@ -36,8 +40,16 @@
         insert into tab_vip values (seq_tab_vip_id.nextval,#{VIPname},#{VIPnumber},to_char(sysdate,'yyyymmddhh24miss'),#{sex},#{VIPbalance},0,#{VIPaddress})
 
     </insert>
-    <!--&lt;!&ndash;会员更新&ndash;&gt;-->
-    <!--<update id="VipUpdate">-->
-        <!--update tab_vip set VIP_PHONE='#{VIP_PHONE}' where VIP_ID='#{VIP_ID}'-->
-    <!--</update>-->
+    <!--会员更新-->
+    <update id="VipUpdate">
+        update tab_vip set VIP_PHONE=#{VIP_PHONE},VIP_ADDRESS=#{VIP_ADDRESS},VIP_STATE=#{state} where VIP_ID=#{VIP_ID}
+    </update>
+    <!--会员删除-->
+    <delete id="VipDelete"  parameterType="java.util.ArrayList">
+        delete from tab_vip where VIP_ID in
+        <foreach collection="array"  index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </delete>
 </mapper>
