@@ -19,10 +19,10 @@ public interface OrderDao {
 
     /**
      * 插入订单
-     * @param map
+     * @param list
      * @return
      */
-    int order(Map map);
+    int order(Map map/*,List list*/);
 
     /**
      * 改变桌子状态
