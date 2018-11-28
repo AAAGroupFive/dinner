@@ -47,8 +47,16 @@ public class EmpController {
         System.out.println(map);
         int i = empService.addEmp(map);
         if (i==1){
+
             System.out.println("添加成功！！！");
         }
+        return null;
+    }
+
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Object empUpdate(@RequestParam int empId){
         return null;
     }
 }

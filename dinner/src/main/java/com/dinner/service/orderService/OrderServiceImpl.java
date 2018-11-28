@@ -25,9 +25,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int order(Map map) {
-        System.out.println(map);
-        return orderDao.order(map);
+    public int order(Map map/*,List list*/) {
+        return orderDao.order(map/*,list*/);
     }
 
     @Override

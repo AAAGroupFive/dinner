@@ -6,10 +6,14 @@
     <select id="goodList" resultType="map">
         select * from tab_food
     </select>
+
     <insert id="order" parameterType="map">
-        <!--<selectKey keyProperty="CON_ID" order="AFTER" resultType="int">
-            insert into TABLE_CON_RECORD value(CON_ID,"#")
-        </selectKey>-->
-        insert into TAB_CONSUME(CON_ID,CON_TYPE,CON_TIME,CON_ROOM,CON_STATE) values(1,#{contrller},sysdate,#{number},0)
+
+        insert into TAB_CONSUME(CON_ID,CON_TYPE,CON_TIME,CON_ROOM,CON_PERSON,CON_STATE) values(1,#{contrller},sysdate,#{number},#{person},0)
+
     </insert>
+
+    <update id="update">
+        update TAB_TABLE set TAB_STATE=1 where TAB_ID=#{number}
+    </update>
 </mapper>
