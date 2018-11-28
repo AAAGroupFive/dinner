@@ -23,46 +23,6 @@
   <body>
     <div class="x-body layui-anim layui-anim-up">
         <form class="layui-form">
-          <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
-                  <span class="x-red">*</span>房间类型
-              </label>
-              <div class="layui-input-inline">
-		            <select name="contrller">
-		              <option>大厅</option>
-		              <option>包间</option>
-		            </select>
-		          </div>
-              <!--<div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>将会成为您唯一的登入名
-              </div>-->
-          </div>
-          <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
-                  <span class="x-red"></span>桌号
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" disabled="disabled" id="L_username" name="number" required="" lay-verify="nikename"
-                  autocomplete="off" class="layui-input" th:value="${number}">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_pass" class="layui-form-label">
-                  <span class="x-red">*</span>顾客人数
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="L_pass" name="person" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
-                  <span class="x-red">*</span>开单时间
-              </label>
-              <div class="layui-input-inline">
-                  <input class="layui-input" placeholder="开单时间" name="start" id="start">
-              </div>
-          </div>
           <table class="layui-table" lay-data="{url:'/dinner/order/goodsList', id:'test3'}" lay-filter="test3">
 					  <thead>
 					    <tr>
@@ -132,7 +92,7 @@
                     url: "/dinner/order/order" ,
                     type: "post",
                     datatype:"json",
-                    data: {"orderIds":orderIds,"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person,"start":data.field.start},
+                    data: {"orderIds":orderIds},
 
                 });
 		        layer.alert("开桌成功", {icon: 6},function () {

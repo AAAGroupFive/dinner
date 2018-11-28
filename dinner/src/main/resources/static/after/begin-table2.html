@@ -63,21 +63,10 @@
                   <input class="layui-input" placeholder="开单时间" name="start" id="start">
               </div>
           </div>
-          <table class="layui-table" lay-data="{url:'/dinner/order/goodsList', id:'test3'}" lay-filter="test3">
-					  <thead>
-					    <tr>
-					      <th lay-data="{type:'checkbox'}">ID</th>
-					      <th lay-data="{field:'FOOD_ID', width:80}">ID</th>
-					      <th lay-data="{field:'FOOD_NAME', width:120, edit: 'text'}">菜品名称</th>
-					      <th lay-data="{field:'FOOD_PRICE', edit: 'text',sort: true}">菜品单价</th>
-					      <th lay-data="{field:'FOOD_NUM', edit: 'text',sort: true}">菜品数量</th>
-					    </tr>
-					  </thead>
-          </table>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button  class="layui-btn" lay-filter="add" lay-submit="">
+              <button  class="layui-btn" lay-filter="add" lay-submit=""  onclick="x_admin_show('增加消费','/dinner/order/food',1500,700)">
                  	 增加
               </button>
           </div>
@@ -85,18 +74,7 @@
     </div>
     <script>
 
-        layui.use('table', function(){
-				  var table = layui.table;
-				  
-				  //监听单元格编辑
-				  table.on('edit(test3)', function(obj){
-				    var value = obj.value //得到修改后的值
-				    ,data = obj.data //得到所在行所有键值
-				    ,field = obj.field; //得到字段
-				    layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-				  });
-				});
-			
+
     		//日期选择
     		layui.use('laydate', function(){
         var laydate = layui.laydate;
@@ -121,26 +99,19 @@
           ,layer = layui.layer;
           //监听提交
 		      form.on('submit(add)', function(data){
-                  var cked = $(".layui-table-body input[name='layTableCheckbox']:checked");
-                  var orderIds="";
-                  cked.each(function(){
-                      var order_id = ($(this).parent().parent().next().children().html());
-                      orderIds+=order_id+",";
-
-                  })
+                console.log(data)
 		        $.ajax({
                     url: "/dinner/order/order" ,
                     type: "post",
                     datatype:"json",
-                    data: {"orderIds":orderIds,"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person,"start":data.field.start},
+                    data: {"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person},
 
                 });
-		        layer.alert("开桌成功", {icon: 6},function () {
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);
 		            //关闭当前frame
 		            parent.layer.close(index);
-		        });
+
 		        return false;
 		      });
       });
