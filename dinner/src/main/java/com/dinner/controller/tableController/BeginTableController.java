@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +30,7 @@ public class BeginTableController {
      */
     @RequestMapping("/begin")
     public String begin(String number, Model model) {
+        System.out.println("进来了了");
         model.addAttribute("number", number);
         return "after/begin-table2";
     }
