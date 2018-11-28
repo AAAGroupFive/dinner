@@ -34,10 +34,11 @@ public class VipController {
     public Map GetSession(Model model, HttpServletRequest request){
 
         Map temp=new HashMap();
+        String EmpName="感到反感";
         HttpSession session = request.getSession();
-            session.setAttribute("name","admin");
+            session.setAttribute("name",EmpName);
         Object name = session.getAttribute("name");
-       temp.put("Empname",name);
+       temp.put("Empname",EmpName);
         return temp;
     }
     /**
