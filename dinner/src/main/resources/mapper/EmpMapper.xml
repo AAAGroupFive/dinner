@@ -5,7 +5,8 @@
 <mapper namespace="com.dinner.dao.emp.EmpDao">
     <select id="getEmp" resultType="map">
         select * from(
-          select rownum rn,EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PHONE as phone,EMP_PASS as password,emp_birth as birth,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
+          select rownum rn,EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PHONE as phone,emp_sex as sex,EMP_PASS as password,TRUNC((to_char(sysdate, 'yyyyMMdd') - to_char(emp_birth, 'yyyyMMdd')) /
+        10000) as birth,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
         <where>
             and rownum &lt; #{end}
         </where>
@@ -20,4 +21,10 @@
         </selectKey>
         insert into tab_emp values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone})
     </insert>
+    <delete id="delEmp" parameterType="int">
+        delete from tab_emp where emp_id=#{empId}
+    </delete>
+    <update id="updateEmp" parameterType="map">
+        update tab_emp set emp_user=#{USERNAME},emp_pass=#{PASSWORD},emp_addr=#{ADDR},emp_role=#{ROLE},emp_phone=#{PHONE} where emp_id=#{EMPID}
+    </update>
 </mapper>
