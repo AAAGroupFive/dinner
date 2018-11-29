@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/dinner/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/dinner/js/echarts.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 80%;height:800px;"></div>
+<button style="border-radius:5px;background:#D59392;border:1px solid white;height:40px"><a href="projectCount/expTestCount" style="color:white;text-decoration: none;font-size:16px">导出excel</a></button>
+<script type="text/javascript">
+
+    //js声明数组
+    var title = [];
+    var data = [];
+    $.ajax({
+        url:"projectCount/testCount",
+        dataType:"json",
+        async:false,//默认同步，必须先拿到数据，再执行下面的图表显示
+        success:function(result){
+            if(result!=null&&result!=''){
+                // alert(11111);
+                for(var i=0;i<result.length;i++){
+
+                    title.push(result[i].month);//向声明的数组里面添加数据
+                    data.push(result[i].money);//向声明的数组里面添加数据
+                }
+            }
+        }
+    });
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '每月财务报表'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+
+            data: title
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: data
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>
