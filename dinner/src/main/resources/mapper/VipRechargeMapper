@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.RechargeDao.RechargeDao">
+    <select id="RechargeQuery" resultType="map">
+        select  * from
+        (
+        select rownum rn, RE_ID,RE_BEFORE_MONEY,RECHARGE,RE_GIVE,RE_TIME,OPERATOR,RE_VIPCARD from tab_RECHARGE
+
+        <where>
+
+            <if test="QueryCard!=null and QueryCard!=''">
+                and RE_VIPCARD like '%'||#{QueryCard}||'%'
+
+            </if>
+
+            <if test="page!=null and page!=''">
+                and rownum &lt; #{end} )a where a.rn &gt; #{start}
+            </if>
+        </where>
+    </select>
+    <!--分页总数量-->
+    <select id="RechargeGetPageCount" resultType="int">
+        select count(*) from tab_recharge
+    </select>
+
+
+    <!--充值-->
+    <insert id="RechargeAdd">
+        insert  into tab_recharge values (seq_tab_recharge_id.nextval,#{RE_BEFORE_MONEY},#{RECHARGE},#{RE_GIVE},to_date(sysdate,'yyyy-mm-dd-hh-24miss'),#{Empname},0,#{RE_VIPCARD})
+    </insert>
+</mapper>

@@ -194,6 +194,61 @@
 
                     }) //open
                 }  //edit
+                if(obj.event === 'recharge'){
+                    layer.open({
+                        title: '充值'
+                        ,type: 1
+                        ,area: ['500px', '440px']
+                        ,anim: 1//修改弹出层动画
+                        ,content:$("#rechargeDemo").html()
+                        ,success:function(layero,index){
+                            var nodes=layero[0];
+                            $("#RE_VIPNAME").val(data.VIP_NAME);
+                            $("#RE_VIPCARD").val(data.VIP_CARD);
+                            $("#RE_BEFORE_MONEY").val(data.VIP_BALANCE);
+
+
+
+                            $("#sbt1").click(function(){
+                                $.ajax({
+                                    url: "/dinner/RECHARGE/VipRechargeAdd",
+                                    type: "post",
+                                    data:{
+                                        "RE_VIPCARD":$("#RE_VIPCARD").val(),
+                                        "RE_GIVE":$("#RE_GIVE").val(),
+                                        "RE_BEFORE_MONEY":$("#RE_BEFORE_MONEY").val(),
+                                        "RECHARGE":$("#RECHARGE").val()
+
+                                    },
+                                    dataType: "json",
+                                    success: function(data){
+                                        console.log(data);
+                                        //获取当前的页码
+                                        var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                        if(data.issuc>0){
+                                            layer.close(index);
+                                            layer.msg("修改成功", {icon: 6});
+                                            setTimeout(function () {
+                                                //修改页码input框的值为当前页码
+                                                $(".layui-laypage-skip .layui-input").val(pageNum);
+                                                //触发页码确定按钮 实现只刷新当前页面
+                                                $(".layui-laypage-btn").trigger("click");
+                                            }, 700);
+                                        }else{
+                                            layer.msg("修改失败", {icon: 5});
+                                        }
+                                    }   //success
+                                });  //ajax
+                            });  //#sbt
+
+                            //弹出层取消按钮
+                            $("#cancel1").click(function(){
+                                layer.closeAll('page');
+                            })
+                        }  //success(layero)
+
+                    }) //open
+                }//recharge
                 //监听工具条
             });
 
@@ -322,6 +377,7 @@
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon">&#xe642;</i></a>
+        <a class="layui-btn layui-btn-xs" lay-event="recharge">充值<i class="layui-icon">&#xe642;</i></a>
     </script>
 
     <!-- 编辑框弹出模板-->
@@ -390,6 +446,52 @@
         <div align="center">
             <input type="button" value="确认更新" id="sbt" class="layui-btn layui-btn-sm" />
             <input type="button" value="取消" id="cancel" class="layui-btn layui-btn-sm layui-btn-normal" />
+        </div>
+    </script>
+
+    //充值
+    <script type="text/html" id="rechargeDemo">
+        <form id="RechargeUpdateForm">
+            <div class="layui-form-item" align="center">
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员卡号</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_ID" class="layui-input" id="RE_VIPCARD"  readonly>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">会员姓名</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_NAME" class="layui-input" id="RE_VIPNAME" readonly >
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">余额（元）</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_PHONE" class="layui-input" id="RE_BEFORE_MONEY">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">赠送金额</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_PHONE" class="layui-input" id="RE_GIVE">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">充值金额</label>
+                    <div class="layui-input-inline">
+                        <input name="VIP_PHONE" class="layui-input" id="RECHARGE">
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+        <div align="center">
+            <input type="button" value="确认充值" id="sbt1" class="layui-btn layui-btn-sm" />
+            <input type="button" value="取消" id="cancel1" class="layui-btn layui-btn-sm layui-btn-normal" />
         </div>
     </script>
   </body>

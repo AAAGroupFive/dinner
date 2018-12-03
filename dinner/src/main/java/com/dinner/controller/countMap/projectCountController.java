@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.dinner.service.projectCountService.ProjectCountService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * className:projectCountController
  * discription:
@@ -19,9 +22,9 @@ public class projectCountController {
     @Autowired
     private ProjectCountService projectService;
 
-    @ResponseBody
+
     @RequestMapping("/toCount")
-    public Object toCount(){
+    public String toCount(){
         return "after/countMap";
     }
 
@@ -31,9 +34,13 @@ public class projectCountController {
      */
     @ResponseBody
     @RequestMapping("/testCount")
-    public Object testCount(){
-        System.out.println(projectService.getMoneyCount());
+    public List<Map> testCount(){
+        System.out.println("11111111111");
+
+        List<Map> moneyCount = projectService.getMoneyCount();
+        System.out.println(moneyCount);
         return projectService.getMoneyCount();
+
     }
 
     @RequestMapping("/expTestCount")

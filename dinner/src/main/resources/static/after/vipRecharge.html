@@ -2,8 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet"  href="/dinner/css/font.css">
+    <link rel="stylesheet"  href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
 <div class="x-nav">
 
@@ -50,6 +66,52 @@
 
 
 </div>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#rechargelist'
+            ,title: '充值记录表'
+            ,height:790
+            ,width:2000
+            ,url: '/dinner/VIP/VipQuery'
+            ,toolbar: '#toolbarDemo'
+            ,page: true
+            ,even: true
+            ,size: 'lg'
+            ,cols:[ [
+                {checkbox: true, fixed: true}
+                , {field: 'RE_ID', title: '序号', width: 100, sort: true, unresize: true, fixed: 'left'}
+                , {field: 'RE_BEFORE_MONEY', title: '充值前的金额', width: 105}
+                , {field: 'RECHARGE', title: '充值金额', width: 120, sort: true}
+                , {field: 'RE_GIVE', title: '赠送金额', width: 150}
+                , {field: 'RE_TIME', title: '充值时间', width: 150}
+                , {field: 'OPERATOR', title: '操作人', width: 120, sort: true}
+                , {field: 'RE_VIPCARD',title:'会员卡号', width: 200 }
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+            ]]
+            ,id: 'testReload'
+            /*,done: function(res, page, count){
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                //分类显示中文名称
+
+                $("[data-field='VIP_STATE']").children().each(function(){
+                    if($(this).text()=='0'){
+                        $(this).text("启用")
+
+                    }else if($(this).text()=='1'){
+                        $(this).text("禁用")
+                    }
+                })
+
+            }*/
+
+        });
+    });
+</script>
 
 </body>
 </html>

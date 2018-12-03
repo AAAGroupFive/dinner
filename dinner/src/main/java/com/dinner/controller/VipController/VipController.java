@@ -44,10 +44,11 @@ public class VipController {
      * 去会员查询页面
      * @return
      */
-    @RequestMapping("/toVip")
-    public String toVip(){
+    @RequestMapping("/toVipQuery")
+    public String toVipQuery(){
         return "after/vipQuery";
     }
+
 
     /**
      * 查询会员列表
