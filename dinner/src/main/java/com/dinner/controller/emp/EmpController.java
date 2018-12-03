@@ -24,6 +24,11 @@ public class EmpController {
 
     @Autowired
     private EmpService empService;
+    @RequestMapping("/index")
+    public String ToIndex(){
+        return "after/userlist";
+    }
+
 
     @RequestMapping("/list")
     @ResponseBody
@@ -43,15 +48,14 @@ public class EmpController {
     @ResponseBody
     public Object empAdd(@RequestParam Map map){
         //System.out.println("QAQ`");
-        //System.out.println(map);
+        System.out.println(map);
         int i = empService.addEmp(map);
         Map tempMap = new HashMap();
         if (i==1){
-            tempMap.put("issuc",true);
+            return "/dinner/emp/toList";
         }else{
-            tempMap.put("issuc",false);
+            return "/dinner/emp/toAdd";
         }
-        return tempMap;
     }
 
     @RequestMapping("/del")
