@@ -1,4 +1,4 @@
-package com.dinner.controller.VipController;
+package com.dinner.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,6 @@ import java.util.Map;
  * createTime:2018-11-22 10:56
  */
 @Controller
-@RequestMapping("/aaa")
 public class TestServlet {
 
 
