@@ -28,8 +28,22 @@ public interface OrderService {
 
     /**
      * 改变桌子状态
-     * @param tabNo
+     * @param map
      * @return
      */
-    int update(int tabNo);
+    int update(Map map);
+
+    /**
+     * 插入用户点的菜
+     * @param map
+     * @return
+     */
+    int insertChoose(List<Map> map);
+
+    /**
+     * 结账
+     * @param map
+     * @return
+     */
+    List<Map> count(Map map);
 }

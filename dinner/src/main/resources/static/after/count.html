@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>结账</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+</head>
+<body>
+
+<div id="tableView">
+    桌号：<label th:text="${number}" id="number"></label>
+    <el-row>
+        <el-table
+                :data="tableData"
+                v-loading.body="loading"
+                border
+                @selection-change="selectionChange"
+                style="width: 100%">
+            <el-table-column
+                    prop="FOOD_NAME"
+                    label="菜名"
+                    width="300">
+            </el-table-column>
+            <el-table-column
+                    prop="FOOD_PRICE"
+                    label="单价"
+                    width="200">
+            </el-table-column>
+        </el-table>
+    </el-row>
+</div>
+
+<script>
+    var tableView = new Vue({
+        el: '#tableView',
+        data: {
+            //列表数据
+            tableData: [],
+            //显示加载中样式
+            loading:false,
+        },
+        created:function(){
+            //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
+            var self = this;
+            axios.post('/dinner/order/goodsList').then(function(response){
+                self.total=response.data.total;
+                self.tableData = response.data.data;
+            })
+        }
+    })
+</script>
+</body>
+</html>
