@@ -5,5 +5,8 @@
 # IntelliJ project files
 .idea
 *.iml
+target
 out
 gen
+dinner/target/
+shiro-web/target/
