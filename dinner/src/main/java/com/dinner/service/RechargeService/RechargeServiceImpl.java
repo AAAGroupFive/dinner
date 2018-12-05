@@ -24,7 +24,9 @@ public class RechargeServiceImpl implements RechargeSerive {
         int pageSize =  map.get("limit") == null ? 10 : Integer.valueOf(map.get("limit") + "");
         map.put("start",(pageNo-1)*pageSize);
         map.put("end",pageNo*pageSize+1);
-        return rechargeDao.RechargeQuery(map);
+        List<Map> maps = rechargeDao.RechargeQuery(map);
+
+        return maps ;
     }
 
     @Override
@@ -35,6 +37,23 @@ public class RechargeServiceImpl implements RechargeSerive {
     @Override
     public int RechargeAdd(Map map) {
         System.out.println(map);
+
+
+
+        int recharge= Integer.parseInt(map.get("RECHARGE").toString());
+        int re_before_money= Integer.parseInt(map.get("RE_BEFORE_MONEY").toString());
+        int re_give;
+        if(map.get("re_give")!=null){
+          re_give= Integer.parseInt(map.get("re_give").toString());
+        }else {
+            re_give=0;
+        }
+
+        int balance=recharge+re_before_money+re_give;
+        System.out.println(balance);
+        map.put("balance",balance);
+        int i = rechargeDao.RechargeUpdata(map);
+        System.out.println(i);
         return rechargeDao.RechargeAdd(map);
     }
 

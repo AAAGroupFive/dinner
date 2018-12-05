@@ -2,7 +2,7 @@ package com.dinner.controller.VipController;
 
 
 import com.dinner.service.VipService.VipService;
-import com.dinner.util.PageUntil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +36,7 @@ public class VipController {
         HttpSession session = request.getSession();
             session.setAttribute("name","admin");
         Object name = session.getAttribute("name");
-       temp.put("Empname",name);
+       temp.put("Empname",name.toString());
         return temp;
     }
     /**

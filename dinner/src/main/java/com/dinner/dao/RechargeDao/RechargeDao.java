@@ -29,4 +29,10 @@ public interface RechargeDao {
      * @return
      */
     int RechargeAdd(Map map);
+    /**
+     * 充值改变会员表单的金额
+     * @return
+     */
+    int RechargeUpdata(Map map);
+
 }

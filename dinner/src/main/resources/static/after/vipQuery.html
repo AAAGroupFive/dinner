@@ -21,7 +21,7 @@
     <![endif]-->
   </head>
   
-  <body>
+  <body class="layui-anim layui-anim-up">
     <div class="x-nav">
       
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
@@ -31,10 +31,11 @@
       <div class="layui-row">
           <form class="layui-form layui-col-md12 x-so">
 
-
+              充值时间:<input class="layui-input" placeholder="开始日" name="start" id="start">
               <div class="layui-input-inline">
 
                  会 员 名: <input class="layui-input"  id="QueryName" name="QueryName"/>
+
                  手 机 号: <input class="layui-input" id="QueryPhone" name="QueryPhone"/>
                  会员卡号: <input class="layui-input" id="QueryCard" name="QueryCard"/>
               </div>
@@ -69,17 +70,17 @@
     </div>
     <script>
 
-    	layui.use('table', function(){
-        var table = layui.table;
-        
 
-        table.render({
-          elem: '#start'
-        });
-      });
 
-        layui.use('table', function(){
+        layui.use(['table','laydate']
+            , function(){
             var table = layui.table;
+            var laydate = layui.laydate;
+
+
+            laydate.render({
+                elem: '#start'
+            });
 
             table.render({
                 elem: '#orderlist'
@@ -131,7 +132,7 @@
 
                 }*/
 
-            })
+            });
 
             //监听工具条
             table.on('tool(demo)', function(obj){
@@ -225,7 +226,7 @@
                                         console.log(data);
                                         //获取当前的页码
                                         var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
-                                        if(data.issuc>0){
+                                        if(data>0){
                                             layer.close(index);
                                             layer.msg("修改成功", {icon: 6});
                                             setTimeout(function () {

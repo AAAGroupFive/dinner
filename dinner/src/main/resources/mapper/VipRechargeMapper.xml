@@ -6,8 +6,7 @@
     <select id="RechargeQuery" resultType="map">
         select  * from
         (
-        select rownum rn, RE_ID,RE_BEFORE_MONEY,RECHARGE,RE_GIVE,RE_TIME,OPERATOR,RE_VIPCARD from tab_RECHARGE
-
+        select rownum rn, RE_ID,RE_BEFORE_MONEY,RECHARGE,RE_GIVE,to_char(re_time,'yyyy-mm-dd-hh24-ss') as times,OPERATOR,RE_VIPCARD from tab_RECHARGE
         <where>
 
             <if test="QueryCard!=null and QueryCard!=''">
@@ -28,6 +27,10 @@
 
     <!--充值-->
     <insert id="RechargeAdd">
-        insert  into tab_recharge values (seq_tab_recharge_id.nextval,#{RE_BEFORE_MONEY},#{RECHARGE},#{RE_GIVE},to_date(sysdate,'yyyy-mm-dd-hh-24miss'),#{Empname},0,#{RE_VIPCARD})
+        insert  into tab_recharge values (seq_tab_recharge_id.nextval,#{RE_BEFORE_MONEY},#{RECHARGE},#{RE_GIVE},sysdate,#{Empname},0,#{RE_VIPCARD})
     </insert>
+    <!--会员更新-->
+    <update id="RechargeUpdata">
+        update tab_vip set vip_balance=#{balance} where VIP_Card=#{RE_VIPCARD}
+    </update>
 </mapper>

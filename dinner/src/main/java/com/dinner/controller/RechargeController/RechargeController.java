@@ -67,9 +67,10 @@ public class RechargeController {
         session.setAttribute("name","admin");
         Object name = session.getAttribute("name");
         map.put("Empname",name);
+        int i = rechargeSerive.RechargeAdd(map);
+        System.out.println(i);
 
-
-        return rechargeSerive.RechargeAdd(map);
+        return i;
 
     }
 

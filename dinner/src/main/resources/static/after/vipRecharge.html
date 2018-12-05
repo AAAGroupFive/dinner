@@ -32,20 +32,7 @@
 
 
             <div class="layui-input-inline">
-
-                会 员 名: <input class="layui-input"  id="QueryName" name="QueryName"/>
-                手 机 号: <input class="layui-input" id="QueryPhone" name="QueryPhone"/>
                 会员卡号: <input class="layui-input" id="QueryCard" name="QueryCard"/>
-            </div>
-
-
-            <div class="layui-input-inline">
-
-                <select name="contrller" id="QueryState">
-                    <option value="">会员状态</option>
-                    <option value="0">正常</option>
-                    <option value="1">停用</option>
-                </select>
             </div>
 
             <div class="layui-btn" data-type="reload"  id="searchBtn">
@@ -53,19 +40,16 @@
             </div>
         </form>
     </div>
-    <xblock id="xk1">
-        <div class="layui-btn layui-btn-danger" data-type="delAll" id="delAll">
-            <i class="layui-icon"></i>批量删除</div>
-        <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/vipAdd.html')">
-            <i class="layui-icon"></i>新增会员</button>
 
-    </xblock>
-    <table class="layui-hide" id="orderlist" lay-filter="demo">
+    <table class="layui-hide" id="rechargelist" lay-filter="demo">
 
     </table>
 
 
 </div>
+
+
+</body>
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -75,7 +59,7 @@
             ,title: '充值记录表'
             ,height:790
             ,width:2000
-            ,url: '/dinner/VIP/VipQuery'
+            ,url: '/dinner/RECHARGE/VipRechargeQuery'
             ,toolbar: '#toolbarDemo'
             ,page: true
             ,even: true
@@ -83,35 +67,43 @@
             ,cols:[ [
                 {checkbox: true, fixed: true}
                 , {field: 'RE_ID', title: '序号', width: 100, sort: true, unresize: true, fixed: 'left'}
-                , {field: 'RE_BEFORE_MONEY', title: '充值前的金额', width: 105}
+                , {field: 'RE_BEFORE_MONEY', title: '充值前的金额', width: 120}
                 , {field: 'RECHARGE', title: '充值金额', width: 120, sort: true}
                 , {field: 'RE_GIVE', title: '赠送金额', width: 150}
-                , {field: 'RE_TIME', title: '充值时间', width: 150}
+                , {field: 'TIMES', title: '充值时间', width: 150}
                 , {field: 'OPERATOR', title: '操作人', width: 120, sort: true}
-                , {field: 'RE_VIPCARD',title:'会员卡号', width: 200 }
+                , {field: 'RE_VIPCARD',title:'会员卡号', width: 200,sort: true }
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]]
             ,id: 'testReload'
-            /*,done: function(res, page, count){
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
 
-                //分类显示中文名称
-
-                $("[data-field='VIP_STATE']").children().each(function(){
-                    if($(this).text()=='0'){
-                        $(this).text("启用")
-
-                    }else if($(this).text()=='1'){
-                        $(this).text("禁用")
-                    }
-                })
-
-            }*/
 
         });
+
+
+        var $ = layui.$, active = {
+
+            //搜索
+            reload: function() {
+
+                var QueryCard = $('#QueryCard');
+
+                table.reload('testReload', {
+                    where: {
+                        QueryCard: QueryCard.val()
+
+                    }
+                });
+            }
+
+        };
+        //搜索按钮
+        $("#searchBtn").on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
     });
 </script>
 
-</body>
 </html>
