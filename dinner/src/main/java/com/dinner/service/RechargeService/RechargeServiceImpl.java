@@ -1,0 +1,61 @@
+package com.dinner.service.RechargeService;
+
+import com.dinner.dao.RechargeDao.RechargeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * className:RechargeServiceImpl
+ * discription:
+ * author:panjing
+ * createTime:2018-12-03 14:03
+ */
+@Service
+public class RechargeServiceImpl implements RechargeSerive {
+    @Autowired
+    private RechargeDao rechargeDao;
+
+    @Override
+    public List<Map> RechargeQuery(Map map) {
+        int pageNo = map.get("page") == null ? 1 : Integer.valueOf(map.get("page") + "");
+        int pageSize =  map.get("limit") == null ? 10 : Integer.valueOf(map.get("limit") + "");
+        map.put("start",(pageNo-1)*pageSize);
+        map.put("end",pageNo*pageSize+1);
+        List<Map> maps = rechargeDao.RechargeQuery(map);
+
+        return maps ;
+    }
+
+    @Override
+    public int RechargeGetPageCount() {
+        return rechargeDao.RechargeGetPageCount();
+    }
+
+    @Override
+    public int RechargeAdd(Map map) {
+        System.out.println(map);
+
+
+
+        int recharge= Integer.parseInt(map.get("RECHARGE").toString());
+        int re_before_money= Integer.parseInt(map.get("RE_BEFORE_MONEY").toString());
+        int re_give;
+        if(map.get("re_give")!=null){
+          re_give= Integer.parseInt(map.get("re_give").toString());
+        }else {
+            re_give=0;
+        }
+
+        int balance=recharge+re_before_money+re_give;
+        System.out.println(balance);
+        map.put("balance",balance);
+        int i = rechargeDao.RechargeUpdata(map);
+        System.out.println(i);
+        return rechargeDao.RechargeAdd(map);
+    }
+
+
+}

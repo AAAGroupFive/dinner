@@ -2,7 +2,7 @@ package com.dinner.controller.VipController;
 
 
 import com.dinner.service.VipService.VipService;
-import com.dinner.util.PageUntil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,21 +33,21 @@ public class VipController {
     public Map GetSession(Model model, HttpServletRequest request){
 
         Map temp=new HashMap();
-        String EmpName="感到反感";
         HttpSession session = request.getSession();
-            session.setAttribute("name",EmpName);
+            session.setAttribute("name","admin");
         Object name = session.getAttribute("name");
-       temp.put("Empname",EmpName);
+       temp.put("Empname",name.toString());
         return temp;
     }
     /**
      * 去会员查询页面
      * @return
      */
-    @RequestMapping("/toVip")
-    public String toVip(){
+    @RequestMapping("/toVipQuery")
+    public String toVipQuery(){
         return "after/vipQuery";
     }
+
 
     /**
      * 查询会员列表
