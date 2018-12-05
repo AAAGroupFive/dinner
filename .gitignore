@@ -10,3 +10,4 @@ out
 gen
 dinner/target/
 shiro-web/target/
+/shiro-web/
