@@ -55,18 +55,11 @@
                    autocomplete="off" class="layui-input">
     </div>
     </div>
-          <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
-                  <span class="x-red">*</span>开单时间
-              </label>
-              <div class="layui-input-inline">
-                  <input class="layui-input" placeholder="开单时间" name="start" id="start">
-              </div>
-          </div>
+          <input hidden="hidden" th:value="${number}">
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button  class="layui-btn" lay-filter="add" lay-submit=""  onclick="x_admin_show('增加消费','/dinner/order/food',1500,700)">
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
                  	 增加
               </button>
           </div>
@@ -91,9 +84,9 @@
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);
 		            //关闭当前frame
-		            //parent.layer.close(index);
-
-		        return false;
+		            parent.layer.close(index);
+                    window.parent.location.href=window.parent.location.href;
+		            // return false; //false阻止跳转及刷新
 		      });
       });
     </script>

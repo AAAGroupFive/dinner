@@ -33,8 +33,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>1号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type0 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=1',800,750)">空闲中</cite>
-                                                    <cite th:if="${type0 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=1',800,750)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type0 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=1',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type0 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=1',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -42,8 +42,9 @@
                                             <a href="javascript:void(0)" class="x-admin-backlog-body">
                                                 <h3>2号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type1 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=2',800,750)">空闲中</cite>
-                                                    <cite th:if="${type1 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=2',800,750)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type1 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=2',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type1 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=2',800,750)">使用中</cite>
+
                                                 </p>
                                             </a>
                                         </li>
@@ -51,8 +52,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>3号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type2 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=3',800,750)">空闲中</cite>
-                                                    <cite th:if="${type2 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=3',800,750)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type2 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=3',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type2 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=3',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -60,8 +61,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>4号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type3 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=4',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type3 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=4',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type3 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=4',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type3 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=4',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -69,8 +70,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>5号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type4 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=5',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type4 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=5',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type4 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=5',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type4 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=5',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -78,8 +79,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>6号桌</h3>
                                                 <p>
-                                                    <cite th:if="${type5 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=6',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type5 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=6',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type5 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=6',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type5 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=6',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -104,8 +105,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间1</h3>
                                                 <p>
-                                                    <cite th:if="${type6 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=7',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type6 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=7',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type6 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=7',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type6 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=7',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -113,8 +114,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间2</h3>
                                                 <p>
-                                                    <cite th:if="${type7 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=8',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type7 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=8',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type7 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=8',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type7 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=8',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -122,8 +123,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间3</h3>
                                                 <p>
-                                                    <cite th:if="${type8 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=9',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type8 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=9',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type8 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=9',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type8 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=9',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -131,8 +132,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间4</h3>
                                                 <p>
-                                                    <cite th:if="${type9 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=10',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type9 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=10',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type9 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=10',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type9 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=10',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -140,8 +141,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间5</h3>
                                                 <p>
-                                                    <cite th:if="${type10 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=11',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type10 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=11',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type10 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=11',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type10 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=11',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -149,8 +150,8 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>包间6</h3>
                                                 <p>
-                                                    <cite th:if="${type11 == 0}" onclick="x_admin_show('添加用户','/dinner/order/begin?number=12',1500,700)">空闲中</cite>
-                                                    <cite th:if="${type11 == 1}" onclick="x_admin_show('增加消费','/dinner/order/addGoods?number=12',1500,700)">使用中</cite>
+                                                    <cite style="color: #73716e" th:if="${type11 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=12',800,750)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${type11 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=12',800,750)">使用中</cite>
                                                 </p>
                                             </a>
                                         </li>

@@ -86,21 +86,21 @@
     <script>
 
         layui.use('table', function(){
-				  var table = layui.table;
-				  
-				  //监听单元格编辑
-				  table.on('edit(test3)', function(obj){
-				    var value = obj.value //得到修改后的值
-				    ,data = obj.data //得到所在行所有键值
-				    ,field = obj.field; //得到字段
-				    layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-				  });
-				});
-			
+            var table = layui.table;
+
+            //监听单元格编辑
+            table.on('edit(test3)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+                layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+            });
+        });
+
     		//日期选择
     		layui.use('laydate', function(){
         var laydate = layui.laydate;
-        
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -113,8 +113,8 @@
         });
         //时间选择器
       });
-      
-      
+
+
       layui.use(['form','layer'], function(){
             $ = layui.jquery;
           var form = layui.form
