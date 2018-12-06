@@ -47,7 +47,7 @@
     <el-dialog  title="消费详情" :visible.sync="editFormVisible" :close-on-click-modal="false">
         <el-row>
             <el-table
-                    :data="tableData"
+                    :data="tableDataA"
                     v-loading.body="loading"
                     border
 
@@ -77,6 +77,7 @@
         data: {
             //列表数据
             tableData: [],
+            tableDataA: [],
             //显示加载中样式
             loading:false,
             //编辑界面是否显示
@@ -102,13 +103,13 @@
             //结账详情事件
             editClick:function(row) {
                 var number=$("#number").text();
-                var self = this;
+                var self1 = this;
                 axios.post('/dinner/count/countDetails?number='+number).then(function(response){
-                    self.total=response.data.total;
-                    self.tableData = response.data.data;
+                    self1.total=response.data.total;
+                    self1.tableDataA = response.data.data;
                 })
                 this.editFormVisible = true;
-                /*this.editForm = Object.assign({}, row);*/
+                this.editForm = Object.assign({}, row);
             },
         }
     })
