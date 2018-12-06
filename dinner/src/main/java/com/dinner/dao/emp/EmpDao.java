@@ -1,5 +1,6 @@
 package com.dinner.dao.emp;
 
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ public interface EmpDao {
      * @param map
      * @return
      */
+    //@Select("select EMP_ID as empId,EMP_NAME as EmpName,EMP_USER as userName,EMP_PASS as password,EMP_SEX as sex,EMP_AGE as age,EMP_PHONE as phone,EMP_ADDR as addr,EMP_ROLE as role from tab_emp")
     List<Map> getEmp(Map map);
 
     /**
@@ -32,18 +34,4 @@ public interface EmpDao {
      * @return
      */
     int addEmp(Map map);
-
-    /**
-     * 删除雇员
-     * @param empId
-     * @return
-     */
-    int delEmp(int empId);
-
-    /**
-     *
-     * @param map
-     * @return
-     */
-    int updateEmp(Map map);
 }

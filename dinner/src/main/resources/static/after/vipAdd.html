@@ -112,7 +112,6 @@
                     "VIPbalance":$("#VIPbalance").val(),
 					"VIPaddress":$("#VIPaddress").val(),
 					"sex":$('input:radio:checked').val()
-
 				},//表格数据序列化
 
                 success: function (data) {//res为相应体,function为回调函数
@@ -140,7 +139,9 @@
                 url:"/dinner/VIP/GetSession",
                 type:'post',//method请求方式，get或者post
                 dataType:'json',//预期服务器返回的数据类型
-				success:function(res){//res为相应体,function为回调函数
+                contentType: "application/json; charset=utf-8",
+
+                success:function(res){//res为相应体,function为回调函数
                     $(this).val(""); //清空上次input框里的数据
 
 
@@ -151,9 +152,8 @@
                         array.push(val);
                     });
                     var q1 = JSON.stringify(array.pop());
-                    console.log(res.EmpName)
 
-                    $("#EmpName").val(q1);
+                    $('#EmpName').val(q1);
                 },
                 error:function(){
                     layer.alert('操作失败！！！',{icon:5});

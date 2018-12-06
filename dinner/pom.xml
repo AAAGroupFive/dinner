@@ -90,7 +90,6 @@
             <version>1.1.9</version>
         </dependency>
 
-
         <!-- thymeleaf 依赖包 -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -163,11 +162,7 @@
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>2.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-            <version>3.6</version>
-        </dependency>
+
     </dependencies>
 
 

@@ -32,19 +32,4 @@ public interface EmpService {
      * @return
      */
     int addEmp(Map map);
-
-
-    /**
-     * 删除雇员
-     * @param empId
-     * @return
-     */
-    int delEmp(int empId);
-
-    /**
-     *
-     * @param map
-     * @return
-     */
-    int updateEmp(Map map);
 }

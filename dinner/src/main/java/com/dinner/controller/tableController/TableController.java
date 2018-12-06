@@ -28,18 +28,13 @@ public class TableController {
         return "after/index";
     }
     @RequestMapping("/toMain")
-    public String toMain(Model model,Model model1){
+    public String toMain(Model model){
         List<Map> list = tableService.getList();
-        for (int i = 0; i < list.size(); i++) {
-            model.addAttribute("type"+i,list.get(i).get("TAB_STATE"));
-
+        //System.out.println(list);
+        for (Map map : list) {
+            model.addAttribute("type",map.get("TAB_TYPE"));
+            //System.out.println(model);
         }
-        /*for (int i = 0; i < list.size(); i++) {
-            model1.addAttribute("number"+i,list.get(i).get("TAB_ID"));
-
-        }
-        System.out.println(model1);
-        System.out.println(model);*/
         return "after/welcome";
     }
 }
