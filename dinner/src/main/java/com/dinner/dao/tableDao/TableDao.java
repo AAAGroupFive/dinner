@@ -1,6 +1,5 @@
 package com.dinner.dao.tableDao;
 
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,5 @@ public interface TableDao {
      * @param
      * @return
      */
-    @Select("select tab_type from tab_table")
     List<Map> getList();
 }

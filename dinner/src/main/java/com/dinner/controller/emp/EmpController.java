@@ -28,7 +28,7 @@ public class EmpController {
     @RequestMapping("/list")
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
-        System.out.println(1111);
+        //System.out.println(1111);
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp();
         Map tempMap = new HashMap();
@@ -42,13 +42,42 @@ public class EmpController {
     @RequestMapping("/add")
     @ResponseBody
     public Object empAdd(@RequestParam Map map){
-        //sss
-        System.out.println("QAQ`");
-        System.out.println(map);
+        //System.out.println("QAQ`");
+        //System.out.println(map);
         int i = empService.addEmp(map);
+        Map tempMap = new HashMap();
         if (i==1){
-            System.out.println("添加成功！！！");
+            tempMap.put("issuc",true);
+        }else{
+            tempMap.put("issuc",false);
         }
-        return null;
+        return tempMap;
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public Object empDel(@RequestParam int EMPID){
+        int result = empService.delEmp(EMPID);
+        Map tempMap = new HashMap();
+        if (result==1){
+            tempMap.put("issuc",true);
+        }else {
+            tempMap.put("issuc", false);
+        }
+        return tempMap;
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Object empUpdate(@RequestParam Map map){
+        //System.out.println(map);
+        int result = empService.updateEmp(map);
+        Map tempMap = new HashMap();
+        if (result==1){
+            tempMap.put("issuc",true);
+        }else {
+            tempMap.put("issuc", false);
+        }
+        return tempMap;
     }
 }
