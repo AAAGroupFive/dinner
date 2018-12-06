@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/QAQ.iml" filepath="$PROJECT_DIR$/.idea/QAQ.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dinner/dinner.iml" filepath="$PROJECT_DIR$/dinner/dinner.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiro-web/shiro-web.iml" filepath="$PROJECT_DIR$/shiro-web/shiro-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dinner/springboot.iml" filepath="$PROJECT_DIR$/dinner/springboot.iml" />
     </modules>
   </component>
 </project>
