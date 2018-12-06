@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进货记录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <script type="text/javascript">
+        //一串数字转时间格式
+        function createTime(v){
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            d = d<10?("0"+d):d;
+            var str = y+"-"+m+"-"+d;
+            return str;
+        }
+    </script>
+</head>
+<body>
+<table class="layui-hide" id="orderlist" lay-filter="demo"></table>
+<script>
+    layui.use('table', function() {
+        var table = layui.table;
+
+        table.render({
+            elem: '#orderlist'
+            ,title: '进货详情表'
+            ,height:790
+            ,width:2000
+            ,url: '/dinner/putRecord'
+            ,toolbar: '#toolbarDemo'
+            ,page: true
+            ,even: true
+            ,size: 'lg'
+            ,cols:[ [
+                {field: 'ID', title: '序号', width: 180, sort: true, unresize: true, fixed: 'left'}
+                , {field: 'GOODS_NAME', title: '商品食材', width: 150}
+                , {field: 'PUT_NUMBER', title: '进货数量', width: 180, sort: true}
+                , {field: 'GOODS_UNIT', title: '规格', width: 150}
+                , {field: 'SUBMITTER', title: '提交人', width: 150}
+                , {field: 'OPERATOR', title: '驳回人', width: 150}
+                , {field: 'STATUS', title: '状态', width: 240}
+                , {field: 'PUT_TIME', title: '进货时间', width: 240, sort: true
+                    ,templet :function (row){
+                        return createTime(row.PUT_TIME)
+                    }
+                }
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+            ]]
+            ,request: {
+                pageName: 'pageNo',//页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+        })
+        //监听工具条
+        table.on('tool(demo)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.open({
+                    title: '详情'
+                    , type: 1
+                    , area: ['500px', '440px']
+                    , anim: 1
+                    , content: $("#editDemo").html()
+                    , success: function (layero, index) {
+                        var nodes = layero[0];
+                        $("#REMARK").val(data.REMARK);
+                        $("#REASONS").val(data.REASONS);
+                    }  //success(layero)
+
+                }) //open
+            }
+        })
+    })
+
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn" lay-event="edit">详情<i class="layui-icon">&#xe702;</i></a>
+</script>
+<!-- 编辑框弹出模板-->
+<script type="text/html" id="editDemo">
+    <form id="updateForm">
+        <div class="layui-form-item" align="center">
+            <div class="layui-inline">
+                <label class="layui-form-label">提交时备注</label>
+                <div class="layui-input-inline">
+                    <textarea name="REMARK" id="REMARK" style="width:300px" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            </br>
+            <div class="layui-inline">
+                <label class="layui-form-label">驳回原因</label>
+                <div class="layui-input-inline">
+                    <textarea name="REASONS" id="REASONS" style="width:300px" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+</body>
+</html>

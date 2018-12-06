@@ -9,11 +9,11 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./css/font.css">
-	<link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="/dinner/css/font.css">
+	<link rel="stylesheet" href="/dinner/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
     <style type="text/css">
 		#common_box {
 			width: 300px;
@@ -36,6 +36,25 @@
 			line-height: 180px
 		}
 	</style>
+    <script>
+        var aaa;
+
+            $.ajax({
+                type : "post",
+                url : "getSession",
+                async:false,
+                dataType : "json",
+                success : function(data) {
+                    aaa= data;
+                  /* $(".jj")[0].innerHTML=data+"欢迎您";
+                   console.log(data+"1111");*/
+                },
+                error : function() {
+                    alert("請求失敗");
+                }
+            });
+            localStorage.setItem("aaa",JSON.stringify(aaa))
+    </script>
 
 </head>
 <body>
@@ -57,7 +76,7 @@
         </ul>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
@@ -126,27 +145,33 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="cate.html">
+                        <a _href="/dinner/toDetails">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>商品查询</cite>
+                            <cite>所有商品食材</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="cate.html">
+                        <a _href="/dinner/toInventory">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>商品出库</cite>
+                            <cite>盘点</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="cate.html">
+                        <a _href="/dinner/toInventory-list">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>商品进货</cite>
+                            <cite>盘点记录</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="cate.html">
+                        <a _href="/dinner/toPut-goods">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>商品入库</cite>
+                            <cite>进货</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/toPut-record">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>进货留痕</cite>
                         </a>
                     </li >
                 </ul>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进货</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="orderlist" lay-filter="demo"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#orderlist'
+            ,title: '进货详情表'
+            ,height:790
+            ,width:2000
+            ,url: '/dinner/putGoodsList'
+            ,toolbar: '#toolbarDemo'
+            ,page: true
+            ,even: true
+            ,size: 'lg'
+            ,cols:[ [
+                {field: 'PUT_ID', title: '序号', width:180, sort: true, unresize: true ,fixed: 'left'}
+                ,{field:'GOODS_NUMBER', title: '编号',width:150}
+                ,{field:'GOODS_NAME', title: '商品食材',width:150}
+                ,{field: 'GOODS_STOCK', title: '剩余数量', width: 240, sort: true}
+                ,{field: 'PUT_NUMBER', title: '进货数量', width: 180, sort: true}
+                ,{field: 'GOODS_UNIT', title: '规格', width:200}
+                ,{field: 'OPERRATION_NAME', title: '操作人', width: 240}
+                ,{field: 'REMARK', title: '备注', width: 240}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:400}
+            ]]
+            ,request: {
+                pageName: 'pageNo',//页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+        })
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'sbt'){
+                layer.confirm('确定要提交吗', function(index){
+                    $.ajax({
+                        url: "addPutRecord",
+                        type: "post",
+                        data:{"PUT_ID":data.PUT_ID,"GOODS_NUMBER":data.GOODS_NUMBER,"GOODS_STOCK":data.GOODS_STOCK+data.PUT_NUMBER,"GOODS_NAME":data.GOODS_NAME,"PUT_NUMBER":data.PUT_NUMBER,"GOODS_UNIT":data.GOODS_UNIT,"SUBMITTER":data.OPERRATION_NAME,"REMARK":data.REMARK},
+                        dataType: "json",
+                        success: function(data){
+                            if(data.issuc==true){
+                                obj.del();
+                                layer.close(index);
+                                layer.msg("成功", {icon: 6});
+                            }else{
+                                layer.msg("失败", {icon: 5});
+                            }
+                        }
+                    });//ajax
+                });
+            } else if(obj.event === 'return'){
+                layer.open({
+                    title: '驳回'
+                    ,type: 1
+                    ,area: ['400px', '300px']
+                    ,anim: 1
+                    ,content:$("#editDemo").html()
+                    ,success:function(layero,index){
+                        var nodes=layero[0];
+                        $("#sbt").click(function(){
+                            $.ajax({
+                                url: "addPutRecord2",
+                                type: "post",
+                                data:{"PUT_ID":data.PUT_ID,"GOODS_STOCK":data.GOODS_STOCK,"GOODS_NAME":data.GOODS_NAME,"PUT_NUMBER":data.PUT_NUMBER,"GOODS_UNIT":data.GOODS_UNIT,"SUBMITTER":data.OPERRATION_NAME,"REMARK":data.REMARK,"REASONS":$("#REASONS").val()},
+                                dataType: "json",
+                                success: function(data){
+                                    //获取当前的页码
+                                    var pageNum = $(".layui-laypage-curr .layui-laypage-em").next().html();
+                                    if(data.issuc==true){
+                                        layer.close(index);
+                                        layer.msg("成功", {icon: 6});
+                                        setTimeout(function () {
+                                            //修改页码input框的值为当前页码
+                                            $(".layui-laypage-skip .layui-input").val(pageNum);
+                                            //触发页码确定按钮 实现只刷新当前页面
+                                            $(".layui-laypage-btn").trigger("click");
+                                        }, 700);
+                                    }else{
+                                        layer.msg("失败", {icon: 5});
+                                    }
+                                }   //success
+                            });  //ajax
+                        });  //#sbt
+
+                        //弹出层取消按钮
+                        $("#cancel").click(function(){
+                            layer.closeAll('page');
+                        })
+                    }  //success(layero)
+
+                }) //open
+            }
+        });
+    })
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn " lay-event="sbt">确定</a>
+    <a class="layui-btn  layui-btn-danger" lay-event="return">驳回<i class="layui-icon"></i></a>
+</script>
+<!-- 编辑框弹出模板-->
+<script type="text/html" id="editDemo">
+    <form id="updateForm">
+        <div class="layui-form-item" align="center">
+            <div class="layui-inline">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <textarea name="REASONS" id="REASONS" style="width:300px" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div align="center">
+        <input type="button" value="确认提交" id="sbt" class="layui-btn layui-btn-sm" />
+        <input type="button" value="取消" id="cancel" class="layui-btn layui-btn-sm layui-btn-normal" />
+    </div>
+</script>
+</body>
+</html>

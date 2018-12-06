@@ -460,9 +460,9 @@ xblock{
 }
 .x-admin-backlog-body p cite {
     font-style:normal;
-    font-size:20px;
+    font-size:30px;
     font-weight:300;
-    color:#b39e8f
+    color:#009688
 }
 .x-admin-backlog-body:hover {
     background-color:#CFCFCF;
