@@ -17,11 +17,32 @@ public interface OrderDao {
      */
     List<Map> goodList();
 
+
     /**
      * 插入订单
      * @param map
      * @return
      */
-    int order(Map map,Map map1);
+    int order(Map map);
 
+    /**
+     * 改变桌子状态
+     * @param map
+     * @return
+     */
+    int update(Map map);
+
+    /**
+     * 插入用户点的菜
+     * @param map
+     * @return
+     */
+    int insertChoose(List<Map> map);
+
+    /**
+     * 结账
+     * @param map
+     * @return
+     */
+    List<Map> count(Map map);
 }

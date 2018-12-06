@@ -8,6 +8,10 @@
 target
 out
 gen
+<<<<<<< HEAD
 dinner/target/
 
 
+=======
+target
+>>>>>>> master

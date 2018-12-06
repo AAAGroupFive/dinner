@@ -20,8 +20,30 @@ public interface OrderService {
 
     /**
      * 插入订单
+     * @param list
+     * @return
+     */
+    int order(Map map/*,List list*/);
+
+
+    /**
+     * 改变桌子状态
      * @param map
      * @return
      */
-    int order(Map map,Map map1);
+    int update(Map map);
+
+    /**
+     * 插入用户点的菜
+     * @param map
+     * @return
+     */
+    int insertChoose(List<Map> map);
+
+    /**
+     * 结账
+     * @param map
+     * @return
+     */
+    List<Map> count(Map map);
 }
