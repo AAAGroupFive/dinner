@@ -25,6 +25,21 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
+    @RequestMapping("/toList")
+    public String ToIndex(){
+        return "after/userlist";
+    }
+
+    @RequestMapping("/toAdd")
+    public String toAdd(){
+        return "after/userAdd1";
+    }
+
+    @RequestMapping("/toTest")
+    public String toTest(){
+        return "after/test";
+    }
+
     @RequestMapping("/list")
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
@@ -39,19 +54,27 @@ public class EmpController {
         return tempMap;
     }
 
-    @RequestMapping("/add")
+
+
+    @RequestMapping("/func")
     @ResponseBody
+    public Object getFunc(@RequestParam Map map){//g
+        //System.out.println(1111);
+        List<Map> emp = empService.getFunc();
+        return emp;
+    }
+
+    @RequestMapping("/add")
     public Object empAdd(@RequestParam Map map){
         //System.out.println("QAQ`");
-        //System.out.println(map);
+        System.out.println(map);
         int i = empService.addEmp(map);
         Map tempMap = new HashMap();
         if (i==1){
-            tempMap.put("issuc",true);
+            return "after/userlist";
         }else{
-            tempMap.put("issuc",false);
+            return "after/userlist";
         }
-        return tempMap;
     }
 
     @RequestMapping("/del")

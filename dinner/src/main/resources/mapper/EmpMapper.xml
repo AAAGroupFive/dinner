@@ -27,4 +27,7 @@
     <update id="updateEmp" parameterType="map">
         update tab_emp set emp_user=#{USERNAME},emp_pass=#{PASSWORD},emp_addr=#{ADDR},emp_role=#{ROLE},emp_phone=#{PHONE} where emp_id=#{EMPID}
     </update>
+    <select id="getFunc" resultType="map">
+        select * from tab_function
+    </select>
 </mapper>
