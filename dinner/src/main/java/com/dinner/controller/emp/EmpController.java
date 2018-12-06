@@ -35,6 +35,11 @@ public class EmpController {
         return "after/userAdd1";
     }
 
+    @RequestMapping("/toTest")
+    public String toTest(){
+        return "after/test";
+    }
+
     @RequestMapping("/list")
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
@@ -47,6 +52,16 @@ public class EmpController {
         tempMap.put("count",countEmp);
         tempMap.put("data",emp);
         return tempMap;
+    }
+
+
+
+    @RequestMapping("/func")
+    @ResponseBody
+    public Object getFunc(@RequestParam Map map){//g
+        //System.out.println(1111);
+        List<Map> emp = empService.getFunc();
+        return emp;
     }
 
     @RequestMapping("/add")
