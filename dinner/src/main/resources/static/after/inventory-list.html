@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盘点记录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <script type="text/javascript">
+        //一串数字转时间格式
+        function createTime(v){
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            d = d<10?("0"+d):d;
+            var str = y+"/"+m+"/"+d;
+            return str;
+        }
+    </script>
+    <style>
+        th{padding:20px;text-align:center}
+        td{text-align: center}
+    </style>
+</head>
+<body>
+<div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
+    盘点人：
+    <div class="layui-inline">
+        <input class="layui-input" name="CHECK_NAME" id="demoReload" autocomplete="off">
+    </div>
+    <div class="layui-btn" data-type="reload" id="searchBtn"><i class="layui-icon">&#xe615;</i>搜索</div>
+    <div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>
+</div>
+<table class="layui-hide" id="orderlist" lay-filter="demo"></table>
+<script>
+    layui.use('table', function() {
+            var table = layui.table;
+
+        table.render({
+            elem: '#orderlist'
+            ,title: '盘点记录表'
+            ,height:790
+            ,width:2000
+            ,url: '/dinner/inventoryList'
+            ,toolbar: '#toolbarDemo'
+            ,page: true
+            ,even: true
+            ,size: 'lg'
+            ,cols:[ [
+                {field: 'CHECK_NAME', title: '盘点人', width:180}
+                ,{field:'CHECK_TIME', title: '盘点时间',width:150, sort: true
+                    ,templet :function (row){
+                        return createTime(row.CHECK_TIME)
+                    }
+                }
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:400}
+            ]]
+            ,id: 'testReload'
+        })
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                layer.open({
+                    title: '盘点详情'
+                    ,type: 1
+                    ,area: ['740px','500px']
+                    ,anim: 1
+                    ,content:$("#editDemo").html()
+                    ,success:function(layero,index){
+                        var flag=true;
+                        $.ajax({
+                            url:"inventoryDetails",
+                            data:{"CHECK_TIME":data.CHECK_TIME},
+                            type:"post",
+                            dataType:"JSON",
+                            success:function(data){
+                                var j;
+                                for(var i=0;i<data.length;i++){
+                                    j=i;
+                                    var aaa=data[i];
+                                    var bbb=function (){
+                                        return createTime(data[i].CHECK_TIME)
+                                    };
+                                    console.log(aaa);
+                                    var html="";
+                                        html+='<tr class="addTr">';
+                                        html+='<td>'+aaa.GOODS_NUMBER+'</td>';
+                                        html+='<td>'+aaa.GOODS_NAME+'</td>';
+                                        html+='<td>'+aaa.GOODS_STOCK+'</td>';
+                                        html+='<td>'+aaa.GOODS_REMNAT_STOCK+'</td>';
+                                        html+='<td>'+aaa.GOODS_UNIT+'</td>';
+                                        html+='<td>'+aaa.CHECK_NAME+'</td>';
+                                        html+='<td>'+bbb()+'</td>';
+                                        html+='</tr>';
+
+                                    $("#appendInfo").append(html);
+
+                                }
+                            }
+                        }) //ajax请求添加物品结束
+                    }  //success(layero)
+
+                }) //open
+            }
+        });
+        //搜索功能
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+                table.reload('testReload', {
+                    where: {
+                        CHECK_NAME: demoReload.val(),
+                    }
+                });
+            }
+        };
+        //搜索按钮
+        $("#searchBtn").on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //取消搜索按钮
+        $("#redo").click(function(){
+            $("#demoReload").val("");
+            $("#searchBtn").trigger("click");
+        })
+
+    })
+ </script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn" lay-event="edit">详情<i class="layui-icon">&#xe702;</i></a>
+</script>
+<script type="text/html" id="editDemo">
+    <div class="col-md-12 column">
+        <table class="table table-hover" id="checkChange">
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>商品食材</th>
+                <th>原有数量</th>
+                <th>剩余数量</th>
+                <th>规格</th>
+                <th>盘点人</th>
+                <th>盘点日期</th>
+            </tr>
+            </thead>
+            <tbody id="appendInfo"></tbody>
+        </table>
+    </div>
+</script>
+
+</body>
+</html>
