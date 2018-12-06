@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://unpkg.com/element-ui">
     <link rel="stylesheet"  href="/dinner/css/font.css">
     <link rel="stylesheet"  href="/dinner/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -27,7 +28,7 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" action="" method="post" id="addChangeForm">
 
             <div>
             当班时间:<input class="layui-input" placeholder="开始时间" name="start" id="start">
@@ -41,6 +42,12 @@
 
         </form>
     </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button lay-submit="" lay-filter="addChange" class="layui-btn layui-btn-normal tijiao">提交</button>
+        </div>
+    </div>
+
 
     <table class="layui-table">
 
@@ -51,9 +58,9 @@
 
 </body>
 <script>
-    layui.use('laydate', function(){
+    layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
-
+        var form=layui.form;
         //执行一个laydate实例
         laydate.render({
             elem: '#start' //指定元素
@@ -63,6 +70,32 @@
         laydate.render({
             elem: '#end' //指定元素
         });
+
+        form.on('submit(addChange)', function(data){
+            console.log(data)
+
+            $.ajax({
+                url:'/dinner/changeDuty/addChangeDuty',
+                method:'post',
+                dataType:'JSON',
+
+                data:data.field,
+
+                success:function(res){
+                    if(res){
+                        parent.closeIframe(res.issuc);
+                    }
+                    else
+                        alert(res.msg);
+                },
+                error:function (data) {
+                    layer.msg("交班失败", {icon: 5});
+                }
+            }) ;
+            return false;
+
+        });
+
     });
 
 </script>
