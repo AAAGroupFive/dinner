@@ -49,7 +49,6 @@ public class BeginTableController {
     @ResponseBody
     @RequestMapping("/goodsList")
     public Map goodsList() {
-        System.out.println(11111111);
         Map tempMap = new HashMap();
         tempMap.put("code", 0);
         tempMap.put("msg", "");

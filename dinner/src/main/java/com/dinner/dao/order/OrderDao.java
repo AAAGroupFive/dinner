@@ -44,5 +44,12 @@ public interface OrderDao {
      * @param map
      * @return
      */
-    List<Map> count(Map map);
+    List<Map> countHistory(Map map);
+
+    /**
+     * 结账详情
+     * @param map
+     * @return
+     */
+    List<Map> countDetails(Map map);
 }

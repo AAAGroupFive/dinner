@@ -40,7 +40,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Map> count(Map map) {
-        return orderDao.count(map);
+    public List<Map> countHistory(Map map) {
+        return orderDao.countHistory(map);
+    }
+
+    @Override
+    public List<Map> countDetails(Map map) {
+        return orderDao.countDetails(map);
     }
 }
