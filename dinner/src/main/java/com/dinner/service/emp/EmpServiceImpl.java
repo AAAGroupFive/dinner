@@ -49,4 +49,9 @@ public class EmpServiceImpl implements EmpService {
     public int updateEmp(Map map) {
         return empDao.updateEmp(map);
     }
+
+    @Override
+    public List<Map> getFunc() {
+        return empDao.getFunc();
+    }
 }

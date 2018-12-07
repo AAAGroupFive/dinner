@@ -44,5 +44,26 @@ public interface OrderDao {
      * @param map
      * @return
      */
-    List<Map> count(Map map);
+    List<Map> countHistory(Map map);
+
+    /**
+     * 结账详情
+     * @param map
+     * @return
+     */
+    List<Map> countDetails(Map map);
+
+    /**
+     * 关闭桌子
+     * @param map
+     * @return
+     */
+    int close(Map map);
+
+    /**
+     * 收钱记入账单
+     * @param map
+     * @return
+     */
+    int put(Map map);
 }

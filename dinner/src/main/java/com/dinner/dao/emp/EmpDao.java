@@ -46,4 +46,10 @@ public interface EmpDao {
      * @return
      */
     int updateEmp(Map map);
+
+    /**
+     * 权限列表
+     * @return
+     */
+    List<Map> getFunc();
 }

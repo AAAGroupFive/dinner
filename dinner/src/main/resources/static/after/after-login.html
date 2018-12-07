@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登陆界面</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="/dinner/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dinner/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/dinner/assets/css/form-elements.css">
+    <link rel="stylesheet" href="/dinner/assets/css/style.css">
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Javascript -->
+    <script src="/dinner/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="/dinner/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/dinner/assets/js/jquery.backstretch.min.js"></script>
+    <script src="/dinner/assets/js/scripts.js"></script>
+
+
+    <!--[if lt IE 10]>
+    <script src="/dinner/assets/js/placeholder.js"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/dinner/assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/dinner/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/dinner/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/dinner/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/dinner/assets/ico/apple-touch-icon-57-precomposed.png">
+
+
+
+</head>
+
+<body>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>AAA点餐后台登陆界面</strong></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Login to our site</h3>
+                            <p>Enter your username and password to log on:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form action="/dinner/adminLogin" method="post" id="Form">
+                            <div class="form-group">
+                                <input type="text" name="userName" placeholder="Username..." class="form-username form-control aa" req="req">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="passWord" placeholder="Password..." class="form-password form-control aa" req="req">
+                            </div>
+                            <button type="button" class="btn" id="submit">Sign in!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+<script>
+    var quanju=true;
+    var obj=$(".aa");
+    obj.blur(function(){
+        var jQ=$(this);
+        var value=jQ.val();
+        var number=jQ.attr("number");
+        var req=jQ.attr("req");
+        var state=true;
+        if (req=="req"){
+            if (value==null||value.trim()==""){
+                state=false
+            }
+        }
+        if (number=="number"){
+            var reg=/^\w+([\-_\.]?\w*)*@\w+(\.\w+){1,3}$/i;
+            if (!reg.test(value)){
+                state=false
+            }
+        }
+        if(state==false){
+            jQ.attr("style","background:red")
+            quanju=false;
+        }else{
+            jQ.attr("style","background:white")
+        }
+    });
+
+    $("#submit").click(function(){
+        quanju=true;
+        obj.each(function(){
+            $(this).trigger("blur")
+        });
+        if(quanju==true){
+            $("#submit").attr("type","submit");
+            /*$("#Form").submit();*/
+        }
+    });
+
+
+</script>
+
+</html>

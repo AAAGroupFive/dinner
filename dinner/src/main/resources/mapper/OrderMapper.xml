@@ -8,11 +8,6 @@
         select * from tab_food
     </select>
 
-    <!--查询所有菜品-->
-    <select id="goodListC" resultType="map">
-        select * from tab_food
-    </select>
-
     <!--新增消费记录-->
     <insert id="order" parameterType="map">
     <!--获取新增的主键ID-->
@@ -30,7 +25,7 @@
 
     <!--增加消费-->
     <insert id="insertChoose">
-        insert into TAB_CON_RECORD(CON_ID,CON_GOODS)
+        insert into TAB_CON_RECORD(CON_ROOM,CON_GOODS)
         <foreach collection="list"  index="index" item="item" separator="union all">
             SELECT
             #{item.num},#{item.id}
@@ -39,7 +34,24 @@
     </insert>
 
     <!--结账-->
-    <select id="">
-
+    <select id="countHistory" parameterType="map" resultType="map">
+        select * from TAB_CONSUME
+        where CON_ROOM=#{number} and CON_STATE=0
     </select>
+
+    <!--结账详情-->
+    <select id="countDetails" parameterType="map" resultType="map">
+        select * from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
+        where b.CON_ROOM=#{number} and a.CON_STATE=0
+    </select>
+
+    <!--关闭桌子-->
+    <update id="close">
+        update TAB_TABLE set TAB_STATE=0 where TAB_ID=#{number}
+    </update>
+
+    <!--收钱记入账单-->
+    <update id="put">
+        update TAB_CONSUME set CON_STATE=1,CON_MONEY=#{sum} where CON_ROOM=#{number}
+    </update>
 </mapper>

@@ -8,18 +8,18 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-      <link rel="stylesheet" href="./css/font.css">
-      <link rel="stylesheet" href="./css/xadmin.css">
+      <link rel="stylesheet" href="/dinner/css/font.css">
+      <link rel="stylesheet" href="/dinner/css/xadmin.css">
       <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-      <script src="./lib/layui/layui.js" charset="utf-8"></script>
-      <script type="text/javascript" src="./js/xadmin.js"></script>
+      <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+      <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
   </head>
   
   <body>
   		<div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
   		商品名称：
           <div class="layui-inline">
-            <input class="layui-input" name="order_number" id="demoReload" autocomplete="off">
+            <input class="layui-input" name="GOODS_NAME" id="demoReload" autocomplete="off">
           </div>
           <div class="layui-btn" data-type="reload" id="searchBtn"><i class="layui-icon">&#xe615;</i>搜索</div>
           <div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>
@@ -42,14 +42,39 @@
 		    ,cols:[ [
 			 	       {field: 'GOODS_ID', title: '商品id', width:180, sort: true, unresize: true ,fixed: 'left'}
 			 	       ,{field:'GOODS_NUMBER', title: '商品编号',width:150}
-				       ,{field: 'GOODS_NAME', title: '食材名称', width: 240, sort: true}
-                       ,{field: 'GOODS_PRICE', title: '单价', width: 180}
-				       ,{field: 'GOODS_STOCK', title: '食材数量', width:200}
+				       ,{field: 'GOODS_NAME', title: '食材名称', width: 240}
+                       ,{field: 'GOODS_PRICE', title: '单价', width: 180, sort: true}
+				       ,{field: 'GOODS_STOCK', title: '食材数量', width:200, sort: true}
 				       ,{field: 'GOODS_UNIT', title: '规格', width: 240}
-                       ,{field: '', title:'操作', toolbar: '#barDemo', width:400}
 		            ]]
-		           ,id: 'testReload'
-		   		 })
+                      ,id: 'testReload'
+                      ,request: {
+                          pageName: 'pageNo',//页码的参数名称，默认：page
+                          limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                      }
+		   		 });
+              //搜索功能
+              var $ = layui.$, active = {
+                  reload: function(){
+                      var demoReload = $('#demoReload');
+                      table.reload('testReload', {
+                          where: {
+                              GOODS_NAME: demoReload.val(),
+                          }
+                      });
+                  }
+              };
+              //搜索按钮
+              $("#searchBtn").on('click', function(){
+                  var type = $(this).data('type');
+                  active[type] ? active[type].call(this) : '';
+              });
+
+              //取消搜索按钮
+              $("#redo").click(function(){
+                  $("#demoReload").val("");
+                  $("#searchBtn").trigger("click");
+              })
 		  })
 		</script>
   </body>
