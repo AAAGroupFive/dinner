@@ -1,102 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="https://unpkg.com/element-ui">
-    <link rel="stylesheet"  href="/dinner/css/font.css">
-    <link rel="stylesheet"  href="/dinner/css/xadmin.css">
+    <title>结账</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
-
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="//cdn.bootcss.com/vue/2.2.3/vue.min.js"></script>
-    <script src="//cdn.bootcss.com/axios/0.15.3/axios.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 </head>
+<body>
 
-<body class="layui-anim layui-anim-up">
-<div class="x-nav">
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-</div>
-<div class="x-body">
-    <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="" method="post" id="addChangeForm">
+<div id="tableView">
+    <el-form :model="Form" label-width="80px"  ref="Form">
 
-            <div>
-            当班时间:<input class="layui-input" placeholder="开始时间" name="start" id="start">
-               至      <input class="layui-input" placeholder="截止时间" name="end" id="end">
-            </div>
-            <div>
-                交班员工:<input class="layui-input" type="text" id="jemp">
-                上班留存:<input  class="layui-input" type="text" id="ykeep">
-            </div>
+        <el-form-item label="当班时间">
 
+            <el-date-picker
+                    v-model="Form.CREATE_DATE"
+                    type="datetimerange"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :default-time="['12:00:00']">
+            </el-date-picker>
+        </el-form-item >
+        <el-form-item label="交班员工">
 
-        </form>
+            <el-input  prop="cEmp"  v-model="Form.cEmp" :disabled="true"></el-input>
+
+        </el-form-item>
+        <el-form-item label="上班留存">
+
+            <el-input  prop="ykeep" v-model="Form.ykeep" :disabled="true"></el-input>
+
+        </el-form-item>
+        <el-form-item label="本班金额">
+
+            <el-input  prop="money" v-model="Form.money" :disabled="true"></el-input>
+
+        </el-form-item>
+        <el-form-item label="接班员工">
+
+            <el-select v-model="Form.jEmp" placeholder="请选择员工">
+                <el-option v-for="item in options2"  :key="item.ID" :label="item.TITLE" :value="item.ID"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="上缴现金">
+
+            <el-input  prop="turnin" v-model="Form.turnin" ></el-input>
+
+        </el-form-item>
+        <el-form-item label="本班留存">
+
+            <el-input  prop="tkeep" v-model="Form.tkeep" ></el-input>
+
+        </el-form-item>
+        <el-form-item label="备注">
+
+            <el-input
+                    type="textarea"
+                      prop="tkeep"
+                      v-model="Form.remarke">
+
+            </el-input>
+
+        </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer" style="margin-left: 1200px;">
+        <el-button type="primary" @click.native="Submit" :loading="loading">提交</el-button>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button lay-submit="" lay-filter="addChange" class="layui-btn layui-btn-normal tijiao">提交</button>
-        </div>
-    </div>
-
-
-    <table class="layui-table">
-
-    </table>
-
-
 </div>
 
-</body>
 <script>
-    layui.use(['laydate','form'], function(){
-        var laydate = layui.laydate;
-        var form=layui.form;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
 
-        form.on('submit(addChange)', function(data){
-            console.log(data)
 
-            $.ajax({
-                url:'/dinner/changeDuty/addChangeDuty',
-                method:'post',
-                dataType:'JSON',
+    var tableView = new Vue({
+        el: '#tableView',
+        data: {
+            //列表数据
+            tableData: [],
+            //显示加载中样式
+            loading:false,
 
-                data:data.field,
+            Form: {
+                CREATE_DATE:'',
+                cEmp:'',
+                ykeep:'',
+                money:'',
+                turnin:'',
+                tkeep:'',
+                remarke:''
 
-                success:function(res){
-                    if(res){
-                        parent.closeIframe(res.issuc);
-                    }
-                    else
-                        alert(res.msg);
-                },
-                error:function (data) {
-                    layer.msg("交班失败", {icon: 5});
+            },
+            methods:{
+                Submit:function(){
+                    var _self = this;
+                    _self.loading = true;
+                    var formData =this.Form;
+                    //alert(formData);
+                    this.goUrl="/dinner/"
+                    var goUrl=this.goUrl;
+                    //alert(goUrl);
+                    //alert(JSON.stringify(formData));
+                    axios.post(goUrl,formData).then(function(response){
+                        // console.log(response.data);
+                        // alert(222);
+                        // self.total=response.data.total;
+                        if(response.data>0){
+                            _self.editFormVisible = false;
+                            _self.loadingData();//重新加载数据
+                        }
+                    })
+                    console.info(this.editForm);
                 }
-            }) ;
-            return false;
 
-        });
-
-    });
-
+            },
+        },
+        created:function(){
+            //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
+            var self = this;
+            axios.post('/dinner/order/goodsList').then(function(response){
+                self.total=response.data.total;
+                self.tableData = response.data.data;
+            })
+        }
+    })
 </script>
+</body>
 </html>
