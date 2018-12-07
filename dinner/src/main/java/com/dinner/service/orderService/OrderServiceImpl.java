@@ -48,4 +48,10 @@ public class OrderServiceImpl implements OrderService {
     public List<Map> countDetails(Map map) {
         return orderDao.countDetails(map);
     }
+
+    @Override
+    public int close(Map map) {
+        orderDao.put(map);
+        return orderDao.close(map);
+    }
 }

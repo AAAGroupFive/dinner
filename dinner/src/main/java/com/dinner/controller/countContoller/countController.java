@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +52,11 @@ public class countController {
         return tempMap;
     }
 
+    /**
+     * 消费详情
+     * @param map
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/countDetails")
     public Map countDetails(@RequestParam Map map) {
@@ -59,5 +65,33 @@ public class countController {
         tempMap.put("msg", "");
         tempMap.put("data",orderService.countDetails(map));
         return tempMap;
+    }
+
+    /**
+     * 消费总计
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/sum")
+    public int sum(@RequestParam Map map) {
+        List<Map> maps = orderService.countDetails(map);
+        int sum = 0;
+        for (int i = 0; i < maps.size(); i++) {
+            Integer food_price = Integer.valueOf(maps.get(i).get("FOOD_PRICE") + "");
+            sum+=food_price;
+        }
+        return sum;
+    }
+
+    /**
+     * 关闭桌子
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/close")
+    public int close(@RequestParam Map map) {
+        return orderService.close(map);
     }
 }

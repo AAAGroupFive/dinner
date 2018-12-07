@@ -92,8 +92,6 @@ public class BeginTableController {
             list.add(tmap);
         }
         orderService.insertChoose(list);
-        System.out.println(list);
-        System.out.println(map.get("number"));
         return "after/welcome";
     }
 
