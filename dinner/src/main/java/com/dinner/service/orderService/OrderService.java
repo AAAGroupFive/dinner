@@ -53,4 +53,11 @@ public interface OrderService {
      * @return
      */
     List<Map> countDetails(Map map);
+
+    /**
+     * 关闭桌子
+     * @param map
+     * @return
+     */
+    int close(Map map);
 }
