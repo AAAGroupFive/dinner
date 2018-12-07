@@ -11,11 +11,9 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/dinner/css/font.css">
 	<link rel="stylesheet" href="/dinner/css/xadmin.css">
-    <script src="./js/jquery3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
-    <!--图标样式-->
-    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <style type="text/css">
 		#common_box {
 			width: 300px;
@@ -38,67 +36,24 @@
 			line-height: 180px
 		}
 	</style>
-
     <script>
-        //菜单循环遍历打印拼接操作
-        $(function () {
-            $.ajax( {
-                url : '/dinner/emp/func',
-                type : 'post',
-                dataType : 'json',
+        var aaa;
+
+            $.ajax({
+                type : "post",
+                url : "getSession",
                 async:false,
+                dataType : "json",
                 success : function(data) {
-                    console.log(data);
-                    var menu = ""; //定义变量存储
-                    for(var i = 0;i<data.length;i++){
-                        if(data[i].FUN_PARENT_ID == 0){ //取出父元素的菜单，拼进页面
-                            menu +=   "<li><a href=\"javascript:;\" onclick='isShow(this)'>\n" +
-                                "                    <i class=\"iconfont\">&#xe6b4;</i>\n" +
-                                "                    <cite>"+data[i].FUN_NAME+"</cite>\n" +
-                                "                    <i class=\"iconfont nav_right\">&#xe697;</i>\n" +
-                                "                </a>\n" +
-                                "                <ul class=\"sub-menu\" style='display: none'>"
-                            for(var j = 0;j<data.length;j++){ //继续遍历这几条数据
-                                if(data[j].FID > data[i].FID && data[j].FID < (data[i].FID)+1000){ //取出这个父元素所对应的子元素
-                                    //console.log(data[j].FUN_NAME)
-//                                    menu += "<a href='"+data[j].FUN_URL+"' class=\"item\">"+data[j].FUN_NAME+"</a>"
-//                                    menu +=    "<dl class='layui-nav-child'>"
-//                                    menu +=        "<dd>"
-//                                    menu +=            "<a href='"+data[j].FUN_URL+"' target='option'>"+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[j].FUN_NAME+"</a>"
-//                                    menu +=        "</dd>"
-//                                    menu +=    "</dl>"
-                                    menu +=  "                    <li>\n" +
-                                        "                        <a onclick='url(this)'>" +
-                                        "                         <input type='hidden' name='lu' style='display: none' value='"+data[j].FUN_URL+"' ></input>"+
-                                        "                       <input type='hidden' name='mingzi' style='display: none' value='"+data[j].FUN_NAME+"' ></input>"+
-                                        "                            <i class=\"iconfont\">&#xe6a7;</i>\n" +
-                                        "                            <cite>"+data[j].FUN_NAME+"</cite>\n" +
-                                        "                        </a>\n" +
-                                        "                    </li >\n"
-
-                                }
-                            }
-                            menu +=    "</ul></li>";
-                        }
-                        ;
-                    }
-                    $("#nav").append(menu);
-                    //var elementA = layui.element;
-
+                    aaa= data;
+                  /* $(".jj")[0].innerHTML=data+"欢迎您";
+                   console.log(data+"1111");*/
+                },
+                error : function() {
+                    alert("請求失敗");
                 }
             });
-        })
-        function isShow(t){
-           // $(t).siblings().attr("style")=='display:none'?$(t).siblings().attr("style","display:block"):$(t).siblings().attr("style","display:none");
-            $(t).siblings().is(":hidden")?$(t).siblings().show(300):$(t).siblings().hide(300);
-        }
-        function url(t) {
-            var lu = $(t).children().val();
-
-            var mingzi = $(t).children().siblings().siblings().val();
-            console.log(mingzi);
-            $("#lujing").attr("src",lu);
-        }
+            localStorage.setItem("aaa",JSON.stringify(aaa))
     </script>
 
 </head>
@@ -121,7 +76,7 @@
         </ul>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
@@ -137,226 +92,232 @@
      <!-- 左侧菜单开始 -->
     <div class="left-nav">
       <div id="side-nav">
-        <ul class="layui-nav-item" id="nav">
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b8;</i>-->
-                    <!--<cite>营业</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="welcome.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>开单</cite>-->
-                            <!---->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="member-del.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>预定</cite>-->
-                            <!---->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe723;</i>-->
-                    <!--<cite>会员</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="/dinner/VIP/toVip">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>会员查询</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="/dinner/VIP/VipRecord">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>充值记录</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe723;</i>-->
-                    <!--<cite>库存</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="cate.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>商品查询</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="cate.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>商品出库</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="cate.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>商品进货</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="cate.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>商品入库</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe723;</i>-->
-                    <!--<cite>报表</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="echarts1.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>营业报表</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe726;</i>-->
-                    <!--<cite>账单</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="admin-list.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>消费单</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6ce;</i>-->
-                    <!--<cite>系统统计</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="echarts1.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>拆线图</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="echarts2.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>柱状图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts3.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>地图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts4.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>饼图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts5.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>雷达图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts6.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>k线图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts7.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>热力图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts8.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>仪表图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b4;</i>-->
-                    <!--<cite>图标字体</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="unicode.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>图标对应字体</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li><a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b4;</i>-->
-                    <!--<cite>交班</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="unicode.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>交接班</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="unicode.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>交班记录</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li><a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b4;</i>-->
-                    <!--<cite>员工</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="/dinner/emp/toList">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>员工查询</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="unicode.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>员工角色</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
+        <ul id="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>营业</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="welcome.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>开单</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="member-del.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>预定</cite>
+                            
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>会员</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/dinner/VIP/toVip">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>会员查询</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/VIP/VipRecord">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>充值记录</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>库存</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/dinner/toDetails">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>所有商品食材</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/toInventory">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>盘点</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/toInventory-list">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>盘点记录</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/toPut-goods">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>进货</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/dinner/toPut-record">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>进货留痕</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>报表</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="echarts1.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>营业报表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>账单</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="admin-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>消费单</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ce;</i>
+                    <cite>系统统计</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="echarts1.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>拆线图</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="echarts2.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>柱状图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts3.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>地图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts4.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>饼图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts5.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>雷达图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts6.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>k线图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts7.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>热力图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts8.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>仪表图</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>图标字体</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>图标对应字体</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>交班</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>交接班</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>交班记录</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>员工</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="after/userlist.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>员工查询</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>员工角色</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
       </div>
     </div>
@@ -366,11 +327,11 @@
     <div class="page-content">
         <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
           <ul class="layui-tab-title">
-            <li id="mingcheng" class="home"><i class="layui-icon">&#xe68e;</i></li>
+            <li class="home"><i class="layui-icon">&#xe68e;</i>主页</li>
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe id="lujing" src='/dinner/toMain' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/dinner/toMain' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
         </div>
@@ -394,9 +355,5 @@
     })();
     
     </script>
-
 </body>
 </html>
-
-
-

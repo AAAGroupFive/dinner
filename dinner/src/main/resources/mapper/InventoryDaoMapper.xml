@@ -3,7 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.goodsDao.GoodsDao">
+    <!--商品食材列表 页码-->
     <select id="goodsList" resultType="map">
-        select * from tab_goods
+        select * from (select rownum rn,t.* from tab_goods t
+        <where>
+            <if test="GOODS_NAME!=null and GOODS_NAME!=''">
+                and GOODS_NAME =#{GOODS_NAME}
+            </if>
+
+            <if test="pageNo!=null and pageNo!=''">
+                and rownum &lt; #{end} )a where a.rn &gt; #{start}
+            </if>
+
+        </where>
     </select>
+    <select id="countFoodsList" resultType="int">
+          select count(*) as cnt from tab_goods
+    </select>
+    <!--盘点列表-->
+    <select id="inventoryList" resultType="map">
+        select CHECK_NAME,to_char(trunc(CHECK_TIME,'dd'),'yyyy/mm/dd') as CHECK_TIME from tab_check group by CHECK_NAME,to_char(trunc(CHECK_TIME,'dd'),'yyyy/mm/dd')
+<!--        <where>
+            <if test="CHECK_NAME!=null and CHECK_NAME!=''">
+               and 1=1 group by CHECK_NAME,to_char(trunc(CHECK_TIME,'dd'),'yyyy/mm/dd')
+            </if>
+        </where>-->
+    </select>
+    <!--盘点详情列表-->
+    <select id="inventoryDetails" resultType="map">
+        select * from tab_check where to_char(trunc(CHECK_TIME,'dd'),'yyyy/mm/dd')=#{CHECK_TIME}
+    </select>
+    <!--进货列表 分页-->
+    <select id="putGoodsList" resultType="map">
+        select * from (select rownum rn,t.* from TAB_PUT t where rownum &lt; #{end}) a where a.rn &gt; #{start}
+    </select>
+    <select id="countPutList" resultType="int">
+          select count(*) as cnt from TAB_PUT
+    </select>
+    <!--进货记录列表 分页-->
+    <select id="putRecord" resultType="map">
+       select * from (select rownum rn,t.* from TAB_PUT_RECORD t where rownum &lt; #{end}) a where a.rn &gt; #{start}
+    </select>
+    <select id="countPutRecordList" resultType="int">
+          select count(*) as cnt from TAB_PUT_RECORD
+    </select>
+    <!--盘点总列表-->
+    <insert id="addInventory" parameterType="map">
+        insert into tab_check(CHECK_ID,GOODS_NUMBER,GOODS_NAME,GOODS_REMNAT_STOCK,GOODS_STOCK,GOODS_UNIT,CHECK_NAME,CHECK_TIME)
+        values(seq_tabcheck_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_REMNAT_STOCK},#{GOODS_STOCK},#{GOODS_UNIT},'王朝军',sysdate)
+    </insert>
+    <!--添加进货列表-->
+    <insert id="addPutGoods">
+        insert into tab_put(PUT_ID,GOODS_NUMBER,GOODS_NAME,GOODS_STOCK,PUT_NUMBER,GOODS_UNIT,OPERRATION_NAME,REMARK)
+        values(seq_tabput_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_STOCK},#{PUT_NUMBER},#{GOODS_UNIT},'王朝军',#{REMARK})
+    </insert>
+    <!--进货记录（成功）-->
+    <insert id="addPutRecord">
+        insert into TAB_PUT_RECORD(ID,GOODS_NAME,PUT_NUMBER,GOODS_UNIT,SUBMITTER,OPERATOR,STATUS,PUT_TIME,REMARK)
+        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},'邢芳斌','成功',sysdate,#{REMARK})
+    </insert>
+    <!--进货记录（失败）-->
+    <insert id="addPutRecord2">
+        insert into TAB_PUT_RECORD(ID,GOODS_NAME,PUT_NUMBER,GOODS_UNIT,SUBMITTER,OPERATOR,STATUS,PUT_TIME,REMARK,REASONS)
+        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},'邢芳斌','驳回',sysdate,#{REMARK},#{REASONS})
+    </insert>
+    <!--更新商品食材剩余数量-->
+    <update id="updateGoods">
+        update tab_goods set GOODS_STOCK=#{GOODS_REMNAT_STOCK} where GOODS_ID=#{GOODS_ID}
+    </update>
+    <!--更新商品食材原有数量-->
+    <update id="updateGoods2">
+        update tab_goods set GOODS_STOCK=#{GOODS_STOCK} where GOODS_NUMBER=#{GOODS_NUMBER}
+    </update>
+    <!--删除进货列表-->
+    <delete id="deletePut">
+        delete from TAB_PUT where PUT_ID=#{PUT_ID}
+    </delete>
 </mapper>
