@@ -11,5 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class ToIndex {
-
+    @RequestMapping("index")
+    public String ToIndex(){
+        return "after/index";
+    }
 }

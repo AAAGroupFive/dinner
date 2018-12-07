@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/dinner/css/font.css">
-	<link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
@@ -37,8 +37,8 @@
 		}
 	</style>
     <script>
-        var aaa;
-
+        $().read(function () {
+            var aaa;
             $.ajax({
                 type : "post",
                 url : "getSession",
@@ -46,15 +46,31 @@
                 dataType : "json",
                 success : function(data) {
                     aaa= data;
-                  /* $(".jj")[0].innerHTML=data+"欢迎您";
-                   console.log(data+"1111");*/
+                    alert(aaa);
+                    /* $(".jj")[0].innerHTML=data+"欢迎您";
+                     console.log(data+"1111");*/
+                }
+        })
+        /*var aaa;
+            $.ajax({
+                type : "post",
+                url : "getSession",
+                async:false,
+                dataType : "json",
+                success : function(data) {
+                    aaa= data;
+                    alert(aaa);
+                  /!* $(".jj")[0].innerHTML=data+"欢迎您";
+                   console.log(data+"1111");*!/
                 },
                 error : function() {
-                    alert("請求失敗");
+                    alert(aaa);
                 }
             });
-            localStorage.setItem("aaa",JSON.stringify(aaa))
+            localStorage.setItem("aaa",JSON.stringify(aaa))*/
     </script>
+
+
 
 </head>
 <body>
