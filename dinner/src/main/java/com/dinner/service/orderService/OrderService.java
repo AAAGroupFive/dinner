@@ -60,4 +60,11 @@ public interface OrderService {
      * @return
      */
     int close(Map map);
+
+    /**
+     * vip扣费
+     * @param map
+     * @return
+     */
+    int vip(Map map);
 }

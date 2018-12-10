@@ -77,9 +77,16 @@
 		        $.ajax({
                     url: "/dinner/order/order" ,
                     type: "post",
-                    datatype:"json",
+                    dataType:"json",
+                    async:false,
                     data: {"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person},
-
+                    success:function (data) {
+                       var a =data.orderId;
+                       $("#fourId",window.parent.document).text(a);
+                    },
+                    error:function () {
+                        console.log("错误！")
+                    }
                 });
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);
