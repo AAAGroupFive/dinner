@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Map;
+
 
 /**
  * className:RegisterController
@@ -17,12 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LocationController {
     @Autowired
     private RegisterService registerService;
-    @RequestMapping("/aaa")
-    public void setRegisterMessage(){
-        System.out.println(" 请求了方法 ");
-        int i = registerService.registerUserLoginMessage();
-        System.out.println(i+"------------");
-    }
+
     /**
      * 跳转到首页
      * @return
@@ -31,7 +28,14 @@ public class LocationController {
     public String chengelocation1(){
         return "before/Bindex";
     }
-
+    /**
+     * 跳转到首页2
+     * @return
+     */
+    @RequestMapping("/bbbf")
+    public String chengelocation6(){
+        return "before/Bindex1";
+    }
     /**
      * 跳转到联系我们 的页面
      * @return

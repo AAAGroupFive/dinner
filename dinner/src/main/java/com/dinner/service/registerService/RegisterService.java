@@ -14,5 +14,5 @@ public interface RegisterService {
     /**
      * @return
      */
-    int registerUserLoginMessage();
+    int registerUserLoginMessage(Map map);
 }
