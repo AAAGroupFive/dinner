@@ -46,9 +46,8 @@ public class VerificationCodeController {
     public void generate(HttpServletResponse response, HttpSession session) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String verifyCodeValue = drawImg(output);
-
+        //在session中放验证码值
         session.setAttribute("verifyCodeValue", verifyCodeValue);
-
         try {
             ServletOutputStream out = response.getOutputStream();
             output.writeTo(out);
@@ -95,7 +94,6 @@ public class VerificationCodeController {
         }
         return code;
     }
-
     /**
      * 随机参数一个字符
      *

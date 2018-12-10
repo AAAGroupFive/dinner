@@ -2,9 +2,14 @@ package com.dinner.controller.registerController;
 
 import com.dinner.service.registerService.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -19,15 +24,14 @@ import java.util.Map;
 public class RegisterController {
     @Autowired
     private RegisterService registerService;
-    @RequestMapping("/aaa")
-    public void setRegisterMessage(){
-        System.out.println(" 请求了方法 ");
-        int i = registerService.registerUserLoginMessage();
-        System.out.println(i+"------------");
+    @RequestMapping("/userRegister")
+    public String RegisterMessage(@RequestParam  Map map){
+        System.out.println("客户端 请求了此方法 ");
 
+        int i = registerService.registerUserLoginMessage(map);
+        System.out.println(map);
+        System.out.println(i+"------------");
+        return "redirect:/locationTo/bbbf";
     }
-    @RequestMapping("/bbb")
-    public String chengelocation(){
-        return "before/index.html";
-    }
+
 }

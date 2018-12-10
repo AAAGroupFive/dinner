@@ -17,6 +17,6 @@ public interface RegisterDao {
      * @param
      * @return
      */
-    @Insert("insert  into tab_vip values (1,'wxz2','13253536393',666888,1,555,1)")
-    int registerUserLoginMessage();
+
+    int registerUserLoginMessage(Map map);
 }
