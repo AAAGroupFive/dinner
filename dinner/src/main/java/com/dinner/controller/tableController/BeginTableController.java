@@ -59,14 +59,14 @@ public class BeginTableController {
     /**
      * 开桌
      * @param map
+     * @return
      */
     @ResponseBody
     @RequestMapping("/order")
-    public Model order(@RequestParam Map map,Model model) {
+    public Object order(@RequestParam Map map) {
         orderService.update(map);
         orderService.order(map);
-        model.addAttribute("orderId", map.get("orderId"));
-        return model;
+        return map;
     }
 
     /**
@@ -76,10 +76,6 @@ public class BeginTableController {
      */
     @RequestMapping("/choose")
     public String aaa(@RequestParam Map map) {
-        System.out.println(map);
-       // Map map1 = new HashMap();
-       // map1.put("choose", map);
-        //orderService.insertChoose(map1);
         String orderIds = (String) map.get("ids");
         String num = (String) map.get("number");
         String[] sp = orderIds.split(",");

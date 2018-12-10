@@ -66,4 +66,11 @@ public interface OrderDao {
      * @return
      */
     int put(Map map);
+
+    /**
+     * vip扣费
+     * @param map
+     * @return
+     */
+    int vip(Map map);
 }

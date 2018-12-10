@@ -54,4 +54,9 @@ public class OrderServiceImpl implements OrderService {
         orderDao.put(map);
         return orderDao.close(map);
     }
+
+    @Override
+    public int vip(Map map) {
+        return orderDao.vip(map);
+    }
 }

@@ -92,6 +92,9 @@ public class countController {
     @ResponseBody
     @RequestMapping("/close")
     public int close(@RequestParam Map map) {
+        if (map.get("vip")!=null) {
+            orderService.vip(map);
+        }
         return orderService.close(map);
     }
 }
