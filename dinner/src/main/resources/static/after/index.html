@@ -37,37 +37,17 @@
 		}
 	</style>
     <script>
-        $().read(function () {
-            var aaa;
+        $().ready(function () {
             $.ajax({
-                type : "post",
-                url : "getSession",
-                async:false,
-                dataType : "json",
-                success : function(data) {
-                    aaa= data;
-                    alert(aaa);
-                    /* $(".jj")[0].innerHTML=data+"欢迎您";
-                     console.log(data+"1111");*/
+                type: "post",
+                url: "getSession",
+                dataType: "json",
+                success: function (data) {
+                    var ss=data[0];
+                   $("#getSession").html("欢迎您！"+ss);
                 }
+            })
         })
-        /*var aaa;
-            $.ajax({
-                type : "post",
-                url : "getSession",
-                async:false,
-                dataType : "json",
-                success : function(data) {
-                    aaa= data;
-                    alert(aaa);
-                  /!* $(".jj")[0].innerHTML=data+"欢迎您";
-                   console.log(data+"1111");*!/
-                },
-                error : function() {
-                    alert(aaa);
-                }
-            });
-            localStorage.setItem("aaa",JSON.stringify(aaa))*/
     </script>
 
 
@@ -80,26 +60,17 @@
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
-        <ul class="layui-nav left fast-add" lay-filter="">
-          <li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-              <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-               <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
-            </dl>
-          </li>
-        </ul>
+
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;"></a>
+            <a href="javascript:;" id="getSession"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-              <dd><a href="./login.html">退出</a></dd>
+              <dd><a href="/dinner/out">退出</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+          <li class="layui-nav-item to-index"><a href="/dinner/locationTo/bbbe">前台首页</a></li>
         </ul>
         
     </div>
@@ -351,7 +322,7 @@
                 <iframe src='/dinner/toMain' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
-        </div>
+        </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ，
     </div>
     <div class="page-content-bg"></div>
     <!-- 右侧主体结束 -->
