@@ -1,5 +1,6 @@
 package com.dinner.service.beforeUserLoginService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,5 +15,5 @@ public interface BeforeUserLoginService {
      * @param map
      * @return
      */
-    int checkUser(Map map);
+    List<Map> checkUser(Map map);
 }

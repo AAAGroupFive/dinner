@@ -17,8 +17,82 @@
     <link rel="stylesheet" href="../vendors/sweetalert2/css/sweetalert2.min.css">
     <!----------------custo css----------------->
     <link rel="stylesheet" href="../css/custom.css">
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        //页面加载后，异步查询登录状态，如果登陆过，则 显示用户名信息，
+        //如果没有登录 则显示 登录 和  注册 按钮
+        $().ready(function (){
+            // alert(111);
+            // console.log("E,,,,,,");
+            $.ajax({
+                type:'post',
+                url:'../beforeUserLogin/loginCheck',
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    if (data.length==1&&data[0]==1) {
+                        var html=" ";
 
+                        html+='     <span class="signin" data-toggle="modal" data-target="#myModal"> ';
+                        html+='     <span class="hidden-xs">登录</span> ';
+                        html+='     <i class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i> ';
+                        html+='     </span> ';
+                        html+='     <span class="register" data-toggle="modal" data-target="#myModal"> ';
+                        html+='    <span class="hidden-xs">注册</span> ';
+                        html+='     <i class="fa fa-user-plus visible-xs-block" aria-hidden="true"></i> ';
+                        html+='    </span> ';
+                        $("#beforeLogin").append(html);
+                    }
+                    if (data.length==2){
+                        var html=" ";
+                     //   console.log(data);
+                        html+='     <span  > ';
+                        html+='     <span >尊敬的会员：</span> ';
 
+                        html+='     </span> ';
+                        html+='     <span  > ';
+                        html+='    <span >'+ data[0]+'</span> ';
+                        html+='    <span ><a href="../beforeUserLogin/singout">注销登陆</a></span> ';
+                        html+='    </span> ';
+                        $("#beforeLogin").append(html);
+                    }
+                }
+
+            })
+        })
+
+        var InterValObj; //timer变量，控制时间
+        var count = 5; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+        function getletterMessage() {
+
+            curCount = count;
+            //设置button效果，开始计时
+            $("#btnSendCode").attr("disabled", "true");
+            $("#btnSendCode").val( "重新发送"+curCount);
+            InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            $.ajax({
+                type:'post',
+                url:'../beforeUserLogin/sendMessage',
+                dataType:"json",
+                success:function (data) {
+
+                }
+            })
+        }
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                $("#btnSendCode").removeAttr("disabled");//启用按钮
+                $("#btnSendCode").val("发送验证码");
+            }
+            else {
+                curCount--;
+                $("#btnSendCode").val( "重新发送"+curCount);
+            }
+        }
+    </script>
 
 
 
@@ -54,28 +128,10 @@
             </div>
             <!--登录前显示的内容-->
             <div class="col-xs-5 col-md-6 text-right" id="beforeLogin">
-                <span class="signin" data-toggle="modal" data-target="#myModal">
-                    <span class="hidden-xs">登录</span>
-                    <i class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i>
-                </span>
-                <span class="register" data-toggle="modal" data-target="#myModal">
-                    <span class="hidden-xs">注册</span>
-                    <i class="fa fa-user-plus visible-xs-block" aria-hidden="true"></i>
-                </span>
+
             </div>
             <!--登录前显示的 结束-->
-            <!--登陆后显示的内容-->
-            <div class="col-xs-5 col-md-6 text-right" id="afterLogin">
-                <span class="signin" data-toggle="modal" data-target="#myModal">
-                    <span class="hidden-xs">登录</span>
-                    <i class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i>
-                </span>
-                <span class="register" data-toggle="modal" data-target="#myModal">
-                    <span class="hidden-xs">注册</span>
-                    <i class="fa fa-user-plus visible-xs-block" aria-hidden="true"></i>
-                </span>
-            </div>
-            <!--登陆后显示  结束-->
+
         </div>
     </div>
 </div>
@@ -95,7 +151,7 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myMegamenu">
-                <ul class="nav navbar-nav">s
+                <ul class="nav navbar-nav">
                     <li class="list2"><a href="Bindex.html" class="hvr-underline-from-center">首页</a></li>
                     <li class="list2"><a href="services.html" class="hvr-underline-from-center">服务</a></li>
                     <li class="list2"><a href="reserve.html" class="hvr-underline-from-center">餐桌预定</a></li>
@@ -299,7 +355,7 @@
                                          </span>
                                     </label>
                                     <div class="controls">
-                                        <input type="password" id="verifyCode" name="verifyCode"
+                                        <input type="text" id="verifyCode" name="verifyCode"
                                                class="form-control input-medium" placeholder="请输入图片上的内容.." >
                                     </div>
                                 </div>
@@ -356,7 +412,7 @@
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="letterCode"><span
                                             class="glyphicon glyphicon-envelope text-primary"></span> 短信验证码:
-                                        <button type="button" onclick="getletterMessage()">获取验证码</button>
+                                        <input type="button"  id="btnSendCode" onclick="getletterMessage()" value="获取验证码" />
                                     </label>
                                     <div class="controls">
                                         <input id="letterCode" class="form-control input-large"
@@ -367,7 +423,7 @@
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="confirmsignup"></label>
                                     <div class="controls">
-                                        <button id="confirmsignup" name="confirmsignup"
+                                        <button id="confirmsignup"
                                                 class="btn btn-success form-control">提交注册                                        </button>
                                     </div>
                                 </div>
@@ -540,7 +596,7 @@
     <br/>
 </section>
 <script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>q
+<script src="../js/bootstrap.min.js"></script>
 <script src="../vendors/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
 <script src="../vendors/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
 <script src="../vendors/iCheck/js/icheck.js"></script>
@@ -549,7 +605,8 @@
 <script src="../vendors/jribbble/js/jribbble.min.js"></script>
 <!----------------------page Level Js-------------------------->
 <script src="../js/custom.js"></script>
-<script type="text/javascript"> 
+<script type="text/javascript">
+
 		//时间显示
 		function gettime(){
         var date1= '2015/05/01 00:00:00';  //开始时间
@@ -585,43 +642,11 @@
             $('#verifyCodeImage').attr('src',
                 '../VerCode/getVerifyCode?timestamp=' + genTimestamp());
         }
-        //页面加载后，异步查询登录状态，如果登陆过，则 显示用户名信息，
-        //如果没有登录 则显示 登录 和  注册 按钮
-        $().ready(function(){
 
-            $.ajax({
-                type:'post',
-                url:'',
-                success:function (parame1) {
-                    if (parame1==1){
-                        $().append(
-
-                        )
-                    } if (parame1==2){
-                        $().append(
-
-                        )
-                    }
-                }
-
-            })
-        })
-        // function login(){
-        //     var user_input_verifyCode=$("#verifyCode").val();
-        //     $.ajax({
-        //         type : 'post',
-        //         url : "../beforeUserLogin/CodeCheck",
-        //         data:{verifyCode:user_input_verifyCode},
-        //         //dataType : "json",
-        //         success : function(data) {
-        //             alert("登陆成功");
-        //         },
-        //         error : function() {
-        //             alert("查询失败");
-        //         }
-        //     });
-        // }
 </script>
+
+
+
 
 </body>
 </html>

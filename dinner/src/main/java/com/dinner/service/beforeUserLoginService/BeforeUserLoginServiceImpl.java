@@ -4,6 +4,7 @@ import com.dinner.dao.beforeUserLoginDao.BeforeUserLoginDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +25,7 @@ public class BeforeUserLoginServiceImpl implements  BeforeUserLoginService {
      * @return
      */
     @Override
-    public int checkUser(Map map) {
+    public List<Map> checkUser(Map map) {
         return beforeUserLoginDao.checkUser(map);
     }
 }

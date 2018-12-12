@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,21 +30,19 @@ public class BeforeUserLoginController {
      */
     @RequestMapping("/CodeCheck")
     public String beforeUserLogin(HttpServletRequest request, HttpSession session,@RequestParam Map map) {
-        System.out.println("客户端发出了请求");
-        //用户输入的 验证码值
         String inputVerifyCode=request.getParameter("verifyCode");
-
-        System.out.println("客户端输入的验证码值------>" + inputVerifyCode);
-        //session中获取到的验证码值
+        //2.session中获取到的验证码值
         String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
-        System.out.println("Session中的验证码值------>"+ verifyCodeValue);
-        //数据库中查询到的账号 密码 的返回结果
+        //3.数据库中查询到的账号 密码 的返回结果
         String userid = request.getParameter("userid");
-        System.out.println("客户端输入的用户名------>"+userid);
-        int i = beforeUserLoginService.checkUser(map);
-        //如果判断成功 则完成相应的操作
-        if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())){
-            System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
+        List<Map> i = beforeUserLoginService.checkUser(map);
+        //System.out.println(i);
+        //4.如果判断成功 则完成相应的操作
+        //5.将登陆成功的用户名密码放入session 便于页面显示相应内容
+        if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())&&i.size()>0&&i!=null){
+            session.setAttribute("phone",map.get("userid"));
+          //  session.setAttribute("password",map.get("passwordinput"));
+           // System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
             return "redirect:/locationTo/bbbf";
         }else {
             return "locationTo/bbbe";
@@ -51,19 +52,37 @@ public class BeforeUserLoginController {
     /***
      * 登录状态检查
      * 如果没有登录 则不能提交预订信息，提示登录
-     * @param session
+     * @param
      * @return
      */
     @RequestMapping("/loginCheck")
-    public int beforeUserLoginCheck(HttpSession session){
-        Object username = session.getAttribute("username");
-        Object password = session.getAttribute("password");
+    @ResponseBody
+    public ArrayList beforeUserLoginCheck(HttpSession session){
+      //  System.out.println("请求了 这个 方法....");
+         Object phone = session.getAttribute("phone");
+         Object password = session.getAttribute("password");
+       // System.out.println("去去去求求"+phone);
+      //  System.out.println("去去去求求"+password);
+        ArrayList arrayList =new ArrayList();
+        if (phone==null) {
+            arrayList.add(1);
+        }
+        if (phone!=null){
+            arrayList.add(phone);
+            arrayList.add(2);
+        }
+         return arrayList;
+    }
 
-        System.out.println(username);
-        System.out.println(password);
-
-        return 1;
-
+    /**
+     * 退出登录方法
+     * @param session
+     * @return
+     */
+    @RequestMapping("/singout")
+    public String sinout(HttpSession session){
+        session.removeAttribute("phone");
+        return "redirect:/locationTo/bbbf";
     }
 
 }
