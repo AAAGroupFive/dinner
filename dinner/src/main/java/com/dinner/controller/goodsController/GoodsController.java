@@ -2,6 +2,8 @@ package com.dinner.controller.goodsController;
 
 
 import com.dinner.service.goodsService.GoodsService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,6 @@ public class GoodsController {
     @RequestMapping("/goodsList")
     @ResponseBody
     public Object getOrderList(@RequestParam Map map){
-        System.out.println(map);
         Map tempMap = new HashMap();
         //绑定数据  分页数据
         tempMap.put("code", 0);
@@ -57,13 +58,15 @@ public class GoodsController {
     @RequestMapping("/inventoryList")
     @ResponseBody
     public Object inventoryList(@RequestParam Map map){
-        List<Map> yyy=goodsService.inventoryList(map);
-        System.out.println(yyy+"---------------yyyy");
+        //PageHelper.startPage(Integer.valueOf(map.get("pageNo")+""),Integer.valueOf(map.get("pageSize")+""));
+        //PageInfo<Map> page =new PageInfo<Map>(goodsService.inventoryList(map));
+       // System.out.println(page+"222222222222222222");
         Map tempMap = new HashMap();
         //绑定数据  分页数据
         tempMap.put("code", 0);
         tempMap.put("msg", "");
         tempMap.put("data",goodsService.inventoryList(map));
+        //tempMap.put("total",page.getTotal());
         return tempMap;
     }
     @RequestMapping("/putGoodsList")
@@ -92,7 +95,6 @@ public class GoodsController {
     @RequestMapping("/inventoryDetails")
     public Object inventoryDetails(@RequestParam Map map){
         List<Map> aaa = goodsService.inventoryDetails(map);
-        System.out.println(map+"---------------map");
         return aaa;
     }
     @RequestMapping("/updateInventory")
