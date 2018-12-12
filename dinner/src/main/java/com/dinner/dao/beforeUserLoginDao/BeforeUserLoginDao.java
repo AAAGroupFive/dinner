@@ -1,5 +1,6 @@
 package com.dinner.dao.beforeUserLoginDao;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,5 +13,5 @@ public interface BeforeUserLoginDao {
     /**
      * 用户登录检查@return
      */
-    int checkUser(Map map);
+    List<Map> checkUser(Map map);
 }

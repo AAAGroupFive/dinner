@@ -3,17 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.registerDao.RegisterDao">
-    <!--<select id="registerUserLoginMessage" resultType="map" >-->
-      <!--select * from  XX where userName=#{userid} and passWord=#{passwordinput}-->
-    <!--</select>-->
-    <!--vip表需要插入的 信息-->
+
      <insert id="registerUserLoginMessage" parameterType="map">
-       insert into tab_vip values (seq_tab_vip_id.nextval,null,#{phone},to_char(sysdate,'yyyymmddhh24miss'),null,null,3,null )
+       insert into tab_vip values (seq_tab_vip_id.nextval,null,#{phone},to_char(sysdate,'yyyymmddhh24miss'),null,null,3,null,#{password},#{Email} )
 
      </insert>
 
-    <!--登录表 需要插入的信息-->
-    <insert id="registerUserLoginMessage" parameterType="map">
-        insert  into xx values(#{phone},#{Email},#{password},#{phone},)
-    </insert>
+
 </mapper>
