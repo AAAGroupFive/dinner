@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+</head>
+<body>
+<div style="margin-left: 20px">
+    <div id="app">
+        <h2>{{ message }}</h2><br>
+    </div>
+
+    <div id="tableView">
+        <!--列表顶部搜索和工具条-->
+        <el-row>
+            <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+                <el-form-item>
+                    <el-button type="primary" icon="search" @click="uploadClick">新增</el-button>
+                </el-form-item>
+            </el-form>
+        </el-row>
+        <!--列表-->
+        <el-row>
+            <el-table
+                    :data="tableData"
+                    v-loading.body="loading"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        prop="FOOD_ID"
+                        label="ID"
+                        width="300"
+                        v-if="hideRow">
+                </el-table-column>
+                <el-table-column
+                        prop="FOOD_NAME"
+                        label="菜名"
+                        width="300">
+                </el-table-column>
+                <el-table-column
+                        prop="FOOD_PRICE"
+                        label="单价"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        prop="FOOD_PIC"
+                        label="图片"
+                        width="200">
+                    <template slot-scope="scope">
+                        <!--如果读取项目里的文件就这样写<img  :src="scope.row.FOOD_PIC" alt="" style="width: 50px;height: 50px">-->
+                        <img  :src="showPath+scope.row.FOOD_PIC" alt="" style="width: 50px;height: 50px">
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="操作">
+                    <template scope="scope">
+                        <el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>
+                        <el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-row>
+        <!--编辑和更新界面-->
+        <el-dialog title="菜品操作" :visible.sync="editFormVisible" :close-on-click-modal="false">
+            <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+                <el-form-item label="ID" prop="FOOD_ID" v-if="hideRow">
+                    <el-input v-model="editForm.FOOD_ID" placeholder="请输入菜名"></el-input>
+                </el-form-item>
+                <el-form-item label="菜名" prop="FOOD_NAME">
+                    <el-input v-model="editForm.FOOD_NAME" placeholder="请输入菜名"></el-input>
+                </el-form-item>
+                <el-form-item label="单价" prop="FOOD_PRICE">
+                    <el-input v-model="editForm.FOOD_PRICE" placeholder="请输入单价"></el-input>
+                </el-form-item>
+                <el-form-item label="照片" prop="FOOD_PIC">
+                    <el-col :span="5">
+                        <img  v-show="isShow" :src="'/dinner/food/show?fileName='+editForm.FOOD_PIC" style="width: 150px;height: 150px;">
+                    </el-col>
+                    <el-col :span="11">
+                    <el-upload
+                            ref="upload"
+                            multiple="false"
+                            limit="1"
+                            class="upload-demo"
+                            list-type="picture-card"
+                            action="/dinner/food/uploadPic"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :before-remove="beforeRemove"
+                            :on-success="uploadSuc"
+                            :auto-upload="true"
+                           >
+                        <el-button size="small" type="primary" @click.native="isShow=false">点击上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10M</div>
+                    </el-upload>
+                    </el-col>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="editFormVisible = false;$refs.upload.clearFiles()">取消</el-button>
+                <el-button type="primary" @click.native="addSubmit" :loading="editLoading">提交</el-button>
+            </div>
+        </el-dialog>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: '菜品列表'
+            }
+        });
+        var tableView = new Vue({
+            el: '#tableView',
+            data: {
+                //isShow:true,
+                showPath:'/dinner/food/show?fileName=',
+                //列表数据
+                tableData: [],
+                //显示加载中样式
+                loading:false,
+                //编辑界面是否显示
+                editFormVisible: false,
+                editLoading: false,
+                goUrl:'',
+                editFormRules: {
+                    FOOD_NAME: [
+                        { required: true, message: '请输入菜名', trigger: 'blur' }
+                    ]
+                },
+                //编辑界面数据
+                editForm: {
+                    FOOD_ID:0,
+                    FOOD_NAME: '',
+                    FOOD_PRICE: '',
+                    FOOD_PIC: ''
+                },
+            },
+            created:function(){
+
+                //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
+                var self = this;
+                axios.post('/dinner/order/goodsList').then(function(response){
+                    // console.log(response.data);
+                    //alert(response.data.total);
+                    self.total=response.data.total;
+                    self.tableData = response.data.data;
+                    // self.multipleSelection=response.data.data;
+                })
+            },
+            methods:{
+                //表格重新加载数据
+                loadingData:function() {
+                    var _self = this;
+                    //_self.loading = true;
+                    axios.post('/dinner/order/goodsList').then(function(response){
+                        //console.log(response);
+                        //alert(searchForm);
+                        _self.total=response.data.total;
+                        //console.log(response.data.total);
+                        _self.tableData = response.data.data;
+                    })
+                },
+                //添加事件
+                uploadClick:function(row) {
+                    this.goUrl="";
+                    this.editFormVisible = true;
+                    this.isShow=false;
+                    this.editForm = Object.assign({}, row);
+                    this.$refs.upload.clearFiles();/*清除upload缓存*/
+                },
+                //保存事件
+                addSubmit:function(data){
+                    var _self = this;
+                    this.$confirm('确认提交吗?', '提示', {
+                        type: 'success'
+                    }).then(function(){
+                        var url="/dinner/food/addORupdate";
+                        var addData={'FOOD_ID':_self.editForm.FOOD_ID,'FOOD_NAME':_self.editForm.FOOD_NAME,'FOOD_PRICE':_self.editForm.FOOD_PRICE,'FOOD_PIC':_self.editForm.FOOD_PIC};
+                        axios.post(url,addData).then(function (response) {
+                            if (response.data > 0) {
+                                _self.editFormVisible = false;
+                                _self.$message({
+                                    message: '操作成功',
+                                    type: 'success'
+                                });
+                                _self.$refs.upload.clearFiles();//清除upload缓存
+                                _self.loadingData();//重新加载数据
+                            } else {
+                                _self.$message({
+                                    message: '操作失败',
+                                    type: 'warning'
+                                });
+                            }
+                        });
+
+                    }).catch(function(e){
+                        if(e != "cancel")
+                            console.log("出现错误：" + e);
+                    });
+                },
+                /*编辑事件*/
+                editClick: function (row) {
+                    this.goUrl="";
+                    this.editFormVisible = true;
+                    this.isShow=true;
+                    this.editForm = Object.assign({}, row);
+                },
+                /*删除事件*/
+                deleteClick:function (row) {
+                    var _self = this;
+                    this.$confirm('确认删除 ' + row.FOOD_NAME +' 吗?', '提示', {
+                        type: 'warning'
+                    }).then(function(){
+                        var  url="/dinner/food/delete?FOOD_ID="+row.FOOD_ID;
+                        axios.get(url).then(function (response) {
+                            if(response.data>0){
+                                _self.$message({
+                                    message: row.FOOD_NAME + '删除成功',
+                                    type: 'success'
+                                });
+                                _self.loadingData();//重新加载数据
+                            }
+                        });
+                    }).catch(function(e){
+                        if(e != "cancel")
+                            console.log("出现错误：" + e);
+                    });
+                },
+                handleRemove(file, fileList) {
+                    console.log(file, fileList);
+                },
+                handlePreview(file) {
+                    console.log(file);
+                   // this.$message.warning('只能上传一个图片');
+                    //return;
+                },
+                handleExceed(files, fileList) {
+                    this.$message.warning('当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件');
+                },
+                beforeRemove(file, fileList) {
+                    return this.$confirm('确定移除吗？');
+                },
+                uploadSuc(response, file, fileList){
+
+                    this.editForm.FOOD_PIC=response;
+                }
+            }
+        })
+
+    </script>
+</div>
+</body>
+</html>

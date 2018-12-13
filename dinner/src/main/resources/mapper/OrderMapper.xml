@@ -5,7 +5,7 @@
 <mapper namespace="com.dinner.dao.order.OrderDao">
     <!--查询所有菜品-->
     <select id="goodList" resultType="map">
-        select * from tab_food
+        select FOOD_ID,FOOD_NAME,FOOD_PRICE,nvl(FOOD_PIC,'无') as FOOD_PIC from tab_food
     </select>
 
     <!--新增消费记录-->
