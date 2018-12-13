@@ -1,5 +1,5 @@
-﻿﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -53,7 +53,7 @@
                         class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i> </span>
                 <span class="register" data-toggle="modal" data-target="#myModal"><span
                         class="hidden-xs">注册</span><i class="fa fa-user-plus visible-xs-block"
-                                                            aria-hidden="true"></i></span>
+                                                      aria-hidden="true"></i></span>
 
             </div>
         </div>
@@ -152,7 +152,7 @@
                                 <div class="control-group section-top-10">
                                     <label for="password"><span
                                             class="glyphicon glyphicon-eye-open text-primary"></span>
-                                 	       密码 :</label>
+                                        密码 :</label>
                                     <div class="controls">
                                         <input id="password" name="password" class="form-control input-large"
                                                type="password" placeholder="请输入你想用的密码" >
@@ -165,7 +165,7 @@
                                     <div class="controls">
                                         <input id="reenterpassword" class="form-control input-large"
                                                name="reenterpassword" type="password" placeholder="保证两次输入的密码相同"
-                                               >
+                                        >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
@@ -191,101 +191,45 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 m-t-50">
-            <h2 class="heading underline">我们的服务</h2>
-            <p class="text-center">我们打造优质团队 我们提供优质服务 带给您极致体验 尽在和平饭店</p>
+            <h2 class="heading underline">特色美食</h2>
+            <p class="text-center">我们专注于美食 带给您极致体验 尽在和平饭店</p>
+
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/big-data.png" alt="bigdata" class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>餐桌云预定</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>优质服务 在线预订</p>
-                   <!-- <a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/coding.png" alt="bigdata" class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>在线观摩</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>顾客就是上帝..</p>
-                   <!-- <a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/cloud-computing.png" alt="bigdata"
-                         class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>我们是最棒的</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>甲方爸爸..</p>
-                    <!--<a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/light-bulb.png" alt="bigdata" class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>质量保证</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>服务我们是顶尖的 货源供给采购 我们是最严谨的</p>
-                   <!-- <a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/shovel.png" alt="bigdata" class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>提出您的宝贵意见</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>有意见 尽管提 我们呢 都不听..</p>
-                   <!-- <a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="row m-t-50">
-                <div class="col-xs-12">
-                    <img src="../images/construction-excavator.png" alt="bigdata"
-                         class="img-responsive services_icon center-block">
-                </div>
-                <div class="col-xs-12 text-center">
-                    <h5>假装有此项服务</h5>
-                </div>
-                <div class="col-xs-12 text-center">
-                    <p>原谅我吧 实在没什么写了..</p>
-                    <!--<a href="service_detailed.html" class="text-success">View Details</a>-->
-                </div>
-            </div>
-        </div>
+        <ul  class="foodList">
+            <li th:each="data:${data}">
+                <img width="60px;" height="60px;" th:src="@{'/before/show?fileName='+${data.FOOD_PIC}}">
+                <p th:text="${data.FOOD_NAME}"></p>
+                <a href="/dinner/locationTo/bbbc" style="float: right;color: #24AA7A">现在预订</a>
+            </li>
+
+        </ul>
     </div>
 </div>
+<style>
+    .foodList li{
+        list-style: none;
+        display: inline-block;
+        margin:20px 50px;
+        min-width: 120px;
+        height: 250px;
+    }
+    .foodList li img{
+        height: 200px;
+        width: 250px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .foodList li p{
+        line-height: 70px;
+        text-align: center;
+        font-size: 18px;
+        height: 50px;
+        color: #bb0000;
+    }
+
+</style>
 <!----------------Our Services Section End---------->
 <!-------------CountUp------------->
 <!-------------about end----------->
@@ -329,12 +273,12 @@
 <script src="../vendors/jribbble/js/jribbble.min.js"></script>
 <!----------------------page Level Js-------------------------->
 <script src="../js/custom.js"></script>
-<script type="text/javascript"> 
-		//时间显示
-		function gettime(){
+<script type="text/javascript">
+    //时间显示
+    function gettime(){
         var date1= '2015/05/01 00:00:00';  //开始时间
         var date2 = new Date();    //结束时间
-        var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数      
+        var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数
         //------------------------------
         //计算出相差天数
         var days=Math.floor(date3/(24*3600*1000))
@@ -348,13 +292,13 @@
         var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
         var seconds=Math.round(leave3/1000)
         //$('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒"")
-       var aaa=days+"天 "+hours+":"+minutes+":"+seconds+""
+        var aaa=days+"天 "+hours+":"+minutes+":"+seconds+""
 //     setInterval($('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒""),1000)
         //$('#Overseas').html(111);
-      	  $('#Overseas').html(aaa);
-   		}
-      	setInterval('gettime()',1000);
-      //时间显示 函数结束  
-    </script>
+        $('#Overseas').html(aaa);
+    }
+    setInterval('gettime()',1000);
+    //时间显示 函数结束
+</script>
 </body>
 </html>
