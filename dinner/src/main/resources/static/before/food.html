@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <title>我们的服务</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+    <!----------------Global css------------------->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/layers.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/navigation.css">
+    <link rel="stylesheet" href="../vendors/revolution-slider/css/settings.css">
+    <link rel="stylesheet" href="../vendors/imagehover/css/imagehover.min.css">
+    <link rel="stylesheet" href="../vendors/animate/animate.min.css">
+    <link rel="stylesheet" href="../vendors/iCheck/css/all.css">
+    <link rel="stylesheet" href="../vendors/sweetalert2/css/sweetalert2.min.css">
+    <!----------------custo css----------------->
+    <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+<!------------------Preloader-------------------->
+<div class="preloader" style="position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:100000;
+    backface-visibility: hidden;
+    background: #ffffff;">
+    <div style=" width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-position: center;
+    margin:-25px 0 0 -25px;">
+        <img src="../images/loader.gif" alt="loading...">
+    </div>
+</div>
+<!-----------------Preloader end------------------->
+<div class="tp-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-7 col-md-6">
+                <!--<a href="#"> <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+            </div>
+            <div class="col-xs-5 col-md-6 text-right">
+                <span class="signin" data-toggle="modal" data-target="#myModal"><span class="hidden-xs">登录</span><i
+                        class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i> </span>
+                <span class="register" data-toggle="modal" data-target="#myModal"><span
+                        class="hidden-xs">注册</span><i class="fa fa-user-plus visible-xs-block"
+                                                      aria-hidden="true"></i></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<header>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#myMegamenu"><span
+                        class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="Bindex.html">
+                    <img src="../images/3.png" class="img-responsive" alt="company-logo">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myMegamenu">
+                <ul class="nav navbar-nav">
+                    <li class="list2"><a href="Bindex.html" class="hvr-underline-from-center">首页</a></li>
+                    <li class="list2"><a href="/dinner/before/food" class="hvr-underline-from-center">特色美食</a></li>
+                    <li class="list2"><a href="reserve.html" class="hvr-underline-from-center">餐桌预定</a></li>
+                    <li class="list2"><a href="contact_us.html" class="hvr-underline-from-center">联系我们</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+</header>
+<!--Login And Register Modal-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <br>
+            <div class="bs-example bs-example-tabs">
+                <ul id="myTab" class="nav nav-tabs ">
+                    <li id="signin_tab" class="active"><a href="#signin" data-toggle="tab">登录</a></li>
+                    <li id="reg_tab"><a href="#signup" data-toggle="tab">注册</a></li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class=" signin tab-pane fade active in" id="signin">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="userid"><span
+                                            class="glyphicon glyphicon-user text-primary"></span> 用户名:</label>
+                                    <div class="controls">
+                                        <input id="userid" name="userid" type="text" class="form-control input-medium"
+                                               placeholder="请输入用户名" required>
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="passwordinput"><span
+                                            class="glyphicon glyphicon-eye-open text-primary"></span> 密码 :</label>
+                                    <div class="controls">
+                                        <input type="password" id="passwordinput" name="passwordinput"
+                                               class="form-control input-medium" placeholder="请输入密码" required>
+                                    </div>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="blue">记住我</label>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls section-top-10">
+                                        <button id="signin_btn" name="signin" class="btn btn-success form-control">登录
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade signup" id="signup">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="control-group section-top-10">
+                                    <label for="user"><span class="glyphicon glyphicon-user text-primary"></span> 用户名
+                                        :</label>
+                                    <div class="controls">
+                                        <input id="user" name="userid" class="form-control input-large" type="text"
+                                               placeholder="请输入你想要注册 的用户名" >
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="Email_id"><span
+                                            class="glyphicon glyphicon-envelope text-primary"></span> 邮箱 :</label>
+                                    <div class="controls">
+                                        <input id="Email_id" name="Email" class="form-control input-large" type="email"
+                                               placeholder="abcdef@xyz.com" >
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label for="password"><span
+                                            class="glyphicon glyphicon-eye-open text-primary"></span>
+                                        密码 :</label>
+                                    <div class="controls">
+                                        <input id="password" name="password" class="form-control input-large"
+                                               type="password" placeholder="请输入你想用的密码" >
+
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="reenterpassword"><span
+                                            class="glyphicon glyphicon-repeat text-primary"></span> 确认密码密码:</label>
+                                    <div class="controls">
+                                        <input id="reenterpassword" class="form-control input-large"
+                                               name="reenterpassword" type="password" placeholder="保证两次输入的密码相同"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="control-group section-top-10">
+                                    <label class="control-label" for="confirmsignup"></label>
+                                    <div class="controls">
+                                        <button id="confirmsignup" name="confirmsignup"
+                                                class="btn btn-success form-control">提交注册                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Login And Register Modal-->
+<!----------------Our Services Section---------->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 m-t-50">
+            <h2 class="heading underline">特色美食</h2>
+            <p class="text-center">我们专注于美食 带给您极致体验 尽在和平饭店</p>
+
+        </div>
+    </div>
+    <div class="row">
+        <ul  class="foodList">
+            <li th:each="data:${data}">
+                <img width="60px;" height="60px;" th:src="@{'/before/show?fileName='+${data.FOOD_PIC}}">
+                <p th:text="${data.FOOD_NAME}"></p>
+                <a href="/dinner/locationTo/bbbc" style="float: right;color: #24AA7A">现在预订</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<style>
+    .foodList li{
+        list-style: none;
+        display: inline-block;
+        margin:20px 50px;
+        min-width: 120px;
+        height: 250px;
+    }
+    .foodList li img{
+        height: 200px;
+        width: 250px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .foodList li p{
+        line-height: 70px;
+        text-align: center;
+        font-size: 18px;
+        height: 50px;
+        color: #bb0000;
+    }
+
+</style>
+<!----------------Our Services Section End---------->
+<!-------------CountUp------------->
+<!-------------about end----------->
+<section class="home3_countup_section parallax m-t-70">
+    <div class="container  section-bottom-pad-40">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3  section-top-40 text-center">
+                <h2 class="text-white heading2 underline2 section-top-25">销售统计</h2>
+                <p class="text-white text-center">优秀的业绩是市场对我们的最高认可</p>
+            </div>
+        </div>
+        <div class="row section-top-40">
+            <div class="col-md-3 col-sm-6 col-xs-12  text-center text-white">
+                <span class="statics_options" id="Overseas"></span>
+                <h4 class="text-white">高品质服务</h4>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12  text-center text-white">
+                <span class="statics_options" id="Investors">1600</span>
+                <h4 class="text-white">人来过</h4>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center text-white">
+                <span class="statics_options" id="Client">1400</span>
+                <h4 class="text-white">家服务支持</h4>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center text-white">
+                <span class="statics_options" id="Success">97 </span><span class="text-white statics_options">%</span>
+                <h4 class="text-white">好评度</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!----------Countup-section end------>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../vendors/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+<script src="../vendors/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+<script src="../vendors/iCheck/js/icheck.js"></script>
+<script src="../vendors/countup/js/countUp.min.js"></script>
+<script src="../vendors/sweetalert2/js/sweetalert2.min.js"></script>
+<script src="../vendors/jribbble/js/jribbble.min.js"></script>
+<!----------------------page Level Js-------------------------->
+<script src="../js/custom.js"></script>
+<script type="text/javascript">
+    //时间显示
+    function gettime(){
+        var date1= '2015/05/01 00:00:00';  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数
+        //------------------------------
+        //计算出相差天数
+        var days=Math.floor(date3/(24*3600*1000))
+        //计算出小时数
+        var leave1=date3%(24*3600*1000)    //计算天数后剩余的毫秒数
+        var hours=Math.floor(leave1/(3600*1000))
+        //计算相差分钟数
+        var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数
+        var minutes=Math.floor(leave2/(60*1000))
+        //计算相差秒数
+        var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+        var seconds=Math.round(leave3/1000)
+        //$('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒"")
+        var aaa=days+"天 "+hours+":"+minutes+":"+seconds+""
+//     setInterval($('#Overseas').html("days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒""),1000)
+        //$('#Overseas').html(111);
+        $('#Overseas').html(aaa);
+    }
+    setInterval('gettime()',1000);
+    //时间显示 函数结束
+</script>
+</body>
+</html>

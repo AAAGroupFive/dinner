@@ -18,7 +18,7 @@ public class RegisterServiceImpl implements  RegisterService{
     @Autowired
     private RegisterDao registerDao;
     @Override
-    public int registerUserLoginMessage() {
-        return registerDao.registerUserLoginMessage();
+    public int registerUserLoginMessage(Map map) {
+        return registerDao.registerUserLoginMessage(map);
     }
 }

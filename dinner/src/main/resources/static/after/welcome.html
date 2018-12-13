@@ -13,12 +13,36 @@
         <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
 
-        <!--<script src="http://hanlei.online/Onlineaddress/layui/layui.js" charset="utf-8"></script>-->
+        <script>
+            $().ready(function () {
+                $.ajax({
+                    type: "post",
+                    url: "getSession",
+                    dataType: "json",
+                    success: function (data) {
+                        var ss=data[0];
+                        $("#Session").html(ss);
+                    }
+                })
+            })
+            $(function(){
+                setInterval("getTime();",1000); //每隔一秒运行一次
+            })
+            //取得系统当前时间
+            function getTime(){
+                var myDate = new Date();
+                var date = myDate.toLocaleDateString();
+                var hours = myDate.getHours();
+                var minutes = myDate.getMinutes();
+                var seconds = myDate.getSeconds();
+                $("#showDate").html(date+" "+hours+":"+minutes+":"+seconds); //将值赋给
+            }
+        </script>
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
         <blockquote class="layui-elem-quote">欢迎管理员：
-            <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53</blockquote>
+            <span class="x-red" id="Session"></span>！当前时间:<span id="showDate"></span></blockquote>
         <fieldset class="layui-elem-field">
             <legend>散座</legend>
             <div class="layui-field-box">
@@ -130,7 +154,7 @@
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间4</h3>
+                                                <h3>包间4</h3></span>
                                                 <p>
                                                     <cite style="color: #73716e" th:if="${type9 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=10',800,750)">空闲中</cite>
                                                     <cite style="color: #d3583a" th:if="${type9 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=10',800,750)">使用中</cite>

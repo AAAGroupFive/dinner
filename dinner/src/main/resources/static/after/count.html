@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<div id="tableView">
+<div id="tableView"  style="margin: 10px 0 0 10px">
     <h2>桌号：<label th:text="${number}" id="number"></label></h2><br>
     <el-row>
         <el-table
@@ -34,11 +34,6 @@
             </el-table-column>
             <el-table-column
                     prop="CON_PERSON"
-                    label="人数"
-                    width="200">
-            </el-table-column>
-            <el-table-column
-                    prop="num"
                     label="人数"
                     width="200">
             </el-table-column>
@@ -76,7 +71,7 @@
         </div>
     </el-dialog>
 </div>
-<div style="margin-top: 50px">
+<div style="margin: 10px 0 0 10px">
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">会员</label>

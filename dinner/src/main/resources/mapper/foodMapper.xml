@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.food.foodDao">
+
+    <!--菜品添加-->
+    <insert id="addFood">
+        insert into TAB_FOOD values(SEQ_TAB_FOOD_ID.nextval,#{FOOD_NAME},#{FOOD_PRICE},#{FOOD_PIC})
+    </insert>
+
+    <!--菜品删除-->
+    <delete id="delFood" parameterType="map">
+        delete from TAB_FOOD where FOOD_ID=#{FOOD_ID}
+    </delete>
+
+    <!--菜品更新-->
+    <update id="updateFood">
+        update TAB_FOOD set FOOD_NAME=#{FOOD_NAME},FOOD_PRICE=#{FOOD_PRICE},FOOD_PIC=#{FOOD_PIC} where FOOD_ID=#{FOOD_ID}
+    </update>
+</mapper>

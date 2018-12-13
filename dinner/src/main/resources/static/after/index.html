@@ -37,37 +37,17 @@
 		}
 	</style>
     <script>
-        $().read(function () {
-            var aaa;
+        $().ready(function () {
             $.ajax({
-                type : "post",
-                url : "getSession",
-                async:false,
-                dataType : "json",
-                success : function(data) {
-                    aaa= data;
-                    alert(aaa);
-                    /* $(".jj")[0].innerHTML=data+"欢迎您";
-                     console.log(data+"1111");*/
+                type: "post",
+                url: "getSession",
+                dataType: "json",
+                success: function (data) {
+                    var ss=data[0];
+                   $("#getSession").html("欢迎您！"+ss);
                 }
+            })
         })
-        /*var aaa;
-            $.ajax({
-                type : "post",
-                url : "getSession",
-                async:false,
-                dataType : "json",
-                success : function(data) {
-                    aaa= data;
-                    alert(aaa);
-                  /!* $(".jj")[0].innerHTML=data+"欢迎您";
-                   console.log(data+"1111");*!/
-                },
-                error : function() {
-                    alert(aaa);
-                }
-            });
-            localStorage.setItem("aaa",JSON.stringify(aaa))*/
     </script>
 
 
@@ -80,26 +60,17 @@
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
-        <ul class="layui-nav left fast-add" lay-filter="">
-          <li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-              <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-               <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
-            </dl>
-          </li>
-        </ul>
+
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;"></a>
+            <a href="javascript:;" id="getSession"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-              <dd><a href="./login.html">退出</a></dd>
+              <dd><a href="/dinner/out">退出</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+          <li class="layui-nav-item to-index"><a href="/dinner/locationTo/bbbe">前台首页</a></li>
         </ul>
         
     </div>
@@ -117,19 +88,34 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="welcome.html">
+                        <a _href="/dinner/toMain">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>开单</cite>
                             
                         </a>
                     </li >
                     <li>
-                        <a _href="member-del.html">
+                        <a _href="/dinner/toMain">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>预定</cite>
                             
                         </a>
                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe63c;</i>
+                    <cite>菜单</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/dinner/food/foodList">
+                            <i class="iconfont">&#xe63c;</i>
+                            <cite>菜品管理</cite>
+                        </a>
+                    </li >
                 </ul>
             </li>
             <li>
@@ -223,78 +209,6 @@
                     </li >
                 </ul>
             </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6ce;</i>
-                    <cite>系统统计</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="echarts1.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="echarts2.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>柱状图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts3.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts4.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts5.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>雷达图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts6.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>k线图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts7.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>热力图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts8.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>仪表图</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="unicode.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li><a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
                     <cite>交班</cite>
@@ -351,7 +265,7 @@
                 <iframe src='/dinner/toMain' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
-        </div>
+        </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ，
     </div>
     <div class="page-content-bg"></div>
     <!-- 右侧主体结束 -->

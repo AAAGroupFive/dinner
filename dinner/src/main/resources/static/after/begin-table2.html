@@ -32,7 +32,7 @@
 		              <option>大厅</option>
 		              <option>包间</option>
 		            </select>
-		          </div>
+              </div>
               <!--<div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>-->
@@ -77,9 +77,16 @@
 		        $.ajax({
                     url: "/dinner/order/order" ,
                     type: "post",
-                    datatype:"json",
+                    dataType:"json",
+                    async:false,
                     data: {"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person},
-
+                    success:function (data) {
+                       var a =data.orderId;
+                       $("#fourId",window.parent.document).text(a);
+                    },
+                    error:function () {
+                        console.log("错误！")
+                    }
                 });
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);

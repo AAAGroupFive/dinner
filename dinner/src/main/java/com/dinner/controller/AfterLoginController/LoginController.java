@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,20 +31,34 @@ public class LoginController {
     @RequestMapping("/adminLogin")
     public String adminLogin(@RequestParam Map map, HttpSession session, Model model, HttpServletRequest request){
         List<Map> adminLogin = loginService.userLogin(map);
-        System.out.println(adminLogin);
+        System.out.println(map);
         if(adminLogin!=null&&adminLogin.size()>0){
-            session.setAttribute("userName", map.get("userName"));
+            session.setAttribute("empName", adminLogin.get(0).get("EMP_NAME"));
             return "redirect:index";
         }else{ //错误
-            model.addAttribute("errorInfo", "用户名或者密码错误");
+            //model.addAttribute("errorInfo", "用户名或者密码错误");
             return "redirect:toLogin";
         }
 
     }
     @ResponseBody
     @RequestMapping("/getSession")
-    public Object getSession(HttpSession session){
-        return session.getAttribute("userName");
+    public ArrayList getSession(HttpSession session){
+        Object empName = session.getAttribute("empName");
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(empName);
+        return arrayList;
+    }
+
+    /**
+     * 退出登录
+     * @param session
+     * @return
+     */
+    @RequestMapping("/out")
+    public String signout(HttpSession session){
+        session.removeAttribute("empName");
+        return "redirect:toLogin";
     }
 
 }

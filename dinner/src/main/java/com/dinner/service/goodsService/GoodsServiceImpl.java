@@ -35,7 +35,6 @@ public class GoodsServiceImpl implements GoodsService {
     public int updateInventory(Map map) {
         int result = goodsDao.addInventory(map);
         int result1 = goodsDao.updateGoods(map);
-        System.out.println(result1+"---------");
         if (result!=-1&&result1!=-1){
             return 1;
         }else {
@@ -76,9 +75,7 @@ public class GoodsServiceImpl implements GoodsService {
     public int addPutRecord(Map map) {
         int result = goodsDao.addPutRecord(map);
         int result1= goodsDao.updateGoods2(map);
-        System.out.println(result1+"////////////");
         int result2= goodsDao.deletePut(map);
-        System.out.println(result2+"--------");
         if (result1!=-1&&result!=-1&&result2!=-1) {
             return 1;
         }else {

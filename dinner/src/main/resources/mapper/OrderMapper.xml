@@ -5,7 +5,7 @@
 <mapper namespace="com.dinner.dao.order.OrderDao">
     <!--查询所有菜品-->
     <select id="goodList" resultType="map">
-        select * from tab_food
+        select FOOD_ID,FOOD_NAME,FOOD_PRICE,nvl(FOOD_PIC,'无') as FOOD_PIC from tab_food
     </select>
 
     <!--新增消费记录-->
@@ -41,7 +41,7 @@
 
     <!--结账详情-->
     <select id="countDetails" parameterType="map" resultType="map">
-        select * from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
+        select c.FOOD_NAME,c.FOOD_PRICE from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
         where b.CON_ROOM=#{number} and a.CON_STATE=0
     </select>
 
@@ -53,5 +53,10 @@
     <!--收钱记入账单-->
     <update id="put">
         update TAB_CONSUME set CON_STATE=1,CON_MONEY=#{sum} where CON_ROOM=#{number}
+    </update>
+
+    <!--vip扣费-->
+    <update id="vip">
+        update TAB_VIP set VIP_BALANCE=VIP_BALANCE-#{sum} where VIP_CARD=#{vip}
     </update>
 </mapper>
