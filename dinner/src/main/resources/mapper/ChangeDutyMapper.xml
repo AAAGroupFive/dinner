@@ -8,7 +8,7 @@
          from tab_changeduty where tab_cduty_etime =(select max (tab_cduty_etime) from tab_changeduty)
     </select>
     <select id="queryMoney" resultType="String">
-        select  NVL(con_money,0) as con_money from tab_consume where con_state=1 and to_char(con_time,'yyyy-mm-dd')=(select to_char(sysdate,'yyyy-mm-dd') from dual)
+        select  NVL(sum(con_money),0) as con_money from tab_consume where con_state=1 and to_char(con_time,'yyyy-mm-dd')=(select to_char(sysdate,'yyyy-mm-dd') from dual)
     </select>
     <select id="queryJemp" resultType="map">
         select emp_name from tab_emp
