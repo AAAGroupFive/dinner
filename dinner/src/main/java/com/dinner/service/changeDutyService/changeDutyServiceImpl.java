@@ -25,7 +25,9 @@ public class changeDutyServiceImpl implements changeDutyService {
     public Map queryChangeDuty() {
         Map maps = changeDutyDao.queryChangeDuty();
 
-        maps.put("Money",changeDutyDao.queryMoney());
+        String queryMoney = changeDutyDao.queryMoney();
+
+        maps.put("Money",queryMoney);
         return maps;
     }
 
