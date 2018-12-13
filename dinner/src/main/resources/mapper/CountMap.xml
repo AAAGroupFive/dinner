@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.projectCountDao.ProjoectCountDao">
-    <select id="getMoneyCount" resultType="map">
+<select id="getMoneyCount" resultType="map">
         select to_char(con_time,'yyyy-mm') as month,sum(con_money) as money from TAB_CONSUME where con_state=1 group by to_char(con_time,'yyyy-mm')
     </select>
 </mapper>

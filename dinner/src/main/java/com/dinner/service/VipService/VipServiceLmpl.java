@@ -28,9 +28,9 @@ public class VipServiceLmpl implements VipService {
 
         for (Map map1 : maps) {
 
-            Object vip_sex = map1.get("VIP_SEX");
 
-            if(map1.get("VIP_SEX").toString().equals("0")){
+            String a= String.valueOf(map1.get("VIP_SEX")+"");
+            if(a.equals(0)){
                 map1.put("sex","男");
             }else {
                 map1.put("sex","女");
