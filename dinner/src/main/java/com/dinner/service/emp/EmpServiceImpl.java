@@ -51,7 +51,19 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public List<Map> getFunc() {
-        return empDao.getFunc();
+    public List<Map> findByid(int id) {
+        return empDao.findByid(id);
     }
+
+    @Override
+    public List<Map> login(Map map) {
+        return empDao.login(map);
+    }
+
+    @Override
+    public List<Map> getRole(Map map) {
+        return empDao.getRole(map);
+    }
+
+
 }

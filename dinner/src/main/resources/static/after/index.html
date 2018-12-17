@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org" xmlns:>
 <head>
 	<meta charset="UTF-8">
 	<title>点餐系统</title>
@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/dinner/css/font.css">
 	<link rel="stylesheet" href="/dinner/css/xadmin.css">
-    <script src="./js/jquery3.3.1.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
     <!--图标样式-->
@@ -39,67 +39,68 @@
 		}
 	</style>
 
-    <script>
-        //菜单循环遍历打印拼接操作
-        $(function () {
-            $.ajax( {
-                url : '/dinner/emp/func',
-                type : 'post',
-                dataType : 'json',
-                async:false,
-                success : function(data) {
-                    console.log(data);
-                    var menu = ""; //定义变量存储
-                    for(var i = 0;i<data.length;i++){
-                        if(data[i].FUN_PARENT_ID == 0){ //取出父元素的菜单，拼进页面
-                            menu +=   "<li><a href=\"javascript:;\" onclick='isShow(this)'>\n" +
-                                "                    <i class=\"iconfont\">&#xe6b4;</i>\n" +
-                                "                    <cite>"+data[i].FUN_NAME+"</cite>\n" +
-                                "                    <i class=\"iconfont nav_right\">&#xe697;</i>\n" +
-                                "                </a>\n" +
-                                "                <ul class=\"sub-menu\" style='display: none'>"
-                            for(var j = 0;j<data.length;j++){ //继续遍历这几条数据
-                                if(data[j].FID > data[i].FID && data[j].FID < (data[i].FID)+1000){ //取出这个父元素所对应的子元素
-                                    //console.log(data[j].FUN_NAME)
-//                                    menu += "<a href='"+data[j].FUN_URL+"' class=\"item\">"+data[j].FUN_NAME+"</a>"
-//                                    menu +=    "<dl class='layui-nav-child'>"
-//                                    menu +=        "<dd>"
-//                                    menu +=            "<a href='"+data[j].FUN_URL+"' target='option'>"+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[j].FUN_NAME+"</a>"
-//                                    menu +=        "</dd>"
-//                                    menu +=    "</dl>"
-                                    menu +=  "                    <li>\n" +
-                                        "                        <a onclick='url(this)'>" +
-                                        "                         <input type='hidden' name='lu' style='display: none' value='"+data[j].FUN_URL+"' ></input>"+
-                                        "                       <input type='hidden' name='mingzi' style='display: none' value='"+data[j].FUN_NAME+"' ></input>"+
-                                        "                            <i class=\"iconfont\">&#xe6a7;</i>\n" +
-                                        "                            <cite>"+data[j].FUN_NAME+"</cite>\n" +
-                                        "                        </a>\n" +
-                                        "                    </li >\n"
+    <!--<script>-->
+        <!--//菜单循环遍历打印拼接操作-->
+        <!--$(function () {-->
+            <!--$.ajax( {-->
+                <!--url : '/dinner/emp/func',-->
+                <!--type : 'post',-->
+                <!--dataType : 'json',-->
+                <!--async:false,-->
+                <!--success : function(data) {-->
+                    <!--console.log(data);-->
+                    <!--var menu = ""; //定义变量存储-->
+                    <!--for(var i = 0;i<data.length;i++){-->
+                        <!--if(data[i].FUN_PARENT_ID == 0){ //取出父元素的菜单，拼进页面-->
+                            <!--menu +=   "<li><a href=\"javascript:;\" onclick='isShow(this)'>\n" +-->
+                                <!--"                    <i class=\"iconfont\">&#xe6b4;</i>\n" +-->
+                                <!--"                    <cite>"+data[i].FUN_NAME+"</cite>\n" +-->
+                                <!--"                    <i class=\"iconfont nav_right\">&#xe697;</i>\n" +-->
+                                <!--"                </a>\n" +-->
+                                <!--"                <ul class=\"sub-menu\" style='display: none'>"-->
+                            <!--for(var j = 0;j<data.length;j++){ //继续遍历这几条数据-->
+                                <!--if(data[j].FID > data[i].FID && data[j].FID < (data[i].FID)+1000){ //取出这个父元素所对应的子元素-->
+                                    <!--//console.log(data[j].FUN_NAME)-->
+<!--//                                    menu += "<a href='"+data[j].FUN_URL+"' class=\"item\">"+data[j].FUN_NAME+"</a>"-->
+<!--//                                    menu +=    "<dl class='layui-nav-child'>"-->
+<!--//                                    menu +=        "<dd>"-->
+<!--//                                    menu +=            "<a href='"+data[j].FUN_URL+"' target='option'>"+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[j].FUN_NAME+"</a>"-->
+<!--//                                    menu +=        "</dd>"-->
+<!--//                                    menu +=    "</dl>"-->
+                                    <!--menu +=  "                    <li>\n" +-->
+                                        <!--"                        <a onclick='url(this)'>" +-->
+                                        <!--"                         <input type='hidden' name='lu' style='display: none' value='"+data[j].FUN_URL+"' ></input>"+-->
+                                        <!--"                       <input type='hidden' name='mingzi' style='display: none' value='"+data[j].FUN_NAME+"' ></input>"+-->
+                                        <!--"                            <i class=\"iconfont\">&#xe6a7;</i>\n" +-->
+                                        <!--"                            <cite>"+data[j].FUN_NAME+"</cite>\n" +-->
+                                        <!--"                        </a>\n" +-->
+                                        <!--"                    </li >\n"-->
 
-                                }
-                            }
-                            menu +=    "</ul></li>";
-                        }
-                        ;
-                    }
-                    $("#nav").append(menu);
-                    //var elementA = layui.element;
+                                <!--}-->
+                            <!--}-->
+                            <!--menu +=    "</ul></li>";-->
+                        <!--}-->
+                        <!--;-->
+                    <!--}-->
+                    <!--$("#nav").append(menu);-->
+                    <!--//var elementA = layui.element;-->
 
-                }
-            });
-        })
-        function isShow(t){
-           // $(t).siblings().attr("style")=='display:none'?$(t).siblings().attr("style","display:block"):$(t).siblings().attr("style","display:none");
-            $(t).siblings().is(":hidden")?$(t).siblings().show(300):$(t).siblings().hide(300);
-        }
-        function url(t) {
-            var lu = $(t).children().val();
+                <!--}-->
+            <!--});-->
+        <!--})-->
+        <!--function isShow(t){-->
+           <!--// $(t).siblings().attr("style")=='display:none'?$(t).siblings().attr("style","display:block"):$(t).siblings().attr("style","display:none");-->
+            <!--$(t).siblings().is(":hidden")?$(t).siblings().show(300):$(t).siblings().hide(300);-->
+        <!--}-->
+        <!--function url(t) {-->
+            <!--var lu = $(t).children().val();-->
 
-            var mingzi = $(t).children().siblings().siblings().val();
-            console.log(mingzi);
-            $("#lujing").attr("src",lu);
-        }
-    </script>
+            <!--var mingzi = $(t).children().siblings().siblings().val();-->
+            <!--console.log(mingzi);-->
+            <!--$("#lujing").attr("src",lu);-->
+        <!--}-->
+    <!--</script>-->
+
 
 </head>
 <body>
@@ -138,29 +139,31 @@
     <div class="left-nav">
       <div id="side-nav">
         <ul class="layui-nav-item" id="nav">
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b8;</i>-->
-                    <!--<cite>营业</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="welcome.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>开单</cite>-->
-                            <!---->
-                        <!--</a>-->
-                    <!--</li >-->
+            <shiro:hasPermission name="user:add">
+            <li th:each="prod:${menuList}">
+                <a href="javascript:;" >
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite th:text="${prod.label}"></cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li th:each="cpower:${prod.children}">
+                        <!--<a _href="${cpower.url}">-->
+                        <a th:_href="${cpower.url}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite th:text="${cpower.label}"></cite>
+                        </a>
+                    </li >
                     <!--<li>-->
                         <!--<a _href="member-del.html">-->
                             <!--<i class="iconfont">&#xe6a7;</i>-->
                             <!--<cite>预定</cite>-->
-                            <!---->
+
                         <!--</a>-->
                     <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
+                </ul>
+            </li>
+
             <!--<li>-->
                 <!--<a href="javascript:;">-->
                     <!--<i class="iconfont">&#xe723;</i>-->
@@ -182,6 +185,7 @@
                     <!--</li >-->
                 <!--</ul>-->
             <!--</li>-->
+
             <!--<li>-->
                 <!--<a href="javascript:;">-->
                     <!--<i class="iconfont">&#xe723;</i>-->
@@ -245,78 +249,7 @@
                     <!--</li >-->
                 <!--</ul>-->
             <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6ce;</i>-->
-                    <!--<cite>系统统计</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="echarts1.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>拆线图</cite>-->
-                        <!--</a>-->
-                    <!--</li >-->
-                    <!--<li>-->
-                        <!--<a _href="echarts2.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>柱状图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts3.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>地图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts4.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>饼图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts5.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>雷达图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts6.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>k线图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts7.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>热力图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a _href="echarts8.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>仪表图</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;">-->
-                    <!--<i class="iconfont">&#xe6b4;</i>-->
-                    <!--<cite>图标字体</cite>-->
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                <!--</a>-->
-                <!--<ul class="sub-menu">-->
-                    <!--<li>-->
-                        <!--<a _href="unicode.html">-->
-                            <!--<i class="iconfont">&#xe6a7;</i>-->
-                            <!--<cite>图标对应字体</cite>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
+
             <!--<li><a href="javascript:;">-->
                     <!--<i class="iconfont">&#xe6b4;</i>-->
                     <!--<cite>交班</cite>-->
@@ -337,6 +270,8 @@
                     <!--</li>-->
                 <!--</ul>-->
             <!--</li>-->
+            <!--</shiro:hasPermission>-->
+            <!--<shiro:hasPermission name="user:update">-->
             <!--<li><a href="javascript:;">-->
                     <!--<i class="iconfont">&#xe6b4;</i>-->
                     <!--<cite>员工</cite>-->
@@ -357,6 +292,8 @@
                     <!--</li>-->
                 <!--</ul>-->
             <!--</li>-->
+
+            </shiro:hasPermission>
         </ul>
       </div>
     </div>
