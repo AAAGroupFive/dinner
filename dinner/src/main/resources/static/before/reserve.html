@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../vendors/sweetalert2/css/sweetalert2.min.css">
     <!----------------custo css----------------->
     <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css" media="all">
 
 </head>
 <body>
@@ -71,16 +72,16 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                <a class="navbar-brand" href="Bindex.html">
+                <a class="navbar-brand" href="/dinner/locationTo/bbbf">
                     <img src="../images/3.png" class="img-responsive" alt="company-logo">
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myMegamenu">
                 <ul class="nav navbar-nav">
-                    <li class="list2"><a href="Bindex.html" class="hvr-underline-from-center">首页</a></li>
+                    <li class="list2"><a href="/dinner/locationTo/bbbf" class="hvr-underline-from-center">首页</a></li>
                     <li class="list2"><a href="/dinner/before/food" class="hvr-underline-from-center">特色美食</a></li>
-                    <li class="list2"><a href="reserve.html" class="hvr-underline-from-center">餐桌预定</a></li>
-                    <li class="list2"><a href="contact_us.html" class="hvr-underline-from-center">联系我们</a></li>
+                    <li class="list2"><a href="/dinner/locationTo/bbbc" class="hvr-underline-from-center">餐桌预定</a></li>
+                    <li class="list2"><a href="/dinner/locationTo/bbbb" class="hvr-underline-from-center">联系我们</a></li>
                 </ul>
             </div>
 
@@ -205,30 +206,51 @@
         <div class="col-sm-7">
             <div class="row">
                 <div class="col-xs-12 text-justify">
-		                        <form class="form" action="blog.html" method="s">
+		                        <form class="form" method="post">
 		                            <div class="col-xs-12"><h4 class="heading_left">预订信息 </h4></div>
 		                            <div class="form-group col-xs-12 section-top-10">
 		                            	姓名
-		                                <input type="text" class="form-control" name="name" placeholder="姓名 *" >
+		                                <input type="text" class="form-control" name="name" placeholder="姓名 *" id="name" required="required">
 		                             </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
 		                            <div class="form-group col-sm-6 col-xs-12">
 		                            	邮箱
-		                                <input type="email" class="form-control" name="email" placeholder="邮箱 *" >
+		                                <input type="email" class="form-control" name="email" placeholder="邮箱 *" id="email" required="required">
 		                            </div>
 		                            <div class="form-group col-sm-6 col-xs-12">
 		                            	手机号
-		                                <input type="text" class="form-control" name="number" pattern="[0-9]{10}"
-		                                       placeholder="手机号码 *" >
+		                                <input type="text" class="form-control" name="number" pattern="[0-9]{11}"
+		                                       placeholder="手机号码 *" id="phone"  required="required">
 		                            </div>
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        桌号
+                                        <select class="form-control" id="number">
+                                            <option value="1">大厅1号桌</option>
+                                            <option value="2">大厅2号桌</option>
+                                            <option value="3">大厅3号桌</option>
+                                            <option value="4">大厅4号桌</option>
+                                            <option value="5">大厅5号桌</option>
+                                            <option value="6">大厅6号桌</option>
+                                            <option value="7">包间1号桌</option>
+                                            <option value="8">包间2号桌</option>
+                                            <option value="9">包间3号桌</option>
+                                            <option value="10">包间4号桌</option>
+                                            <option value="11">包间5号桌</option>
+                                            <option value="12">包间6号桌</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        预定时间
+                                        <input type="text" class="layui-input" id="date" required="required" placeholder="请选择预定日期 *">
+                                    </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
 		                            <div class="col-xs-12 form-group">
 		                              	 备注 <textarea class="form-control" rows="4" name="message" placeholder="备注信息（选填） *"
-		                                          ></textarea>
+		                                          id="message"></textarea>
 		                            </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
 		                            <div class="col-md-12 text-center section-bottom-15">
-		                                <button id="reves" type="submit" class="btn btn-success">预定</button>
+		                                <button id="save" class="btn btn-success">预定</button>
 		                            </div>
 		                        </form>
                 </div>
@@ -249,10 +271,35 @@
 <script src="../vendors/jribbble/js/jribbble.min.js"></script>
 <!----------------------page Level Js-------------------------->
 <script src="../js/custom.js"></script>
+<script src="../lib/layui/layui.js"></script>
 <script>
-	
-	$("#reve").click(function(){
-		window.location.href = "blog.html";
+    /*layui日期选择*/
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date',//指定元素
+            min: 0, //最小值,今天
+            max: 7 //最大值
+        });
+    });
+
+	$("#save").click(function(){
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var number = $("#number").val();
+        var date = $("#date").val();
+        var message = $("#message").val();
+        $.ajax({
+            url:"/dinner/reserve",
+            type: "post",
+            datatype:"json",
+            data:{"name":name,"email":email,"phone":phone,"number":number,"date":date,"message":message},
+        })
+        alert("预定成功");
+        window.location.href = "/dinner/locationTo/bbbf";
 	})
 </script>
 </body>

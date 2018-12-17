@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.reserve.ReserveDao">
+
+    <!--增加预定记录-->
+    <insert id="addReserve" parameterType="map">
+        insert into TAB_RESERVE
+        values(SEQ_TAB_RESERVE_ID.nextval,#{name},#{email},#{phone},#{number},to_date(#{date},'''yyyy-mm-dd'),#{message})
+    </insert>
+
+    <!--改变桌子状态-->
+    <update id="updateState" parameterType="map">
+        update TAB_TABLE set TAB_STATE=2 where TAB_ID=#{number}
+    </update>
+</mapper>
