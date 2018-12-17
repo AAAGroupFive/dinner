@@ -166,7 +166,7 @@ public class ShiroLoginController {
         try {
             subject.login(token);
                 List<Map> userList = empService.login(map);
-                System.out.println(userList.size());
+                //System.out.println(userList.size());
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));

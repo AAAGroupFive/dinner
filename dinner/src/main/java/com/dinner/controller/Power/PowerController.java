@@ -140,8 +140,8 @@ public class PowerController {
     public String indexList(Model model){
         //System.out.println(powerService.getList());
         List<TreeRole> list = powerService.getList();
-        System.out.println(list.get(0).getChildren().get(0).getLabel());
-        System.out.println(list.get(0).getLabel());
+        //System.out.println(list.get(0).getChildren().get(0).getLabel());
+        //System.out.println(list.get(0).getLabel());
         //System.out.println(list);
         model.addAttribute("menuList",list);
         //System.out.println(list.get(0));
