@@ -35,7 +35,7 @@ import java.util.Random;
  */
 @Controller
 @RequestMapping("login")
-public class LoginController {
+public class ShiroLoginController {
     @Autowired
     private EmpService empService;
 
