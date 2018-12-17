@@ -40,12 +40,12 @@ public class ShiroConfig {
         Map<String,String> filterMap =new LinkedHashMap<String, String>();
         filterMap.put("/login/toLogin","anon");
         filterMap.put("/login/login","anon");
-        System.out.println("------------++-----------------");
+        //System.out.println("------------++-----------------");
         filterMap.put("/login/getVerifyCode","anon");
         //授权过滤器
         filterMap.put("/test","perms[user:update,add]");
 //        filterMap.put("/sb/user/update","perms[user:update]");
-//        filterMap.put("/login/*","authc");
+        filterMap.put("/**","authc");
 //        filterMap.put("/question/*","authc");
 //        filterMap.put("/exam/*","authc");
 //        filterMap.put("/exammanage/*","authc");
