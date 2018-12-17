@@ -73,10 +73,11 @@
             InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
             $.ajax({
                 type:'post',
-                url:'../beforeUserLogin/sendMessage',
+                url:'../send/email',
+                data:{"address":$('#Email_id').val()},
                 dataType:"json",
                 success:function (data) {
-
+                    alert("发送成功");
                 }
             })
         }
@@ -411,12 +412,12 @@
                                 </div>
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="letterCode"><span
-                                            class="glyphicon glyphicon-envelope text-primary"></span> 短信验证码:
-                                        <input type="button"  id="btnSendCode" onclick="getletterMessage()" value="获取验证码" />
+                                            class="glyphicon glyphicon-envelope text-primary"></span> 邮箱验证码:
+                                        <input type="button"  id="btnSendCode"  onclick="getletterMessage()" value="获取验证码" />
                                     </label>
                                     <div class="controls">
                                         <input id="letterCode" class="form-control input-large"
-                                               name="letterCode" type="text" placeholder="手机短信的验证码.."
+                                               name="letterCode" type="text" placeholder="收到的邮箱验证码.."
                                         >
                                     </div>
                                 </div>

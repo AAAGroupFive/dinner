@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.changeDutyDao.changeDutyDao">
+    <select id="queryChangeDuty" resultType="map">
+        select tab_cduty_ykeep
+         from tab_changeduty where tab_cduty_etime =(select max (tab_cduty_etime) from tab_changeduty)
+    </select>
+    <select id="queryMoney" resultType="String">
+        select  NVL(sum(con_money),0) as con_money from tab_consume where con_state=1 and to_char(con_time,'yyyy-mm-dd')=(select to_char(sysdate,'yyyy-mm-dd') from dual)
+    </select>
+    <select id="queryJemp" resultType="map">
+        select emp_name from tab_emp
+    </select>
+    <insert id="insert">
+        insert into TAB_CHANGEDUTY values (seq_tab_cduty_id.nextval,#{stime1},#{etime1},'admin',#{ykeep},#{tkeep},#{money},#{jemp},#{turnin},#{remarke})
+    </insert>
+
+    <select id="queryRecord" resultType="map">
+        select TAB_CDUTY_ID,to_char(TAB_CDUTY_STIME,'yyyy-mm-dd')as TAB_CDUTY_STIME,to_char(TAB_CDUTY_ETIME,'yyyy-mm-dd')as TAB_CDUTY_ETIME,TAB_CDUTY_EMP,
+         TAB_CDUTY_YKEEP,TAB_CDUTY_TKEEP,TAB_CDUTY_MONEY,TAB_CDUTY_JEMP,TAB_CDUTY_TURNIN,
+         REMARK
+         from TAB_CHANGEDUTY
+    </select>
+</mapper>
