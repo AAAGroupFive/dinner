@@ -19,7 +19,7 @@
         <selectKey keyProperty="empNo" order="BEFORE" resultType="int">
             select seq_emp_id.nextval from dual
         </selectKey>
-        insert into tab_emp values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone})
+        insert into tab_emp(emp_id,emp_name,emp_user,emp_pass,emp_sex,emp_addr,emp_role,emp_birth,emp_phone,emp_power) values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone},'user:update')
     </insert>
     <delete id="delEmp" parameterType="int">
         delete from tab_emp where emp_id=#{empId}
@@ -27,7 +27,21 @@
     <update id="updateEmp" parameterType="map">
         update tab_emp set emp_user=#{USERNAME},emp_pass=#{PASSWORD},emp_addr=#{ADDR},emp_role=#{ROLE},emp_phone=#{PHONE} where emp_id=#{EMPID}
     </update>
-    <select id="getFunc" resultType="map">
-        select * from tab_function
+    <select id="findByid"  parameterType="int" resultType="map">
+        select * from tab_emp where EMP_ID=#{empId}
+    </select>
+    <select id="getRole" resultType="map">
+        select EMP_ID as empId,EMP_USER as userName,EMP_PASS as passWord,emp_power as power from tab_emp
+        <where>
+            <if test="userName!=null and userName!=''" >
+                and EMP_USER=#{userName}
+            </if>
+            <if test="passWord!=null and passWord!=''" >
+                and EMP_PASS=#{passWord}
+            </if>
+        </where>
+    </select>
+    <select id="login" resultType="map">
+        select * from TAB_EMP where EMP_USER=#{userName} and EMP_PASS=#{passWord}
     </select>
 </mapper>

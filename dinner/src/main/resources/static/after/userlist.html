@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>商品列表</title>
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="../js/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <style type="text/css">
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"] {
             top: 50%;
             transform: translateY(-50%);
         }
     </style>
+
 </head>
 <body>
 <table class="layui-hide" id="userlist" lay-filter="demo" >
-    <div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
+    <div class="demoTable" style="margin-top: 10px;width: 400px;margin-left: 20px;">
+        <!--<button class="layui-btn" id="add">-->
+            <!--<i class="layui-icon">&#xe608;</i> 添加-->
+        <!--</button>-->
         <!--<div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>-->
         <div class="layui-btn layui-btn-warm" style="margin-left:10px;" onclick="toAdd()"><i class="layui-icon">&#xe608;</i>添加</div>
     </div>
@@ -130,9 +143,18 @@
                         })
                     }  //success(layero)
                 }) //open
-            }  //edit
+            }
         });
+
+
     })
+    layui.use(['form', 'laydate',"upload","jquery"], function(){
+        laydate = layui.laydate;
+        laydate.render({ //发布时间
+            elem: '#date'
+            ,max:0
+        });
+    });
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon">&#xe642;</i></a>
@@ -156,11 +178,11 @@
     <a>老板</a>
     {{# } }}
 </script>
-<script>
-    function toAdd() {
-        location.href="/dinner/emp/toAdd"
-    }
-</script>
+<!--<script>-->
+    <!--function toAdd() {-->
+        <!--location.href="/dinner/emp/toAdd"-->
+    <!--}-->
+<!--</script>-->
 <!-- 编辑框弹出模板-->
 <script type="text/html" id="editDemo">
     <form id="updateForm">

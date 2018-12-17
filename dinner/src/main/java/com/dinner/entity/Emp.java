@@ -15,7 +15,16 @@ public class Emp {
     private Integer age;
     private String phone;
     private String addr;
-    private Integer role;
+    private String role;
+    private String power;
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
+    }
 
     public Integer getEmpId() {
         return empId;
@@ -81,11 +90,11 @@ public class Emp {
         this.addr = addr;
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

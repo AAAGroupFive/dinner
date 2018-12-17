@@ -49,8 +49,22 @@ public interface EmpService {
     int updateEmp(Map map);
 
     /**
-     * 权限列表
+     * 雇员
      * @return
      */
-    List<Map> getFunc();
+    List<Map> findByid(int id);
+
+    /**
+     * 验证
+     * @param map
+     * @return
+     */
+    List<Map> login(Map map);
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    List<Map> getRole(Map map);
 }
