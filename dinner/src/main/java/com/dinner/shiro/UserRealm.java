@@ -29,22 +29,22 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("执行授权逻辑");
+        //System.out.println("执行授权逻辑");
         //给资源进行授权
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
         //添加资源的授权字符串
         //info.addStringPermission("user:add");
         //到数据库查询当前登录用户的授权字符串
         //获取当前登录用户
-        System.out.println("===================================");
+        //System.out.println("===================================");
         Subject subject = SecurityUtils.getSubject();
         Map user= (Map) subject.getPrincipal();
-        System.out.println(user);
+        //System.out.println(user);
 //        int empId = Integer.valueOf(user.get("empId")+"");
         int empId =Integer.valueOf(user.get("EMPID")+"");
-        System.out.println("--------------"+empId);
+        //System.out.println("--------------"+empId);
         List<Map> dbUser =  empService.findByid(empId);
-        System.out.println(dbUser+"--------------"+dbUser.get(0).get("EMP_POWER"));
+        //System.out.println(dbUser+"--------------"+dbUser.get(0).get("EMP_POWER"));
         //dbUser.getPerms();
         // info.addRole("userA");
         info.addStringPermission(dbUser.get(0).get("EMP_POWER")+"");
@@ -61,7 +61,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("执行认证逻辑");
+        //System.out.println("执行认证逻辑");
 
         UsernamePasswordToken token=(UsernamePasswordToken)authenticationToken;
         //System.out.println(token.getUsername());
@@ -71,7 +71,7 @@ public class UserRealm extends AuthorizingRealm {
         map.put("userName",value1);
         //System.out.println("++++++++++++"+map.get("userName"));
         List<Map> user= empService.getRole(map);
-        System.out.println(user);
+        //System.out.println(user);
         if(user==null&&user.size()<1){
             //用户名不存在
             return null;

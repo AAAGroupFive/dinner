@@ -156,8 +156,8 @@ public class ShiroLoginController {
     @RequestMapping("/login")
     public String login(HttpSession session, @RequestParam Map map, Model model) {
         //String inputVerifyCode=request.getParameter("verifyCode");
-        System.out.println(map.get("userName"));
-        System.out.println(map.get("passWord"));
+        //System.out.println(map.get("userName"));
+        //System.out.println(map.get("passWord"));
         //使用shiro编写认证
         Subject subject = SecurityUtils.getSubject();
         //封装用户数据
@@ -166,16 +166,16 @@ public class ShiroLoginController {
         try {
             subject.login(token);
                 List<Map> userList = empService.login(map);
-                System.out.println(userList.size());
+                //System.out.println(userList.size());
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
                     session.setMaxInactiveInterval(600000);
-                    System.out.println("aaaaaaaaaaaaaaa");
+                    //System.out.println("aaaaaaaaaaaaaaa");
                     return "redirect:../power/index";
                 } else {
                     model.addAttribute("error", "用户名或密码错误!");
-                    System.out.println("bbbbbbbbbbbbbbbb");
+                    //System.out.println("bbbbbbbbbbbbbbbb");
                     return "after/login";
                 }
 
@@ -183,12 +183,12 @@ public class ShiroLoginController {
             //return "after/index";
         } catch (UnknownAccountException e) {
 //                  e.printStackTrace();
-            System.out.println("cccccccccccccc");
+            //System.out.println("cccccccccccccc");
             model.addAttribute("msg", "用户名不存在");
             return "after/login";
         } catch (IncorrectCredentialsException e) {
 //                  e.printStackTrace();
-            System.out.println("dddddddddddddddddddd");
+            //System.out.println("dddddddddddddddddddd");
             model.addAttribute("msg", "密码错误");
             return "after/login";
         }
