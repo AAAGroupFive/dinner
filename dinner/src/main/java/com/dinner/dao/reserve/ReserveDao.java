@@ -1,5 +1,6 @@
 package com.dinner.dao.reserve;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,6 +10,13 @@ import java.util.Map;
  * createTime:2018-12-17 10:04
  */
 public interface ReserveDao {
+
+
+    /**
+     * 预订列表
+     * @return
+     */
+    List<Map> reserveList();
 
     /**
      * 添加预定信息

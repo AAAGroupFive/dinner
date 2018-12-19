@@ -1,6 +1,5 @@
 package com.dinner.shiro;
 
-import com.dinner.entity.Emp;
 import com.dinner.service.emp.EmpService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

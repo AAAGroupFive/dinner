@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.consume.ConsumeDao">
+
+    <!--消费单-->
+    <select id="consumeList" resultType="map">
+        select CON_TYPE,to_char(CON_TIME,'yyyy-mm-dd HH24:MI:SS') as CON_TIME,CON_ROOM,CON_PERSON,CON_MONEY,CON_STATE from TAB_CONSUME
+    </select>
+
+    <!--消费详情-->
+    <select id="">
+        select * from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
+    </select>
+</mapper>

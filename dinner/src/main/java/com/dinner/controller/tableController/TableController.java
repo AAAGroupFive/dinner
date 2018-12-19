@@ -1,6 +1,7 @@
 package com.dinner.controller.tableController;
 
 
+import com.dinner.service.reserve.ReserveService;
 import com.dinner.service.tabService.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,23 +24,31 @@ public class TableController {
     @Autowired
     private TableService tableService;
 
+    @Autowired
+    private ReserveService reserveService;
+
     @RequestMapping("/tableList")
-    public String tableList(Model model) {
+    public String tableList() {
         return "after/index";
     }
     @RequestMapping("/toMain")
-    public String toMain(Model model,Model model1){
+    public String toMain(Model model){
+        /*查桌子表*/
         List<Map> list = tableService.getList();
+        /*查预订表*/
+        List<Map> list1 = reserveService.reserveList();
+
         for (int i = 0; i < list.size(); i++) {
-            model.addAttribute("type"+i,list.get(i).get("TAB_STATE"));
+            Object a = list.get(i).get("TAB_STATE");
+            if (list1.size()>0) {
+                if (list.get(i).get("TAB_ID").equals(list1.get(0).get("RE_NUMBER")) ) {
+                    a = 2;
+                }
+            }
+            model.addAttribute("type"+i,a);
 
         }
-        /*for (int i = 0; i < list.size(); i++) {
-            model1.addAttribute("number"+i,list.get(i).get("TAB_ID"));
-
-        }
-        System.out.println(model1);
-        System.out.println(model);*/
+        System.out.println(model);
         return "after/welcome";
     }
 }

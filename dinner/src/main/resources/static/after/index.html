@@ -142,7 +142,7 @@
             <shiro:hasPermission name="user:add">
                 <li th:each="prod:${menuList}">
                     <a href="javascript:;" >
-                        <i class="iconfont">&#xe6b8;</i>
+                        <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         <cite th:text="${prod.label}"></cite>
                         <i class="iconfont nav_right">&#xe697;</i>
                     </a>
@@ -150,7 +150,7 @@
                         <li th:each="cpower:${prod.children}">
                             <!--<a _href="${cpower.url}">-->
                             <a th:_href="${cpower.url}">
-                                <i class="iconfont">&#xe6a7;</i>
+                                <i class="iconfont"></i>
                                 <cite th:text="${cpower.label}"></cite>
                             </a>
                         </li >
