@@ -22,7 +22,7 @@ public interface PowerDao {
      * 权限列表
      * @return
      */
-    @Select("select t.id,t.fun_name label,t.pid pid,t.fun_ms className,t.fun_url url,t.fid from tab_function t")
+    @Select("select t.id,t.fun_name label,t.pid pid,t.fun_ms className,t.fun_url url,t.fid from tab_function t ")
     List<TreeRole> getList();
 
     /**

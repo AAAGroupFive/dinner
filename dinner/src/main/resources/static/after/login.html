@@ -176,14 +176,14 @@
 
         <p style="padding: 30px 0px 10px 0px;position: relative;">
             <span class="u_logo"></span>
-            <input class="ipt" type="text" name="userName" placeholder="请输入用户名">
+            <input class="ipt" type="text" required="required" name="userName" placeholder="请输入用户名">
         </p>
         <p style="position: relative;">
             <span class="p_logo"></span>
-            <input id="password" class="ipt" type="password" name="passWord" placeholder="请输入密码">
+            <input id="password" class="ipt" required="required" type="password" name="passWord" placeholder="请输入密码">
         </p>
 
-        <span th:text="${error}"></span>
+        <span th:text="${msg}" style="color: red"></span>
     </form>
     <div style="height: 50px;line-height: 50px;margin-top: 10px;border-top: 1px solid #e7e7e7;">
         <p style="margin: 0px 35px 20px 45px;">

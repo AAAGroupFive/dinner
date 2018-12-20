@@ -1,13 +1,18 @@
 package com.dinner.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.dinner.entity.TreeRole;
+import com.dinner.service.emp.EmpService;
+import com.dinner.service.power.PowerService;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +24,9 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+    @Autowired
+    private PowerService powerService;
+
     /**
      * 创建ShiroFilterFactoryBean
      */
@@ -26,6 +34,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
 
+        List<TreeRole> list = powerService.getList();
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         /**
@@ -38,14 +47,24 @@ public class ShiroConfig {
          * role:该资源必须得到角色权限才可以访问
          */
         Map<String,String> filterMap =new LinkedHashMap<String, String>();
+        for (TreeRole role : list) {
+            //filterMap.put(role.getUrl(),"perms[user:update,add]");
+            //System.out.println(role.getChildren());
+            for (TreeRole treeRole : role.getChildren()) {
+                System.out.println(treeRole.getUrl());
+                filterMap.put(treeRole.getUrl(),"perms[user:update,add]");
+            }
+            //System.out.println(role.getChildren().get(0).getUrl()+"============");
+        }
+        filterMap.put("/after/**","authc");
         filterMap.put("/login/toLogin","anon");
         filterMap.put("/login/login","anon");
         //System.out.println("------------++-----------------");
         filterMap.put("/login/getVerifyCode","anon");
         //授权过滤器
-        filterMap.put("/test","perms[user:update,add]");
+//        filterMap.put("/test","perms[user:update,add]");
 //        filterMap.put("/sb/user/update","perms[user:update]");
-        filterMap.put("/**","authc");
+//        filterMap.put("/**","authc");
 //        filterMap.put("/question/*","authc");
 //        filterMap.put("/exam/*","authc");
 //        filterMap.put("/exammanage/*","authc");
