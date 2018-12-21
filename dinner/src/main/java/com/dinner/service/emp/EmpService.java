@@ -1,5 +1,6 @@
 package com.dinner.service.emp;
 
+import com.dinner.entity.TreeRole;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -67,4 +68,11 @@ public interface EmpService {
      * @return
      */
     List<Map> getRole(Map map);
+
+    /**
+     * 根据id查权限列表
+     * @param id
+     * @return
+     */
+    List<TreeRole> roleList(int id);
 }

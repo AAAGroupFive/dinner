@@ -77,6 +77,9 @@ public class UserRealm extends AuthorizingRealm {
             return null;
         }
         //System.out.println(user.get(0).get("EMPID")+"--------------");
-        return new SimpleAuthenticationInfo(user,user.get(0).get("PASSWORD"),"");
+        if (user!=null && user.size()>0)
+            return new SimpleAuthenticationInfo(user,user.get(0).get("PASSWORD"),"");
+        else
+            return null;
     }
 }

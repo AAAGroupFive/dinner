@@ -33,7 +33,6 @@ public class PowerController {
     public String role(){
         return "after/role";
     }
-
     /**
      *
      * @return
@@ -51,7 +50,8 @@ public class PowerController {
     @RequestMapping("/list")
     public Object list(){
         //System.out.println(powerService.getList());
-        return powerService.getList();
+        List<TreeRole> list = powerService.getList();
+        return list;
     }
 
     /**
@@ -95,13 +95,13 @@ public class PowerController {
         //System.out.println(map.get("ids")+"----"+map.get("roleId"));
         //System.out.println(map.get("roleId"));
         int id = Integer.valueOf(map.get("roleId")+"");
-        System.out.println(id);
+        //System.out.println(id);
         int i = powerService.delFun(id);
-        if (i>0){
+        /*if (i>0){
             System.out.println("权限清除成功！！");
         }else {
             System.out.println("权限清除失败！！");
-        }
+        }*/
         //powerService.delFun();
         return    powerService.add(map);
     }
@@ -137,8 +137,8 @@ public class PowerController {
      */
     //@ResponseBody
     @RequestMapping("/index")
-    public String indexList(Model model){
-        //System.out.println(powerService.getList());
+    public String indexList(Model model,@RequestParam Integer id){
+        //System.out.println(id);
         List<TreeRole> list = powerService.getList();
         System.out.println(list.size());
         if (list==null&&list.size()==0){

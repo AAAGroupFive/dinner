@@ -9,6 +9,12 @@
         10000) as birth,EMP_ADDR as addr,EMP_ROLE as role from tab_emp
         <where>
             and rownum &lt; #{end}
+            <if test="ename!=null and ename!=''">
+                AND emp_name LIKE '%'||#{ename}||'%'
+            </if>
+            <if test="phone!=null and phone!=''">
+                AND emp_phone LIKE '%'||#{phone}||'%'
+            </if>
         </where>
         ) a where a.rn &gt; #{start}
     </select>
@@ -19,7 +25,7 @@
         <selectKey keyProperty="empNo" order="BEFORE" resultType="int">
             select seq_emp_id.nextval from dual
         </selectKey>
-        insert into tab_emp(emp_id,emp_name,emp_user,emp_pass,emp_sex,emp_addr,emp_role,emp_birth,emp_phone,emp_power) values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone},'user:update')
+        insert into tab_emp(emp_id,emp_name,emp_user,emp_pass,emp_sex,emp_addr,emp_role,emp_birth,emp_phone,emp_power) values(#{empNo},#{EmpName},#{userName},#{password},#{sex},#{addr},#{role},to_date(#{birth},'yyyy-mm-dd'),#{phone},'user:update,add')
     </insert>
     <delete id="delEmp" parameterType="int">
         delete from tab_emp where emp_id=#{empId}
