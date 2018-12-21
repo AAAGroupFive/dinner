@@ -39,7 +39,6 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         /**
          * Shiro内置过滤器，常用过滤器:
-         *
          * anon:无需认证(登录)可以访问
          * authc:必须认证可以访问
          * user:如果使用rememberMe功能可以直接访问
@@ -47,24 +46,32 @@ public class ShiroConfig {
          * role:该资源必须得到角色权限才可以访问
          */
         Map<String,String> filterMap =new LinkedHashMap<String, String>();
+
         for (TreeRole role : list) {
             //filterMap.put(role.getUrl(),"perms[user:update,add]");
             //System.out.println(role.getChildren());
             for (TreeRole treeRole : role.getChildren()) {
-                System.out.println(treeRole.getUrl());
-                filterMap.put(treeRole.getUrl(),"perms[user:update,add]");
+                //System.out.println(treeRole.getUrl());
+                filterMap.put(treeRole.getUrl(),"perms[user:add]");
             }
             //System.out.println(role.getChildren().get(0).getUrl()+"============");
         }
-        filterMap.put("/after/**","authc");
+        filterMap.put("/css/**","anon");
+        filterMap.put("/js/**","anon");
+        filterMap.put("/before/**","anon");
+        filterMap.put("/images/**","anon");
+        filterMap.put("/vendors/**","anon");
+        filterMap.put("/assets/**","anon");
+        filterMap.put("/fonts/**","anon");
+        filterMap.put("/layui/**","anon");
         filterMap.put("/login/toLogin","anon");
         filterMap.put("/login/login","anon");
+        filterMap.put("/**","authc");
         //System.out.println("------------++-----------------");
         filterMap.put("/login/getVerifyCode","anon");
         //授权过滤器
 //        filterMap.put("/test","perms[user:update,add]");
 //        filterMap.put("/sb/user/update","perms[user:update]");
-//        filterMap.put("/**","authc");
 //        filterMap.put("/question/*","authc");
 //        filterMap.put("/exam/*","authc");
 //        filterMap.put("/exammanage/*","authc");
