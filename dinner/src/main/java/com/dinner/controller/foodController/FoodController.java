@@ -3,6 +3,7 @@ package com.dinner.controller.foodController;
 import com.dinner.service.orderService.OrderService;
 import com.dinner.service.food.foodService;
 import com.dinner.util.FileUtil;
+import com.dinner.util.FtpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -33,11 +34,23 @@ public class FoodController {
 
     @Autowired
     private foodService foodService;
-
+    @Autowired
+    private FtpUtil ftpUtil;
     private ResourceLoader resourceLoader;
 
-    @Value("${upload.path}")
-    private String filePath; // E:/images/
+    @Value("${ftp.remoteIp}")
+    private String remoteIp;
+    @Value("${ftp.ftpUserName}")
+    private String ftpUserName;
+    @Value("${ftp.ftpPassWord}")
+    private String ftpPassWord;
+    @Value("${ftp.remotePath}")
+    private String remotePath;
+    @Value("${ftp.uploadPort}")
+    private String uploadPort;
+
+    @Value("${ftp.localPath}")
+    private String filePath; // D:/images/
 
     @Autowired
     public FoodController(ResourceLoader resourceLoader) {
@@ -63,11 +76,9 @@ public class FoodController {
     public Integer addORupdate(@RequestBody Map map){
         int state = 0;
         if (map.get("FOOD_ID") != null) {
-            foodService.updateFood(map);
-            state = 1;
+            state = foodService.updateFood(map);
         } else {
-            foodService.addFood(map);
-            state = 0;
+            state = foodService.addFood(map);
         }
         return state;
     }
@@ -83,11 +94,11 @@ public class FoodController {
         return foodService.delFood(map);
     }
 
-    /**
+/*    *//**
      * 图片显示
      * @param fileName
      * @return
-     */
+     *//*
     @RequestMapping("show")
     public ResponseEntity show(String fileName){
         try {
@@ -97,7 +108,22 @@ public class FoodController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }*/
+    /**
+     * 图片显示方法
+     * @param fileName
+     * @return
+     */
+    @RequestMapping("/showFtp")
+    public ResponseEntity showFtp(String fileName){
+        try {
+            Resource resource = resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName);
+            return ResponseEntity.ok(resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     /**
      * 图片上传
@@ -107,9 +133,17 @@ public class FoodController {
     @RequestMapping("/uploadPic")
     @ResponseBody
     public Object uploadPic(@RequestParam MultipartFile file){
-        System.out.println("上传了 "+file.getOriginalFilename());
-        String s = FileUtil.uploadFile("E:/images/", file);
-        return s;
+
+        /*if (file!=null&&!file.isEmpty()){*/
+            final String s = ftpUtil.upLoad(file);
+            /*map.put("filePath",s);
+            map.put("fileName",file.getOriginalFilename());
+        }
+        System.out.println("上传了原图名字 "+file.getOriginalFilename());
+        foodService.addFood(map);
+        System.out.println(foodService.addFood(map));
+        return foodService.addFood(map);*/
+            return s;
     }
 
 
