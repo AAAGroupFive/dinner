@@ -68,7 +68,6 @@
                     label="操作">
                 <template scope="scope">
                     <el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>
-                    <el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -94,7 +93,7 @@
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
         <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
             <el-form-item label="雇员ID" prop="empId">
-                <el-input v-model="editForm.empId" auto-complete="off"></el-input>
+                <el-input v-model="editForm.empId" readonly="readonly" auto-complete="off"></el-input>
             </el-form-item>
             <!-- <el-form-item label="性别">
                  <el-radio-group v-model="editForm.sex">
@@ -351,46 +350,46 @@
                 this.multipleSelection = val;
                 console.info(val);
             },
-            //删除所选，批量删除
-            removeSelection:function() {
-                var _self = this;
-                var multipleSelection = this.multipleSelection;
-                if(multipleSelection.length < 1) {
-                    _self.$message({
-                        message: '请至少选中一条记录',
-                        type: 'error'
-                    });
-                    return;
-                }
-                var ids = "";
-                for(var i=0;i<multipleSelection.length;i++) {
-                    var row = multipleSelection[i];
-                    ids += row.EMPNO + ","
-                }
-                this.$confirm('确认删除' + ids +'吗?', '提示', {
-                    type: 'warning'
-                }).then(function(){
-                    var  url="/emp/batchDel/"+ids;
-                    axios.get(url).then(function (response) {
-                        //alert(response.data);
-                        var temp="";
-                        if(response.data>0){
-                            temp="删除成功";
-                        }else {
-                            temp="删除失败";
-                        }
-                        _self.$message({
-                            message: ids + temp,
-                            type: 'success'
-                        });
-                        _self.loadingData();//重新加载数据
-                    });
-
-                }).catch(function(e){
-                    if(e != "cancel")
-                        console.log("出现错误：" + e);
-                });
-            },
+//            //删除所选，批量删除
+//            removeSelection:function() {
+//                var _self = this;
+//                var multipleSelection = this.multipleSelection;
+//                if(multipleSelection.length < 1) {
+//                    _self.$message({
+//                        message: '请至少选中一条记录',
+//                        type: 'error'
+//                    });
+//                    return;
+//                }
+//                var ids = "";
+//                for(var i=0;i<multipleSelection.length;i++) {
+//                    var row = multipleSelection[i];
+//                    ids += row.EMPNO + ","
+//                }
+//                this.$confirm('确认删除' + ids +'吗?', '提示', {
+//                    type: 'warning'
+//                }).then(function(){
+//                    var  url="/emp/batchDel/"+ids;
+//                    axios.get(url).then(function (response) {
+//                        //alert(response.data);
+//                        var temp="";
+//                        if(response.data>0){
+//                            temp="删除成功";
+//                        }else {
+//                            temp="删除失败";
+//                        }
+//                        _self.$message({
+//                            message: ids + temp,
+//                            type: 'success'
+//                        });
+//                        _self.loadingData();//重新加载数据
+//                    });
+//
+//                }).catch(function(e){
+//                    if(e != "cancel")
+//                        console.log("出现错误：" + e);
+//                });
+//            },
             //分页大小修改事件
             pageSizeChange:function(val) {
                 console.log('每页 ' + val +' 条');

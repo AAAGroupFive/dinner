@@ -1,7 +1,9 @@
 package com.dinner.controller.login;
 
+import com.dinner.entity.TreeRole;
 import com.dinner.service.emp.EmpService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -163,33 +165,37 @@ public class ShiroLoginController {
         //封装用户数据
         UsernamePasswordToken token = new UsernamePasswordToken((String) map.get("userName"), (String) map.get("passWord"));
         //执行登录方法
+        //System.out.println(token+"======++========");
         try {
             subject.login(token);
                 List<Map> userList = empService.login(map);
-                //System.out.println(userList.size());
+                //System.out.println(userList+"==============");
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
                     session.setMaxInactiveInterval(600000);
-                    //System.out.println("aaaaaaaaaaaaaaa");
-                    return "redirect:../power/index";
+                    List<TreeRole> roleList = empService.roleList(Integer.valueOf(userList.get(0).get("EMP_ID") + ""));
+                    if (roleList!=null && roleList.size()>0){
+                        model.addAttribute("menuList", roleList);
+                        model.addAttribute("userName",map.get("userName"));
+                        model.addAttribute("baidu","www.baidu.com");
+                        //System.out.println("aaaaaaaaaaaaaaa");
+                        return "after/index";
+                    }else {
+                        return "after/403";
+                    }
                 } else {
-                    model.addAttribute("error", "用户名或密码错误!");
+                    model.addAttribute("msg", "用户名或密码错误!");
                     //System.out.println("bbbbbbbbbbbbbbbb");
                     return "after/login";
                 }
 
             // return "redirect:/login/indexA";
             //return "after/index";
-        } catch (UnknownAccountException e) {
+        } catch (AuthenticationException e) {
 //                  e.printStackTrace();
             //System.out.println("cccccccccccccc");
-            model.addAttribute("msg", "用户名不存在");
-            return "after/login";
-        } catch (IncorrectCredentialsException e) {
-//                  e.printStackTrace();
-            //System.out.println("dddddddddddddddddddd");
-            model.addAttribute("msg", "密码错误");
+            model.addAttribute("msg", "用户名不存在或密码错误!!!");
             return "after/login";
         }
 
