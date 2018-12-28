@@ -57,7 +57,7 @@
                         var a = $("#fourId").text();
                         x_admin_show('增加消费','/dinner/order/food?number='+v,800,750)
                     }else if (v1 == 2) {
-                        x_admin_show('增加消费','/dinner/order/food?number='+v,800,750)
+                        x_admin_show('开桌','/dinner/order/begin?number='+v,800,750)
                     }
 
                 }
@@ -83,8 +83,7 @@
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
-        <blockquote class="layui-elem-quote">欢迎管理员：
-            <span class="x-red" id="Session"></span>！当前时间:<span id="showDate"> </span><span style="float: right"> <input style="border: 0px;width: 90px;" type="text"   id="test1"  > <input type="button" value="查询预订" onclick="myFunction()"> </span></blockquote>
+        <blockquote class="layui-elem-quote">当前时间:<span id="showDate"> </span><span style="float: right"> <input style="border: 0px;width: 90px;" type="text"   id="test1"  > <input type="button" value="查询预订" onclick="myFunction()"> </span></blockquote>
         <fieldset class="layui-elem-field">
             <legend>散座</legend>
             <div class="layui-field-box">

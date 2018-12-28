@@ -26,7 +26,6 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public List<Map> reserveList(String selectDate) {
-        System.out.println(selectDate+"...........");
         if(StringUtil.isEmpty(selectDate)){
             selectDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }

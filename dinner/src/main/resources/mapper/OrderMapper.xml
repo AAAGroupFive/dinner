@@ -25,10 +25,10 @@
 
     <!--增加消费-->
     <insert id="insertChoose">
-        insert into TAB_CON_RECORD(CON_ID,CON_ROOM,CON_GOODS)
+        insert into TAB_CON_RECORD(CON_ROOM,CON_GOODS)
         <foreach collection="list"  index="index" item="item" separator="union all">
             SELECT
-            SEQ_TAB_CON_RE_ID.nextval,#{item.num},#{item.id}
+            #{item.num},#{item.id}
             FROM dual
         </foreach>
     </insert>

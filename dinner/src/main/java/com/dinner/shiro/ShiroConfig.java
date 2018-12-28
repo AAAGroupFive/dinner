@@ -56,6 +56,11 @@ public class ShiroConfig {
             }
             //System.out.println(role.getChildren().get(0).getUrl()+"============");
         }
+        filterMap.put("/locationTo/bbbf","anon");
+        filterMap.put("/before/food","anon");
+        filterMap.put("/locationTo/bbbc","anon");
+        filterMap.put("/locationTo/bbbb","anon");
+        filterMap.put("/reserve","anon");
         filterMap.put("/css/**","anon");
         filterMap.put("/js/**","anon");
         filterMap.put("/before/**","anon");
@@ -63,7 +68,7 @@ public class ShiroConfig {
         filterMap.put("/vendors/**","anon");
         filterMap.put("/assets/**","anon");
         filterMap.put("/fonts/**","anon");
-        filterMap.put("/layui/**","anon");
+        filterMap.put("/lib/layui/**","anon");
         filterMap.put("/login/toLogin","anon");
         filterMap.put("/login/login","anon");
         filterMap.put("/**","authc");
