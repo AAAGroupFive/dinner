@@ -90,7 +90,7 @@
                 </el-form-item>
                 <el-form-item label="照片" prop="FOOD_PIC">
                     <el-col :span="5">
-                        <img  v-show="isShow" :src="'/dinner/food/show?fileName='+editForm.FOOD_PIC" style="width: 150px;height: 150px;">
+                        <img  v-show="isShow" :src="'/dinner/food/showFtp?fileName='+editForm.FOOD_PIC" style="width: 150px;height: 150px;">
                     </el-col>
                     <el-col :span="11">
                     <el-upload
@@ -132,8 +132,8 @@
         var tableView = new Vue({
             el: '#tableView',
             data: {
-                //isShow:true,
-                showPath:'/dinner/food/show?fileName=',
+                isShow:true,
+                showPath:'/dinner/food/showFtp?fileName=',
                 //列表数据
                 tableData: [],
                 //显示加载中样式
@@ -210,6 +210,7 @@
                                     message: '操作失败',
                                     type: 'warning'
                                 });
+                                _self.loadingData();//重新加载数据
                             }
                         });
 

@@ -2,16 +2,15 @@
 ### Example user template template
 ### Example user template
 
-# IntelliJ project files
+# IntelliJ out project files
 .idea
 *.iml
 target
-out
 gen
-<<<<<<< HEAD
+
 dinner/target/
 
 
 =======
 target
->>>>>>> master
+
