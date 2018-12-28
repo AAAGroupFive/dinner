@@ -13,7 +13,7 @@
 </head>
 <body>
 <div>
-    <h1>消费单</h1>
+    <h2>消费单</h2>
 </div>
 <div id="tableView">
     <el-row>
@@ -23,6 +23,12 @@
                 border
 
                 style="width: 100%">
+            <el-table-column
+                    v-if="hideRow"
+                    prop="CON_ID"
+                    label="ID"
+                    width="300">
+            </el-table-column>
             <el-table-column
                     prop="CON_TYPE"
                     label="类型"
@@ -76,14 +82,14 @@
                     border
                     style="width: 100%">
                 <el-table-column
-                        prop="CON_TYPE"
-                        label="类型"
-                        width="250">
+                        prop="FOOD_NAME"
+                        label="菜品名称"
+                        width="450">
                 </el-table-column>
                 <el-table-column
-                        prop="CON_TIME"
-                        label="消费时间"
-                        width="100">
+                        prop="FOOD_PRICE"
+                        label="价格"
+                        width="300">
                 </el-table-column>
 
             </el-table>
@@ -123,7 +129,7 @@
         methods:{
             //结账详情事件
             editClick:function(row) {
-                var number=$("#number").text();
+                var number=row.CON_ROOM;
                 var self1 = this;
                 axios.post('/dinner/count/countDetails?number='+number).then(function(response){
                     self1.total=response.data.total;

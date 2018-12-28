@@ -32,7 +32,7 @@
 		              <option>大厅</option>
 		              <option>包间</option>
 		            </select>
-		          </div>
+              </div>
               <!--<div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>-->
@@ -51,29 +51,11 @@
                   <span class="x-red">*</span>顾客人数
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_pass" name="person" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
-                  <span class="x-red">*</span>开单时间
-              </label>
-              <div class="layui-input-inline">
-                  <input class="layui-input" placeholder="开单时间" name="start" id="start">
-              </div>
-          </div>
-          <table class="layui-table" lay-data="{url:'/dinner/order/goodsList', id:'test3'}" lay-filter="test3">
-					  <thead>
-					    <tr>
-					      <th lay-data="{type:'checkbox'}">ID</th>
-					      <th lay-data="{field:'FOOD_ID', width:80}">ID</th>
-					      <th lay-data="{field:'FOOD_NAME', width:120, edit: 'text'}">菜品名称</th>
-					      <th lay-data="{field:'FOOD_PRICE', edit: 'text',sort: true}">菜品单价</th>
-					      <th lay-data="{field:'FOOD_NUM', edit: 'text',sort: true}">菜品数量</th>
-					    </tr>
-					  </thead>
-          </table>
+            <input type="text" id="L_pass" name="person" required="" lay-verify="pass"
+                   autocomplete="off" class="layui-input">
+    </div>
+    </div>
+          <input hidden="hidden" th:value="${number}">
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
@@ -85,63 +67,32 @@
     </div>
     <script>
 
-        layui.use('table', function(){
-            var table = layui.table;
-
-            //监听单元格编辑
-            table.on('edit(test3)', function(obj){
-                var value = obj.value //得到修改后的值
-                    ,data = obj.data //得到所在行所有键值
-                    ,field = obj.field; //得到字段
-                layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-            });
-        });
-
-    		//日期选择
-    		layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-          ,type: 'datetime'
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-        //时间选择器
-      });
-
-
       layui.use(['form','layer'], function(){
             $ = layui.jquery;
           var form = layui.form
           ,layer = layui.layer;
           //监听提交
 		      form.on('submit(add)', function(data){
-                  var cked = $(".layui-table-body input[name='layTableCheckbox']:checked");
-                  var orderIds="";
-                  cked.each(function(){
-                      var order_id = ($(this).parent().parent().next().children().html());
-                      orderIds+=order_id+",";
-
-                  })
 		        $.ajax({
                     url: "/dinner/order/order" ,
                     type: "post",
-                    datatype:"json",
-                    data: {"orderIds":orderIds,"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person,"start":data.field.start},
-
+                    dataType:"json",
+                    async:false,
+                    data: {"contrller":data.field.contrller,"number":data.field.number,"person":data.field.person},
+                    success:function (data) {
+                       var a =data.orderId;
+                        window.location.href="/dinner/toMain?orderId="+a;
+                    },
+                    error:function () {
+                        console.log("错误！")
+                    }
                 });
-		        layer.alert("开桌成功", {icon: 6},function () {
 		            // 获得frame索引
 		            var index = parent.layer.getFrameIndex(window.name);
 		            //关闭当前frame
 		            parent.layer.close(index);
-		        });
-		        return false;
+                    window.parent.location.href=window.parent.location.href;
+		            // return false; //false阻止跳转及刷新
 		      });
       });
     </script>

@@ -63,11 +63,9 @@ public class FoodController {
     public Integer addORupdate(@RequestBody Map map){
         int state = 0;
         if (map.get("FOOD_ID") != null) {
-            foodService.updateFood(map);
-            state = 1;
+            state = foodService.updateFood(map);
         } else {
-            foodService.addFood(map);
-            state = 0;
+            state = foodService.addFood(map);
         }
         return state;
     }

@@ -25,10 +25,10 @@
 
     <!--增加消费-->
     <insert id="insertChoose">
-        insert into TAB_CON_RECORD(CON_ROOM,CON_GOODS)
+        insert into TAB_CON_RECORD(CON_ID,CON_ROOM,CON_GOODS)
         <foreach collection="list"  index="index" item="item" separator="union all">
             SELECT
-            #{item.num},#{item.id}
+            SEQ_TAB_CON_RE_ID.nextval,#{item.num},#{item.id}
             FROM dual
         </foreach>
     </insert>
@@ -42,7 +42,7 @@
     <!--结账详情-->
     <select id="countDetails" parameterType="map" resultType="map">
         select c.FOOD_NAME,c.FOOD_PRICE from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
-        where b.CON_ROOM=#{number} and a.CON_STATE=0
+        where b.CON_ROOM=#{number}
     </select>
 
     <!--关闭桌子-->

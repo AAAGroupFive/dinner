@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,5 +30,20 @@ public class reserveController {
     @RequestMapping("/reserve")
     public int reserve(@RequestParam Map map) {
         return reserveService.addReserve(map);
+    }
+
+    /**
+     * 跳转后台预订页面
+     * @return
+     */
+    @RequestMapping("/toReserve")
+    public String toReserve() {
+        return "after/reserve";
+    }
+
+    @ResponseBody
+    @RequestMapping("/reList")
+    public List<Map> reserve() {
+        return reserveService.reList();
     }
 }

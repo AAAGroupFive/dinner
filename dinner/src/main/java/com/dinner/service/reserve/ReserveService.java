@@ -13,10 +13,16 @@ public interface ReserveService {
 
 
     /**
+     * 查询预订列表
+     * @return
+     */
+    List<Map> reList();
+
+    /**
      * 预订列表
      * @return
      */
-    List<Map> reserveList();
+    List<Map> reserveList(String selectDate);
 
     /**
      * 添加预定信息

@@ -1,9 +1,14 @@
 package com.dinner.service.reserve;
 
+import antlr.StringUtils;
 import com.dinner.dao.reserve.ReserveDao;
+import com.github.pagehelper.util.StringUtil;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +25,22 @@ public class ReserveServiceImpl implements ReserveService {
     private ReserveDao reserveDao;
 
     @Override
-    public List<Map> reserveList() {
-        return reserveDao.reserveList();
+    public List<Map> reserveList(String selectDate) {
+        System.out.println(selectDate+"...........");
+        if(StringUtil.isEmpty(selectDate)){
+            selectDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        }
+        return reserveDao.reserveList(selectDate);
     }
 
     @Override
     public int addReserve(Map map) {
-        reserveDao.updateState(map);
+        //reserveDao.updateState(map);
         return reserveDao.addReserve(map);
     }
 
+    @Override
+    public List<Map> reList() {
+        return reserveDao.reList();
+    }
 }

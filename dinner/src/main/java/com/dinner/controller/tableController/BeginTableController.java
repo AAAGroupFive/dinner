@@ -33,7 +33,7 @@ public class BeginTableController {
     @RequestMapping("/begin")
     public String begin(String number, Model model) {
         model.addAttribute("number", number);
-        return "after/begin-table2";
+        return "after/begin-table";
     }
 
     @RequestMapping("/food")
