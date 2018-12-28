@@ -24,14 +24,6 @@ public class LocationController {
      * 跳转到首页
      * @return
      */
-    @RequestMapping("/bbba")
-    public String chengelocation1(){
-        return "before/Bindex";
-    }
-    /**
-     * 跳转到首页2
-     * @return
-     */
     @RequestMapping("/bbbf")
     public String chengelocation6(){
         return "before/Bindex1";

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消费单</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div>
+    <h1>消费单</h1>
+</div>
+<div id="tableView">
+    <el-row>
+        <el-table
+                :data="tableData"
+                v-loading.body="loading"
+                border
+
+                style="width: 100%">
+            <el-table-column
+                    prop="CON_TYPE"
+                    label="类型"
+                    width="300">
+            </el-table-column>
+            <el-table-column
+                    prop="CON_TIME"
+                    label="开单时间"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="CON_ROOM"
+                    label="桌号"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="CON_PERSON"
+                    label="人数"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="CON_MONEY"
+                    label="消费金额"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="CON_STATE"
+                    label="消费状态"
+                    width="200">
+                <template scope="scope">
+                    <!--假设类型的字段是type-->
+                    <!--如果当前行type字段等于0，就显示超级管理员，等于2就显示管理员，以此类推-->
+                    <span v-if='scope.row.CON_STATE===0'>消费中</span>
+                    <span v-if='scope.row.CON_STATE===1'>已结账</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="消费详情">
+                <template scope="scope">
+                    <el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">查看详情</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-row>
+    <!--详情界面-->
+    <el-dialog  title="消费详情" :visible.sync="editFormVisible" :close-on-click-modal="false">
+        <el-row>
+            <el-table
+                    :data="tableDataA"
+                    v-loading.body="loading"
+                    border
+                    style="width: 100%">
+                <el-table-column
+                        prop="CON_TYPE"
+                        label="类型"
+                        width="250">
+                </el-table-column>
+                <el-table-column
+                        prop="CON_TIME"
+                        label="消费时间"
+                        width="100">
+                </el-table-column>
+
+            </el-table>
+        </el-row>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click.native="editFormVisible = false">关闭</el-button>
+        </div>
+    </el-dialog>
+</div>
+<script>
+    var tableView = new Vue({
+        el: '#tableView',
+        data: {
+            //列表数据
+            tableData: [],
+            tableDataA: [],
+            //显示加载中样式
+            loading:false,
+            //编辑界面是否显示
+            editFormVisible: false,
+            editLoading: false,
+            goUrl:'',
+            editFormRules: {
+                name: [
+                    { required: true, message: '请输入姓名', trigger: 'blur' }
+                ]
+            },
+        },
+        created:function(){
+            //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
+            var self = this;
+            axios.post('/dinner/consume').then(function(response){
+                self.total=response.data.total;
+                self.tableData = response.data.data;
+            })
+        },
+        methods:{
+            //结账详情事件
+            editClick:function(row) {
+                var number=$("#number").text();
+                var self1 = this;
+                axios.post('/dinner/count/countDetails?number='+number).then(function(response){
+                    self1.total=response.data.total;
+                    self1.tableDataA = response.data.data;
+                })
+                this.editFormVisible = true;
+                this.editForm = Object.assign({}, row);
+            },
+        }
+    })
+</script>
+</body>
+</html>

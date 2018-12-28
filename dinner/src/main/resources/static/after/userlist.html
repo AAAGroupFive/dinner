@@ -3,23 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>商品列表</title>
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-    <script src="../lib/layui/layui.js" charset="utf-8"></script>
-    <script src="../js/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="/dinner/js/vue.js"></script>
+    <script type="text/javascript" src="/dinner/js/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <style type="text/css">
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"] {
             top: 50%;
             transform: translateY(-50%);
         }
     </style>
+
 </head>
 <body>
-<table class="layui-hide" id="userlist" lay-filter="demo" >
-    <div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
-        <!--<div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>-->
-        <div class="layui-btn layui-btn-warm" style="margin-left:10px;" onclick="toAdd()"><i class="layui-icon">&#xe608;</i>添加</div>
+<div class="demoTable" style="margin-top: 10px;width: 1662px;margin-left: 20px;">
+    姓名:
+    <div class="layui-inline">
+        <input class="layui-input" name="ROOM_PART_PHONE" id="demoReload" autocomplete="off">
     </div>
+    手机号:
+    <div class="layui-inline">
+        <input class="layui-input" name="ROOM_PART_NAME" id="demoReload2" autocomplete="off">
+    </div>
+    <div class="layui-btn" data-type="reload" id="searchBtn"><i class="layui-icon">&#xe615;</i>搜索</div>
+    <div class="layui-btn" data-type="reload" id="redo"><i class="layui-icon">&#xe669;</i></div>
+    <div class="layui-btn layui-btn-warm" style="margin-left:10px;" onclick="toAdd()"><i class="layui-icon">&#xe608;</i>添加</div>
+</div>
+<table class="layui-hide" id="userlist" lay-filter="demo" >
+
 </table>
 <script>
     layui.use('table', function() {
@@ -38,8 +58,6 @@
             , cols: [ [
                 {field: 'EMPID', title: '雇员id', width: 100, sort: true, unresize: true, fixed: true}
                 , {field: 'EMPNAME', title: '姓名', width: 100}
-                , {field: 'USERNAME', title: '用户名', width: 100}
-                , {field: 'PASSWORD', title: '密码', width: 100}
                 , {field: 'SEX', title: '性别', width: 100,templet:'#sex'}
                 , {field: 'BIRTH', title: '年龄', width: 100}
                 , {field: 'PHONE', title: '电话', width: 150}
@@ -47,6 +65,7 @@
                 , {field: 'ROLE', title: '职位', width: 100,templet:'#zhi'}
                 , {fixed: 'right',title: '操作', toolbar: '#barDemo', width: 200}
             ] ]
+            ,id: 'testReload'
             , request:{
                 pageName:'pageNo',//页码的参数名称，默认：page
                 limitName:'pageSize'//每页数据量的参数名：默认：limit
@@ -57,6 +76,29 @@
             , done: function () {
                 $("[data-field='EMPID']").css('display', 'none');
             }
+        })
+        //模糊查询（搜索）
+        var $ = layui.$, active = {
+            reload:function () {
+                var demoReload = $("#demoReload");
+                var demoReload2 = $("#demoReload2");
+                table.reload('testReload',{
+                    where:{
+                        ename:demoReload.val(),
+                        phone:demoReload2.val()
+                    }
+                })
+            }
+        }
+        $("#searchBtn").on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        })
+        //取消搜索按钮
+        $("#redo").click(function(){
+            $("#demoReload").val("");
+            $("#demoReload2").val("");
+            $("#searchBtn").trigger("click");
         })
         //监听工具条
         table.on('tool(demo)', function(obj){
@@ -130,9 +172,18 @@
                         })
                     }  //success(layero)
                 }) //open
-            }  //edit
+            }
         });
+
+
     })
+    layui.use(['form', 'laydate',"upload","jquery"], function(){
+        laydate = layui.laydate;
+        laydate.render({ //发布时间
+            elem: '#date'
+            ,max:0
+        });
+    });
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon">&#xe642;</i></a>
@@ -198,10 +249,10 @@
                     <input name="client_type" class="layui-input" id="ADDR" >
                 </div>
             </div>
-            <div class="layui-form-item" style="width: 500px">
-                <label class="layui-form-label">职位</label>
-                <div class="layui-input-block">
-                    <select id="ROLE">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 100px">职位</label>
+                <div class="layui-input-block" style="width: 200px">
+                    <select id="ROLE" >
                         <option value="">请选择</option>
                         <option value="0">服务员</option>
                         <option value="1">收银</option>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<div id="tableView" class="dial-header">
+                <el-tree ref="tree"
+                            :data="treeData"
+                            show-checkbox
+                            node-key="id"
+                            @check-change="getSelected">
+                    </el-tree>
+    <el-button type="primary" round @click="saveCheck">保存</el-button>
+</div>
+
+
+<script>
+    /*export default {
+        data () {
+            return {
+                showFlag: false,
+                radio:""
+            }
+        },
+        methods:{
+            radioEvent(){
+                this.showFlag = false;
+                this.adapterSelected = this.radio;
+            },
+        }*/
+    var vm =new Vue({
+       el:"#tableView",
+        data:{
+            showFlag: false,
+            treeData:[],
+            radio:"",
+            idds:""
+        },
+        created:function(){
+            var self=this;
+            axios.post('../power/list').then(function(response){
+                self.treeData = response.data;
+                axios.post('../power/role').then(function (response) {
+                    console.log(response.data)
+
+                })
+            })
+        },
+        methods:{
+            getSelected:function(e){
+              var ids="";
+              var treeData = this.$refs.tree.getCheckedNodes();
+                for (var i = 0; i < treeData.length; i++) {
+                    var obj = treeData[i];
+                    //alert(obj.label);
+                      ids+=obj.id+",";
+                }
+                //alert(ids);
+                this.idds=ids;
+            },
+            saveCheck:function(){
+                 axios.post("../power/add",{ids:this.idds,roleId:"1"}).then(function(response){
+                            if(response.data>0){
+                                alert("成功！");
+                            }else {
+                                alert("失败！");
+                            }
+                     }
+                 );
+            }
+        }
+    });
+</script>
+</body>
+</html>

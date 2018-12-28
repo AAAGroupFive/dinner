@@ -1,9 +1,11 @@
 package com.dinner.service.emp;
 
 import com.dinner.dao.emp.EmpDao;
+import com.dinner.entity.TreeRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +53,54 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public List<Map> getFunc() {
-        return empDao.getFunc();
+    public List<Map> findByid(int id) {
+        return empDao.findByid(id);
+    }
+
+    @Override
+    public List<Map> login(Map map) {
+        return empDao.login(map);
+    }
+
+    @Override
+    public List<Map> getRole(Map map) {
+        return empDao.getRole(map);
+    }
+
+    @Override
+    public List<TreeRole> roleList(int id) {
+        List<TreeRole> list = empDao.roleList(id);
+        List<TreeRole> treeNodesList = new ArrayList<TreeRole>();
+        if(list!=null&&list.size()>0){
+            for (TreeRole treeNode : list) {
+                //一级菜单
+                if(treeNode.getPid()==0){
+                    treeNodesList.add(treeNode);
+                    //循环绑定子节点
+                    bindChirdren(treeNode,list);
+                }
+            }
+        }
+        return treeNodesList;
+    }
+
+    /**
+     * 递归绑定子节点
+     * @param treeNode
+     * @param treeNodesList
+     */
+    public void bindChirdren(TreeRole treeNode,List<TreeRole> treeNodesList){
+        for (TreeRole node : treeNodesList) {
+            if(node.getPid()==treeNode.getId()){
+                List<TreeRole> children = treeNode.getChildren();
+                if(children==null){
+                    children=new ArrayList<TreeRole>();
+                }
+                children.add(node);
+                treeNode.setChildren(children);
+                //递归调用自己
+                bindChirdren(node,treeNodesList);
+            }
+        }
     }
 }

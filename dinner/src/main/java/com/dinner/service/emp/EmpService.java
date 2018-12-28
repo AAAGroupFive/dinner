@@ -1,5 +1,6 @@
 package com.dinner.service.emp;
 
+import com.dinner.entity.TreeRole;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -49,8 +50,29 @@ public interface EmpService {
     int updateEmp(Map map);
 
     /**
-     * 权限列表
+     * 雇员
      * @return
      */
-    List<Map> getFunc();
+    List<Map> findByid(int id);
+
+    /**
+     * 验证
+     * @param map
+     * @return
+     */
+    List<Map> login(Map map);
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    List<Map> getRole(Map map);
+
+    /**
+     * 根据id查权限列表
+     * @param id
+     * @return
+     */
+    List<TreeRole> roleList(int id);
 }

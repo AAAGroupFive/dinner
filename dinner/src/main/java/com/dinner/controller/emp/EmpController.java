@@ -3,6 +3,7 @@ package com.dinner.controller.emp;
 import com.dinner.service.emp.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,7 @@ public class EmpController {
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
         //System.out.println(1111);
+        //System.out.println(map.get("ename"));
         List<Map> emp = empService.getEmp(map);
         int countEmp = empService.getCountEmp();
         Map tempMap = new HashMap();
@@ -55,25 +57,16 @@ public class EmpController {
     }
 
 
-
-    @RequestMapping("/func")
-    @ResponseBody
-    public Object getFunc(@RequestParam Map map){//g
-        //System.out.println(1111);
-        List<Map> emp = empService.getFunc();
-        return emp;
-    }
-
     @RequestMapping("/add")
     public Object empAdd(@RequestParam Map map){
         //System.out.println("QAQ`");
-        System.out.println(map);
+        //System.out.println(map);
         int i = empService.addEmp(map);
-        Map tempMap = new HashMap();
-        if (i==1){
+        if (i>0){
             return "after/userlist";
-        }else{
-            return "after/userlist";
+        }else {
+
+            return "after/userAdd1";
         }
     }
 
