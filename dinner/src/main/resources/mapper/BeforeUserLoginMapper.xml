@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.beforeUserLoginDao.BeforeUserLoginDao">
     <select id="checkUser" resultType="map" >
-      select * from  tab_vip where vip_phone = #{userid} and vip_password = #{passwordinput}
+      select * from  tab_vip where vip_phone = #{username} and vip_password = #{password}
     </select>
 </mapper>

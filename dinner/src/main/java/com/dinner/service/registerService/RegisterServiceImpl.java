@@ -21,4 +21,8 @@ public class RegisterServiceImpl implements  RegisterService{
     public int registerUserLoginMessage(Map map) {
         return registerDao.registerUserLoginMessage(map);
     }
+    public  List<Map> checkUser(Map map){
+        return  registerDao.checkUser(map);
+    }
+
 }
