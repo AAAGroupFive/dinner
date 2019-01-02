@@ -6,8 +6,10 @@
 
      <insert id="registerUserLoginMessage" parameterType="map">
        insert into tab_vip values (seq_tab_vip_id.nextval,null,#{phone},to_char(sysdate,'yyyymmddhh24miss'),null,null,3,null,#{password},#{Email} )
-
      </insert>
-
+    
+    <select id="checkUser" parameterType="map" resultType="map">
+        select * from  tab_vip where vip_phone=#{phone}
+    </select>
 
 </mapper>
