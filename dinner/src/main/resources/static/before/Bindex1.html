@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="../vendors/sweetalert2/css/sweetalert2.min.css">
     <!----------------custo css----------------->
     <link rel="stylesheet" href="../css/custom.css">
-    <script src="../js/jquery.min.js"></script>
+    <script  type="text/javascript" src="../js/jquery.min.js"></script>
+
     <script>
         //页面加载后，异步查询登录状态，如果登陆过，则 显示用户名信息，
         //如果没有登录 则显示 登录 和  注册 按钮
@@ -29,7 +30,8 @@
                 url:'../beforeUserLogin/loginCheck',
                 dataType:"json",
                 success:function (data) {
-                    console.log(data);
+                   //
+                    // console.log(data);
                     if (data.length==1&&data[0]==1) {
                         var html=" ";
 
@@ -81,7 +83,7 @@
                 }
             })
         }
-        //timer处理函数
+        //发送验证码  按钮  处理函数
         function SetRemainTime() {
             if (curCount == 0) {
                 window.clearInterval(InterValObj);//停止计时器
@@ -93,8 +95,9 @@
                 $("#btnSendCode").val( "重新发送"+curCount);
             }
         }
-    </script>
 
+
+    </script>
 
 
 
@@ -122,6 +125,7 @@
 <!----------------Preloader end----------------->
 <!-------------Header--------->
 <div class="tp-header">
+    <!--动态显示内容-->
     <div class="container" id="headMessage">
         <div class="row">
             <div class="col-xs-7 col-md-6">
@@ -135,6 +139,7 @@
 
         </div>
     </div>
+    <!--动态显示内容 结束-->
 </div>
 <header>
     <div class="container">
@@ -156,7 +161,7 @@
                     <li class="list2"><a href="/dinner/locationTo/bbbf" class="hvr-underline-from-center">首页</a></li>
                     <li class="list2"><a href="/dinner/before/food" class="hvr-underline-from-center">特色美食</a></li>
                     <li class="list2"><a href="/dinner/locationTo/bbbc" class="hvr-underline-from-center">餐桌预定</a></li>
-                    <li class="list2"><a href="/dinner/locationTo/bbbb" class="hvr-underline-from-center">联系我们</a></li>
+                    <!--<li class="list2"><a href="/dinner/locationTo/bbbb" class="hvr-underline-from-center">联系我们</a></li>-->
                 </ul>
             </div>
 
@@ -326,22 +331,23 @@
             <div class="modal-body">
                 <div id="myTabContent" class="tab-content">
                     <div class=" signin tab-pane fade active in" id="signin">
+                        <!--第一个表单开始-->
                         <form class="form-horizontal" action="../beforeUserLogin/CodeCheck" method="post">
                             <fieldset>
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="userid"><span
                                             class="glyphicon glyphicon-user text-primary"></span> 用户名:</label>
                                     <div class="controls">
-                                        <input id="userid" name="userid" type="text" class="form-control input-medium"
-                                               placeholder="请输入用户名" >
+                                        <input id="userid" name="username" type="text" class="form-control input-medium aa"
+                                            phone="phone"   placeholder="请输入用户名" >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="passwordinput"><span
                                             class="glyphicon glyphicon-eye-open text-primary"></span> 密码 :</label>
                                     <div class="controls">
-                                        <input type="password" id="passwordinput" name="passwordinput"
-                                               class="form-control input-medium" placeholder="请输入密码" >
+                                        <input type="password" id="passwordinput" name="password"
+                                           password="password"    class="form-control input-medium aa" placeholder="请输入密码" >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
@@ -356,8 +362,8 @@
                                          </span>
                                     </label>
                                     <div class="controls">
-                                        <input type="text" id="verifyCode" name="verifyCode"
-                                               class="form-control input-medium" placeholder="请输入图片上的内容.." >
+                                        <input type="text" id="verifyCode" name="invite"
+                                               verifyCode="verifyCode"     class="form-control input-medium aa" placeholder="请输入图片上的内容.." >
                                     </div>
                                 </div>
                                 <div class="checkbox">
@@ -365,39 +371,39 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="controls section-top-10">
-                                        <button id="signin_btn" name="signin" class="btn btn-success form-control">登录
-                                        </button>
+                                        <a id="signin_btn" name="signin1" class="btn btn-success form-control">登录
+                                        </a>
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
+                        <!--第一个表单 结束-->
                     </div>
                     <div class="tab-pane fade signup" id="signup">
-                        <form class="form-horizontal" action="../register/userRegister" method="post">
+                        <!--第二个表单开始-->
+                        <form class="form-horizontal" role="form"     method="post">
                             <fieldset>
-                                <div class="control-group section-top-10">
+                                <div class="control-group section-top-10" id="div1">
                                     <label for="user"><span class="glyphicon glyphicon-user text-primary"></span> 用户名/手机号
                                         :</label>
                                     <div class="controls">
-                                        <input id="user" name="phone" class="form-control input-large" type="text"
-                                               placeholder="请输入您的手机号码.." >
+
+                                        <input id="user" name="phone" class="form-control input-large aa" req="req" phone="phone" placeholder="请输入您的手机号码.." >
                                     </div>
                                 </div>
-                                <div class="control-group section-top-10">
-                                    <label class="control-label" for="Email_id"><span
-                                            class="glyphicon glyphicon-envelope text-primary"></span> 邮箱 :</label>
+                                <div class="control-group section-top-10" id="div2">
+                                    <label class="control-label" for="Email_id"> <span class="glyphicon glyphicon-envelope text-primary"></span> 邮箱 :</label>
                                     <div class="controls">
-                                        <input id="Email_id" name="Email" class="form-control input-large" type="email"
-                                               placeholder="abcdef@xyz.com" >
+                                        <input id="Email_id" name="email"  class=" form-control input-large aa" email="email" req="req" placeholder="abcdef@xyz.com" >
                                     </div>
                                 </div>
-                                <div class="control-group section-top-10">
+                                <div class="control-group section-top-10" id="div3">
                                     <label for="password"><span
                                             class="glyphicon glyphicon-eye-open text-primary"></span>
                                  	       密码 :</label>
                                     <div class="controls">
-                                        <input id="password" name="password" class="form-control input-large"
-                                               type="password" placeholder="请输入你想用的密码" >
+                                        <input id="password" name="password" class="form-control input-large aa"
+                                            password="password" req="req"  type="password" placeholder="请输入你想用的密码" >
 
                                     </div>
                                 </div>
@@ -405,31 +411,33 @@
                                     <label class="control-label" for="reenterpassword"><span
                                             class="glyphicon glyphicon-repeat text-primary"></span> 确认密码密码:</label>
                                     <div class="controls">
-                                        <input id="reenterpassword" class="form-control input-large"
-                                               name="reenterpassword" type="password" placeholder="保证两次输入的密码相同"
+                                        <input id="reenterpassword" class="form-control input-large aa"
+                                               repassword="repassword"   name="repassword" type="password" req="req" placeholder="保证两次输入的密码相同"
                                                >
                                     </div>
                                 </div>
-                                <div class="control-group section-top-10">
+                                <div class="control-group section-top-10" id="div4">
                                     <label class="control-label" for="letterCode"><span
                                             class="glyphicon glyphicon-envelope text-primary"></span> 邮箱验证码:
                                         <input type="button"  id="btnSendCode"  onclick="getletterMessage()" value="获取验证码" />
                                     </label>
                                     <div class="controls">
-                                        <input id="letterCode" class="form-control input-large"
-                                               name="letterCode" type="text" placeholder="收到的邮箱验证码.."
+                                        <input id="letterCode" class="form-control input-large aa"
+                                               name="letterCode" letterCode="letterCode" type="text" placeholder="收到的邮箱验证码.."
                                         >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10">
                                     <label class="control-label" for="confirmsignup"></label>
                                     <div class="controls">
-                                        <button id="confirmsignup"
-                                                class="btn btn-success form-control">提交注册                                        </button>
+                                        <a id="confirmsignup"
+                                                class="btn btn-success form-control">提交注册
+                                        </a>
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
+                        <!--第二个表单结束-->
                     </div>
                 </div>
             </div>
@@ -634,7 +642,134 @@
             $('#verifyCodeImage').attr('src',
                 '../VerCode/getVerifyCode?timestamp=' + genTimestamp());
         }
+        // 表单校验
+        var quanju=false;
+        $(".aa").blur(function(){
 
+            var jQ=$(this);
+            var value=jQ.val();
+            var email=jQ.attr("email");
+            var phone=jQ.attr("phone");
+            var password=jQ.attr("password");
+            var repassword=jQ.attr("repassword");
+
+            var req=jQ.attr("req");
+          //  console.log(req);
+            var state=true;
+            if (req=="req"){
+                if (value==null||value.trim()==""){
+                    state=false
+                }
+            }
+            if (phone=="phone"){
+                var reg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+                if (!reg.test(value)){
+                    state=false
+                }
+            }
+            if (email=="email"){
+                var reg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (!reg.test(value)){
+                    state=false
+                }
+            }
+            if (password=="password"){
+                var reg=/^.{3,20}$/;//长度为3-20的所有字符
+                if (!reg.test(value)){
+                    state=false
+                }
+            }
+            if (repassword=="repassword"){
+                // var reg=/^.{3,20}$/;//长度为3-20的所有字符
+                var pwd1=$("#password").val();
+                var repwd=$("#reenterpassword").val();
+
+                if (pwd1!=repwd){
+                    state=false
+                }
+            }
+            if (email=="email"){
+                var reg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (!reg.test(value)){
+                    state=false
+                }
+            }
+            if(state==false){
+                jQ.attr("style","background:red");
+                quanju=false;
+            }else{
+                jQ.attr("style","background:white");
+                quanju=true;
+            }
+        });
+        //注册
+        $("#confirmsignup").click(function(){
+            if(quanju){ //  quanju=true;
+                $(".aa").each(function(){
+                    $(".aa").trigger("blur");
+                });
+                if(quanju==true){
+                    $.ajax({
+                        type:'post',
+                        url:'../register/userRegister',
+                        dataType:"json",
+                        data:{"phone":$('#user').val(),
+                            "email":$('#Email_id').val(),
+                            "password":$('#password').val(),
+                            "reenterpassword":$('#reenterpassword').val(),
+                            "letterCode":$('#letterCode').val()
+                        },
+                        success:function (data) {
+                            if(data==1){
+                                alert("该用户已经存在，请勿重复注册！");
+                            }
+                            if (data==2){
+                                alert("验证码输入有误！");
+                            }
+                            else{
+                                alert("注册成功！点击确定回到首页 即可登陆。");
+                                 window.location.href="../locationTo/bbbf";
+                            }
+                        }
+
+                    })
+                }
+             }else {
+                    alert("未全部正确填写！");
+             }
+        });
+        //登陆 方法
+        $("#signin_btn").click(function(){
+            if(quanju){ //  quanju=true;
+                $(".aa").each(function(){
+                    $(".aa").trigger("blur");
+                });
+                if(quanju==true){
+                    $.ajax({
+                        type:'post',
+                        url:'../beforeUserLogin/CodeCheck',
+                        dataType:"json",
+                        data:{"username":$('#userid').val(),
+                            "password":$('#passwordinput').val(),
+                            "invite":$('#verifyCode').val(),
+                            // "reenterpassword":$('#reenterpassword').val(),
+                            // "letterCode":$('#letterCode').val()
+                        },
+                        success:function (data) {
+                            if(data==1){
+                              //  alert("该用户已经存在，请勿重复注册！");
+                                window.location.href="../locationTo/bbbf";
+                            }
+                            if (data==0){
+                                alert("输入有误！请检查确认！");
+                            }
+
+                        }
+
+                    })
+                }
+            }
+        });
 </script>
 
 

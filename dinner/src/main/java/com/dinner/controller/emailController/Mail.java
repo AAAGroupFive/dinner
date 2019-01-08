@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  * className:Mail
- * discriptoin:
+ * discriptoin:邮件发送（测试用）
  * author:J-Hsitsung.s
  * createTime:2018-12-13 14:36
  */
@@ -29,7 +29,7 @@ public class Mail {
     // PS: 某些邮箱服务器为了增加邮箱本身密码的安全性，给 SMTP 客户端设置了独立密码（有的邮箱称为“授权码”）, 
     //  对于开启了独立密码的邮箱, 这里的邮箱密码必需使用这个独立密码（授权码）。
     private static String myEmailAccount = "2019447337@qq.com";
-    private static String myEmailPsw = "vennjmmvstkzedjh";
+    private static String myEmailPsw = "anbnjiujkynbfafi";
     //QQSMTP服务器地址为:smtp.qq.com
     private static String myEmailSMTPHost = "smtp.qq.com";
     //收件人邮箱
@@ -100,7 +100,7 @@ public class Mail {
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "(｡･∀･)ﾉﾞ嗨SIRI", "UTF-8"));
         // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）
-        message.setSubject("这个用来玩，哈哈哈，猜猜我是谁", "UTF-8");//邮件标题
+        message.setSubject("登陆邮箱验证码", "UTF-8");//邮件标题
         // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
         message.setContent("尊敬的客户:<br/>   您正在预定的验证码是:"+code+" 此条信息 对您极为重要 工作人员不会向您索要验证码，<br/>请不要告诉他人  ", "text/html;charset=utf-8");
         // 6. 设置发件时间

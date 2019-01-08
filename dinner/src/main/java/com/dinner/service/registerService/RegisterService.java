@@ -15,4 +15,6 @@ public interface RegisterService {
      * @return
      */
     int registerUserLoginMessage(Map map);
+
+     List<Map> checkUser(Map map);
 }

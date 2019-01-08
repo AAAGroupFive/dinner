@@ -2,7 +2,6 @@ package com.dinner.controller.foodController;
 
 import com.dinner.service.orderService.OrderService;
 import com.dinner.service.food.foodService;
-import com.dinner.util.FileUtil;
 import com.dinner.util.FtpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -116,6 +115,7 @@ public class FoodController {
      */
     @RequestMapping("/showFtp")
     public ResponseEntity showFtp(String fileName){
+        System.out.println("进来了");
         try {
             Resource resource = resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName);
             return ResponseEntity.ok(resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName));

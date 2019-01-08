@@ -36,7 +36,7 @@ public class FtpUtil {
         try {
             //  System.out.println(new FileUpAndDown().remoteIp);
             //连接ftp服务器
-            System.out.println("获取IP："+ftpConfig.getRemoteIp()+"，端口："+ ftpConfig.getUploadPort());
+            //System.out.println("获取IP："+ftpConfig.getRemoteIp()+"，端口："+ ftpConfig.getUploadPort());
             ftp.connect(ftpConfig.getRemoteIp(), ftpConfig.getUploadPort());
             //登录
             ftp.login(ftpConfig.getFtpUserName(), ftpConfig.getFtpPassWord());
