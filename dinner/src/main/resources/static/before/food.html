@@ -307,7 +307,7 @@
     <div class="row">
         <ul  class="foodList">
             <li th:each="data:${data}">
-                <img width="60px;" height="60px;" th:src="@{'/before/show?fileName='+${data.FOOD_PIC}}">
+                <img width="60px;" height="60px;" th:src="@{'/food/showFtp?fileName='+${data.FOOD_PIC}}">
                 <p th:text="${data.FOOD_NAME}"></p>
                 <a href="/dinner/locationTo/bbbc" style="float: right;color: #24AA7A">现在预订</a>
             </li>

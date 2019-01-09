@@ -115,7 +115,6 @@ public class FoodController {
      */
     @RequestMapping("/showFtp")
     public ResponseEntity showFtp(String fileName){
-        System.out.println("进来了");
         try {
             Resource resource = resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName);
             return ResponseEntity.ok(resourceLoader.getResource("ftp://"+ftpUserName+":"+ftpPassWord+"@"+remoteIp+remotePath+fileName));

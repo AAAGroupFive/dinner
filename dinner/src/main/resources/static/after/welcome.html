@@ -39,11 +39,17 @@
             //取得系统当前时间
             function getTime(){
                 var myDate = new Date();
-                var date = myDate.toLocaleDateString();
+                var year = myDate.getFullYear();
+                var month =  myDate.getMonth()+1;
+                var date = myDate.getDate();
                 var hours = myDate.getHours();
                 var minutes = myDate.getMinutes();
                 var seconds = myDate.getSeconds();
-                $("#showDate").html(date+" "+hours+":"+minutes+":"+seconds); //将值赋给
+                month = month<10?"0"+month:month;
+                date = date<10?"0"+date:date;
+                hours = hours<10?"0"+hours:hours;
+                seconds=seconds<10?"0"+seconds:seconds;
+                $("#showDate").html(year+"-"+month+"-"+date+" "+hours+":"+minutes+":"+seconds); //将值赋给
             }
             function toOpen(t){
                 var v =  $(t).attr("value");
@@ -76,7 +82,12 @@
             }
             function getNowDate(){
                 var myDate = new Date();
-                var nowDate=myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate();
+                var year = myDate.getFullYear();
+                var month =  myDate.getMonth()+1;
+                var date = myDate.getDate();
+                month = month<10?"0"+month:month;
+                date = date<10?"0"+date:date;
+                var nowDate=year+'-'+month+'-'+date;
                 return nowDate;
             }
         </script>
