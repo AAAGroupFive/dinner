@@ -81,8 +81,10 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/VipAdd")
     public Map VipAdd(@RequestParam Map map){
+
         Object viPname = map.get("VIPname");
         Object viPcard = map.get("VIPcard");
+        System.out.println(map);
 
         int i = vipService.VipAdd(map);
 

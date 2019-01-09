@@ -21,16 +21,23 @@
     <![endif]-->
   </head>
 	<body>
-		<form class="layui-form layui-form-pane">
-		 
-		  
-		    <div class="layui-form-item" >
+		<form class="layui-form">
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">单行输入框</label>
+				<div class="layui-input-block">
+					<input name="title" class="layui-input" type="text" placeholder="请输入标题" autocomplete="off" lay-verify="title">
+				</div>
+			</div>
+
+			<div class="layui-form-item" >
 			    <label class="layui-form-label">会员姓名</label>
 			    <div class="layui-input-block">
 			      <input type="text" id="VIPname" name="VIPname" lay-verify="required" class="layui-input">
 			    </div>
 		    
 		    </div>
+
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">手机号</label>
 			    <div class="layui-input-block">
@@ -80,7 +87,7 @@
 		    
 		    </div>
 		
-		    <button class="layui-btn layui-btn-fluid" id="zhuce">注册会员</button>
+		    <button class="layui-btn layui-btn-fluid" id="zhuce" lay-filter="zhuce">注册会员</button>
 		</form>
 
 	</body>
@@ -98,9 +105,15 @@
       });
 
 
+        //监听提交
+        form.on('submit(zhuce)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
 
-
-        $("#zhuce").click(function() {
+        /*$("#zhuce").click(function() {
             $.ajax({
                 url: "/dinner/VIP/VipAdd",
                 type: 'post',//method请求方式，get或者post
@@ -130,7 +143,7 @@
                     layer.alert('操作失败！！！', {icon: 5});
                 }
             });
-        })
+        })*/
 
 
 
@@ -162,6 +175,30 @@
 
 
 		})
+
+
+        //自定义验证规则
+        form.verify({
+            required: function(value){
+                if(value.length < 0){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
 
 	</script>
 

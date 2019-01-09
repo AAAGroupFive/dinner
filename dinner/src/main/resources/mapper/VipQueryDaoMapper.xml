@@ -37,7 +37,7 @@
 
     <!--新增会员-->
     <insert id="VipAdd">
-        insert into tab_vip values (seq_tab_vip_id.nextval,#{VIPname},#{VIPnumber},to_char(sysdate,'yyyymmddhh24miss'),#{sex},#{VIPbalance},0,#{VIPaddress})
+        insert into tab_vip values (seq_tab_vip_id.nextval,#{VIPname},#{VIPnumber},to_char(sysdate,'yyyymmddhh24miss'),#{sex},#{VIPbalance},0,#{VIPaddress},'','')
 
     </insert>
     <!--会员更新-->

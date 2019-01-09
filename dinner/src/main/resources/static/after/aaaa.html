@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+    <script type="text/javascript" src="/dinner/js/address.js" ></script>
+    <script type="text/javascript" src="/dinner/js/jquery.min.js" ></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+<form class="layui-form" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员姓名</label>
+        <div class="layui-input-block">
+            <input id="VIPname" name="VIPname"class="layui-input" type="text" placeholder="请输入" autocomplete="off" lay-verify="required">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-inline">
+            <input id="VIPnumber" name="VIPnumber" class="layui-input" type="tel" autocomplete="off" lay-verify="required|phone">
+        </div>
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="男">
+                <input type="radio" name="sex" value="1" title="女" checked>
+            </div>
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">操作员工</label>
+        <div class="layui-input-block">
+            <input class="layui-input" id="EmpName" type="text" readonly/>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">初始余额</label>
+        <div class="layui-input-block">
+            <input type="text" id="VIPbalance" name="VIPbalance" lay-verify="number" class="layui-input">
+        </div>
+
+    </div>
+
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">联系地址</label>
+        <div class="layui-input-block">
+            <input type="text" id="VIPaddress" name="VIPaddress"  class="layui-input">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-filter="demo1" id="zhuce">立即提交</button>
+            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+        </div>
+    </div>
+
+</form>
+
+
+</body>
+<script type="text/javascript">
+   /* layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单初始赋值
+        form.val('example', {
+            "username": "贤心" // "name": "value"
+            ,"password": "123456"
+            ,"interest": 1
+            ,"like[write]": true //复选框选中状态
+            ,"close": true //开关状态
+            ,"sex": "女"
+            ,"desc": "我爱 layui"
+        })
+
+
+    });*/
+
+
+
+    layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        //日期
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+
+
+    });
+
+
+
+
+    $("#zhuce").click(function() {
+        $.ajax({
+            url: "/dinner/VIP/VipAdd",
+            type: 'post',//method请求方式，get或者post
+            dataType: 'json',//预期服务器返回的数据类型
+            data: {
+                "VIPname":$("#VIPname").val(),
+                "VIPnumber":$("#VIPnumber").val(),
+                "VIPcard":$("#VIPcard").val(),
+                "VIPbalance":$("#VIPbalance").val(),
+                "VIPaddress":$("#VIPaddress").val(),
+                "sex":$('input:radio:checked').val()
+
+            },//表格数据序列化
+
+            success: function (data) {//res为相应体,function为回调函数
+                console.log(data.issuc);
+
+                if (data.issuc == true) {
+                    alert(data.issuc);
+                    layer.close(index);
+
+                    layer.msg("修改成功", {icon: 6});
+
+                    }
+            },
+            error: function () {
+                layer.alert('操作失败！！！', {icon: 5});
+            }
+        });
+    })
+
+
+
+
+    $(function  () {
+        $.ajax({
+            url:"/dinner/VIP/GetSession",
+            type:'post',//method请求方式，get或者post
+            dataType:'json',//预期服务器返回的数据类型
+            success:function(res){//res为相应体,function为回调函数
+                $(this).val(""); //清空上次input框里的数据
+
+
+                var array = new Array();
+                //遍历，先获取，然后map在array中是栈，先进后出，因此pop出来。
+
+                $.each(res,function(i,val){
+                    array.push(val);
+                });
+                var q1 = JSON.stringify(array.pop());
+                console.log(res.EmpName)
+
+                $("#EmpName").val(q1);
+            },
+            error:function(){
+                layer.alert('操作失败！！！',{icon:5});
+            }
+        });
+
+
+    })
+
+</script>
+</html>
