@@ -28,8 +28,8 @@ public class Mail {
     // 发件人的 邮箱 和 密码
     // PS: 某些邮箱服务器为了增加邮箱本身密码的安全性，给 SMTP 客户端设置了独立密码（有的邮箱称为“授权码”）, 
     //  对于开启了独立密码的邮箱, 这里的邮箱密码必需使用这个独立密码（授权码）。
-    private static String myEmailAccount = "2019447337@qq.com";
-    private static String myEmailPsw = "anbnjiujkynbfafi";
+    private static String myEmailAccount = "1412648415@qq.com";
+    private static String myEmailPsw = "nzfnbnhlvwzcijdi";
     //QQSMTP服务器地址为:smtp.qq.com
     private static String myEmailSMTPHost = "smtp.qq.com";
     //收件人邮箱
@@ -96,7 +96,7 @@ public class Mail {
         MimeMessage message = new MimeMessage(session);
         // 2. From: 发件人（昵称有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改昵称）
         // InternetAddress(String address, String personal, String charset);//根据地址和名称来构建InternetAddress
-        message.setFrom(new InternetAddress(sendMail, "2019447337@qq.com", "UTF-8"));
+        message.setFrom(new InternetAddress(sendMail, "1412648415@qq.com", "UTF-8"));
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "(｡･∀･)ﾉﾞ嗨SIRI", "UTF-8"));
         // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）

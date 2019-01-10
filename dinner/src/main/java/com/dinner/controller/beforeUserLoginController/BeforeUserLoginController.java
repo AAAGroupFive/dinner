@@ -32,16 +32,16 @@ public class BeforeUserLoginController {
     @ResponseBody
     public int beforeUserLogin(HttpServletRequest request, HttpSession session,@RequestParam Map map) {
         String inputVerifyCode=request.getParameter("invite");
-        //2.session中获取到的验证码值
+        //session中获取到的验证码值
         String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
 //        System.out.println("输入的 验证码"+inputVerifyCode);
 //        System.out.println("session中的的"+verifyCodeValue);
-        //3.数据库中查询到的账号 密码 的返回结果
+        //数据库中查询到的账号 密码 的返回结果
         String userid = request.getParameter("userid");
         List<Map> i = beforeUserLoginService.checkUser(map);
       //  System.out.println("登陆页面的map内容"+map);
-        //4.如果判断成功 则完成相应的操作
-        //5.将登陆成功的用户名密码放入session 便于页面显示相应内容
+        //如果判断成功 则完成相应的操作
+        //将登陆成功的用户名密码放入session 便于页面显示相应内容
         if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())&&i.size()>0&&i!=null){
             session.setAttribute("phone",map.get("username"));
           //  session.setAttribute("password",map.get("passwordinput"));
@@ -68,6 +68,7 @@ public class BeforeUserLoginController {
       //  System.out.println("去去去求求"+password);
         ArrayList arrayList =new ArrayList();
         if (phone==null) {
+            //没有登陆 就显示 放一个1，进去，，
             arrayList.add(1);
         }
         if (phone!=null){
