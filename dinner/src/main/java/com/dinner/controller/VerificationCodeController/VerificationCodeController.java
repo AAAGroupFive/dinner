@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 /**
  * className:VerificationCodeController
- * discriptoin:登录功能
+ * discriptoin:验证码生成
  * author:wxz
  * createTime:2018-11-24 13:48
  */
@@ -28,13 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/VerCode")
 public class VerificationCodeController {
     // http://localhost:8080/ssmmaven/login/showLoginView
-    @RequestMapping("/showLoginView")
-    public ModelAndView getIndex() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("login");
-        return mv;
-    }
-
+//    @RequestMapping("/showLoginView")
+//    public ModelAndView getIndex() {
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("login");
+//        return mv;
+//    }
     /**
      * 获取验证码
      *
@@ -73,19 +72,19 @@ public class VerificationCodeController {
         Font font = new Font("Times New Roman", Font.PLAIN, 20);
         // 调用Graphics2D绘画验证码
         Graphics2D g = bi.createGraphics();
-        g.setFont(font);
-        Color color = new Color(66, 2, 82);
+        g.setFont(font); //控制字体
+        Color color = new Color(66, 2, 82);//颜色控制
         g.setColor(color);
-        g.setBackground(new Color(226, 226, 240));
-        g.clearRect(0, 0, width, height);
-        FontRenderContext context = g.getFontRenderContext();
+        g.setBackground(new Color(226, 226, 240)); //验证码的背景色
+        g.clearRect(0, 0, width, height);//字位置
+        FontRenderContext context = g.getFontRenderContext();  //把文字与之相应的像素信息映射
         Rectangle2D bounds = font.getStringBounds(code, context);
         double x = (width - bounds.getWidth()) / 2;
         double y = (height - bounds.getHeight()) / 2;
         double ascent = bounds.getY();
         double baseY = y - ascent;
-        g.drawString(code, (int) x, (int) baseY);
-        g.dispose();
+        g.drawString(code, (int) x, (int) baseY);//组成验证码
+        g.dispose();//类似 close方法，如果需要重建，就必须从头开始
         try {
             ImageIO.write(bi, "jpg", output);
         } catch (IOException e) {

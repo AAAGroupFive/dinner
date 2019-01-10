@@ -39,23 +39,21 @@ public class RegisterController {
 	//	System.out.println(code);
 	//	System.out.println("maps 里内容是。。。"+maps);
 		if (maps!=null&&maps.size()>0){
-			System.out.println("标记1");
+			//System.out.println("标记1");
 			//用户已经存在
 			return 1;
 		}if (!letterCode.equals(code)){
-			System.out.println("标记2");
+			//System.out.println("标记2");
+			//验证码错误
 			return 2;
 		}
-		else {
-			registerService.registerUserLoginMessage(map);
-			//return 		"redirect:/locationTo/bbbf";
-			return 0;
-		}
-
+		registerService.registerUserLoginMessage(map);
+		//没毛病
+		return 0;
     }
-    @RequestMapping("/registerCheck")
-    public String registerCheck(@RequestParam  Map map,HttpSession session){
-		System.out.println("请求了重复检查方法");
-        return " ";
-    }
+//    @RequestMapping("/registerCheck")
+//    public String registerCheck(@RequestParam  Map map,HttpSession session){
+//		// System.out.println("请求了用户重复检查方法");
+//        return " ";
+//    }
 }
