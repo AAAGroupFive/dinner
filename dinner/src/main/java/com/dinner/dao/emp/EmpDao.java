@@ -2,6 +2,7 @@ package com.dinner.dao.emp;
 
 
 import com.dinner.entity.TreeRole;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -70,6 +71,25 @@ public interface EmpDao {
      */
     List<Map> getRole(Map map);
 
+    /**
+     * 根据id查看权限
+     * @param id
+     * @return
+     */
     @Select("select f.id,f.fun_name label,f.pid pid,f.fun_url url from role_fun r,tab_function f,tab_emp e where r.fun_id=f.id and r.role_id=e.emp_id and r.role_id=#{id} and e.emp_power like 'user:%'")
     List<TreeRole> roleList(int id);
+
+    /**
+     * 获取个人信息
+     * @param empId
+     * @return
+     */
+    List<Map> perInfo(@Param("empId") int empId);
+
+    /**
+     * 个人信息修改
+     * @param map
+     * @return
+     */
+    int perUpdate(Map map);
 }
