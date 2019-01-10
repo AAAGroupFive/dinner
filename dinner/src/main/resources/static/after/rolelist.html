@@ -92,8 +92,8 @@
     <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
         <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-            <el-form-item label="雇员ID" prop="empId">
-                <el-input v-model="editForm.empId" readonly="readonly" auto-complete="off"></el-input>
+            <el-form-item prop="empId">
+                <el-input v-model="editForm.empId" readonly="readonly" auto-complete="off" style="display: none"></el-input>
             </el-form-item>
             <!-- <el-form-item label="性别">
                  <el-radio-group v-model="editForm.sex">
