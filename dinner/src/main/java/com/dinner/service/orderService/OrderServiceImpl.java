@@ -59,4 +59,9 @@ public class OrderServiceImpl implements OrderService {
     public int vip(Map map) {
         return orderDao.vip(map);
     }
+
+    @Override
+    public int checkMoney(Map map) {
+        return orderDao.checkMoney(map);
+    }
 }

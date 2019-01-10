@@ -55,6 +55,11 @@
         update TAB_CONSUME set CON_STATE=1,CON_MONEY=#{sum} where CON_ROOM=#{number}
     </update>
 
+    <!--查询会员内金额-->
+    <select id="checkMoney" resultType="java.lang.Integer">
+        select VIP_BALANCE from TAB_VIP where VIP_CARD=#{vip}
+    </select>
+    
     <!--vip扣费-->
     <update id="vip">
         update TAB_VIP set VIP_BALANCE=VIP_BALANCE-#{sum} where VIP_CARD=#{vip}

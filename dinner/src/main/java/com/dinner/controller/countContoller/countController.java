@@ -92,8 +92,17 @@ public class countController {
     @ResponseBody
     @RequestMapping("/close")
     public int close(@RequestParam Map map) {
-        if (map.get("vip")!=null) {
-            orderService.vip(map);
+        String o = (String) map.get("sum");
+        int sum = Integer.valueOf(o);
+        if (map.get("vip") != null) {
+            int checkMoney = orderService.checkMoney(map);
+            if (checkMoney < sum) {
+                return 0;
+            } else {
+                orderService.vip(map);
+            }
+        } else {
+
         }
         return orderService.close(map);
     }

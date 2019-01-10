@@ -67,4 +67,6 @@ public interface OrderService {
      * @return
      */
     int vip(Map map);
+
+    int checkMoney(Map map);
 }
