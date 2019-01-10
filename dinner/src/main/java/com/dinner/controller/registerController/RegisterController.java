@@ -48,7 +48,7 @@ public class RegisterController {
 		}
 		else {
 			registerService.registerUserLoginMessage(map);
-			//return 		"redirect:/locationTo/bbbf";
+			//return 		"redirect:/locationTo/index";
 			return 0;
 		}
 

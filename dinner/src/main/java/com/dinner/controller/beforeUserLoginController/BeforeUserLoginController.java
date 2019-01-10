@@ -33,7 +33,6 @@ public class BeforeUserLoginController {
     public int beforeUserLogin(HttpServletRequest request, HttpSession session,@RequestParam Map map) {
         String inputVerifyCode=request.getParameter("invite");
         //2.session中获取到的验证码值
-
         String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
 //        System.out.println("输入的 验证码"+inputVerifyCode);
 //        System.out.println("session中的的"+verifyCodeValue);
@@ -86,7 +85,7 @@ public class BeforeUserLoginController {
     @RequestMapping("/singout")
     public String sinout(HttpSession session){
         session.removeAttribute("phone");
-        return "redirect:/locationTo/bbbf";
+        return "redirect:/locationTo/index";
     }
 
 }
