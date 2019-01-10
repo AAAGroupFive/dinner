@@ -65,23 +65,31 @@ public class PowerController {
         //System.out.println(map.get("userName"));
         //System.out.println(map+".................");
         List<Emp> emp = powerService.getEmp(map);
-        for (int i = 0; i < emp.size(); i++) {
-            if (emp.get(i).getRole().equals("0"))
-                emp.get(i).setRole("服务员");
-            else if (emp.get(i).getRole().equals("1"))
-                emp.get(i).setRole("收银");
-            else if (emp.get(i).getRole().equals("2"))
-                emp.get(i).setRole("仓库");
-            else if (emp.get(i).getRole().equals("3"))
-                emp.get(i).setRole("老板");
+        //System.out.println(emp.get(0).getUserName());
+        if (emp!=null&&emp.size()>0){
+            for (int i = 0; i < emp.size(); i++) {
+                if (emp.get(i).getRole()!=null){
+                    if (emp.get(i).getRole().equals("0"))
+                        emp.get(i).setRole("服务员");
+                    else if (emp.get(i).getRole().equals("1"))
+                        emp.get(i).setRole("收银");
+                    else if (emp.get(i).getRole().equals("2"))
+                        emp.get(i).setRole("仓库");
+                    else if (emp.get(i).getRole().equals("3"))
+                        emp.get(i).setRole("老板");
+                }else {
+                    emp.get(i).setRole("暂无职位");
+                }
+            }
+            //System.out.println(map.get("start"));
+            //System.out.println(map.get("end"));
+            int pageCount = powerService.getPageCount(map);
+            Map tempMap = new HashMap();
+            tempMap.put("data",emp);
+            tempMap.put("total",pageCount);
+            return tempMap;
         }
-        //System.out.println(map.get("start"));
-        //System.out.println(map.get("end"));
-        int pageCount = powerService.getPageCount(map);
-        Map tempMap = new HashMap();
-        tempMap.put("data",emp);
-        tempMap.put("total",pageCount);
-        return tempMap;
+        return null;
     }
 
     /**

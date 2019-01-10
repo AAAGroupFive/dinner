@@ -47,25 +47,29 @@
     <select id="countPutRecordList" resultType="int">
           select count(*) as cnt from TAB_PUT_RECORD
     </select>
+    <!--根据账号获取用户名-->
+    <select id="selectUser" resultType="map">
+        select EMP_NAME from TAB_EMP where EMP_USER=#{Account}
+    </select>
     <!--盘点总列表-->
     <insert id="addInventory" parameterType="map">
         insert into tab_check(CHECK_ID,GOODS_NUMBER,GOODS_NAME,GOODS_REMNAT_STOCK,GOODS_STOCK,GOODS_UNIT,CHECK_NAME,CHECK_TIME)
-        values(seq_tabcheck_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_REMNAT_STOCK},#{GOODS_STOCK},#{GOODS_UNIT},'王朝军',sysdate)
+        values(seq_tabcheck_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_REMNAT_STOCK},#{GOODS_STOCK},#{GOODS_UNIT},#{userName},sysdate)
     </insert>
     <!--添加进货列表-->
     <insert id="addPutGoods">
         insert into tab_put(PUT_ID,GOODS_NUMBER,GOODS_NAME,GOODS_STOCK,PUT_NUMBER,GOODS_UNIT,OPERRATION_NAME,REMARK)
-        values(seq_tabput_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_STOCK},#{PUT_NUMBER},#{GOODS_UNIT},'王朝军',#{REMARK})
+        values(seq_tabput_id.nextval,#{GOODS_NUMBER},#{GOODS_NAME},#{GOODS_STOCK},#{PUT_NUMBER},#{GOODS_UNIT},#{userName},#{REMARK})
     </insert>
     <!--进货记录（成功）-->
     <insert id="addPutRecord">
         insert into TAB_PUT_RECORD(ID,GOODS_NAME,PUT_NUMBER,GOODS_UNIT,SUBMITTER,OPERATOR,STATUS,PUT_TIME,REMARK)
-        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},'邢芳斌','成功',sysdate,#{REMARK})
+        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},#{userName},'成功',sysdate,#{REMARK})
     </insert>
     <!--进货记录（失败）-->
     <insert id="addPutRecord2">
         insert into TAB_PUT_RECORD(ID,GOODS_NAME,PUT_NUMBER,GOODS_UNIT,SUBMITTER,OPERATOR,STATUS,PUT_TIME,REMARK,REASONS)
-        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},'邢芳斌','驳回',sysdate,#{REMARK},#{REASONS})
+        values (seq_tabputrecord_id.nextval,#{GOODS_NAME},#{PUT_NUMBER},#{GOODS_UNIT},#{SUBMITTER},#{userName},'驳回',sysdate,#{REMARK},#{REASONS})
     </insert>
     <!--更新商品食材剩余数量-->
     <update id="updateGoods">

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +98,10 @@ public class GoodsController {
     }
     @RequestMapping("/updateInventory")
     @ResponseBody
-    public Object updateInventory(@RequestParam Map map){
+    public Object updateInventory(@RequestParam Map map, HttpSession session){
+        Object userName = session.getAttribute("userName");
+        map.put("Account",userName);
+        //System.out.println("在控制层获取了session"+userName);
         int result =goodsService.updateInventory(map);
         Map tempMap = new HashMap();
         if (result==-1) {
@@ -109,7 +113,9 @@ public class GoodsController {
     }
     @RequestMapping("/addPutGoods")
     @ResponseBody
-    public Object addPutGoods(@RequestParam Map map){
+    public Object addPutGoods(@RequestParam Map map,HttpSession session){
+        Object userName = session.getAttribute("userName");
+        map.put("Account",userName);
         int result =goodsService.addPutGoods(map);
         Map tempMap = new HashMap();
         if (result==-1) {
@@ -121,7 +127,9 @@ public class GoodsController {
     }
     @RequestMapping("/addPutRecord")
     @ResponseBody
-    public Object addPutRecord(@RequestParam Map map){
+    public Object addPutRecord(@RequestParam Map map,HttpSession session){
+        Object userName = session.getAttribute("userName");
+        map.put("Account",userName);
         int result =goodsService.addPutRecord(map);
         Map tempMap = new HashMap();
         if (result==-1) {
