@@ -34,8 +34,7 @@ public class VipController {
 
         Map temp=new HashMap();
         HttpSession session = request.getSession();
-            session.setAttribute("name","admin");
-        Object name = session.getAttribute("name");
+        Object name = session.getAttribute("userName");
        temp.put("Empname",name.toString());
         return temp;
     }
@@ -58,7 +57,6 @@ public class VipController {
     @RequestMapping("/VipQuery")
     @ResponseBody
     public Map VipQuery(@RequestParam Map map, HttpServletRequest request){
-        System.out.println(map);
 
         Map temp=new HashMap();
 
@@ -77,14 +75,8 @@ public class VipController {
      * @return
      */
 
-
-    @ResponseBody
     @RequestMapping("/VipAdd")
-    public Map VipAdd(@RequestParam Map map){
-
-        Object viPname = map.get("VIPname");
-        Object viPcard = map.get("VIPcard");
-        System.out.println(map);
+    public String  VipAdd(@RequestParam Map map){
 
         int i = vipService.VipAdd(map);
 
@@ -100,7 +92,7 @@ public class VipController {
 
 
 
-        return temp ;
+        return "after/vipQuery";
 
 
 
@@ -113,7 +105,6 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/VipUpdate")
     public Map  VipUpdate(@RequestParam Map map){
-        System.out.println(map);
 
         int i = vipService.VipUpdate(map);
         Map temp=new HashMap();
@@ -133,7 +124,6 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/VipDelete")
     public int VipDelete(@RequestParam Map map){
-        System.out.println(map);
 
 
         return  vipService.VipDelete(map);
@@ -141,7 +131,6 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/State")
     public int State(@RequestParam Map map){
-        System.out.println(map);
 
 
         return  1;

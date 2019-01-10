@@ -30,8 +30,6 @@
     <div class="x-body">
       <div class="layui-row">
           <form class="layui-form layui-col-md12 x-so">
-
-              充值时间:<input class="layui-input" placeholder="开始日" name="start" id="start">
               <div class="layui-input-inline">
 
                  会 员 名: <input class="layui-input"  id="QueryName" name="QueryName"/>
@@ -58,7 +56,7 @@
         <xblock id="xk1">
           <div class="layui-btn layui-btn-danger" data-type="delAll" id="delAll">
               <i class="layui-icon"></i>批量删除</div>
-          <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/aaaa.html')">
+          <button class="layui-btn"  onclick="x_admin_show('添加会员','/dinner/after/vipAdd.html')">
               <i class="layui-icon"></i>新增会员</button>
 
         </xblock>
@@ -84,7 +82,7 @@
             table.render({
                 elem: '#orderlist'
                 ,title: '用户数据表'
-                ,height:790
+                ,height:500
                 ,width:2000
                 ,url: '/dinner/VIP/VipQuery'
                 ,toolbar: '#toolbarDemo'
@@ -277,7 +275,7 @@
                         async:true,
                             success:function(data){
                                 console.log(data);
-                            if(data==1){
+                            if(data>-1){
                                 layer.msg('成功!');
                                 table.reload('testReload');//重新加载表格数据
                             }else{

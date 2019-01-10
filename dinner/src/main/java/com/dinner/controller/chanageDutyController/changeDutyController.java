@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.dinner.service.changeDutyService.changeDutyService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,9 +51,14 @@ public class changeDutyController {
      */
     @RequestMapping(value = "/queryChangeDuty")
     @ResponseBody
-    public Map ChangeDuty(){
-        Map queryChangeDuty = changeDutyService.queryChangeDuty();
+    public Map ChangeDuty(HttpServletRequest request){
+        HttpSession session = request.getSession();
 
+
+        Object name = session.getAttribute("userName");
+
+        Map queryChangeDuty = changeDutyService.queryChangeDuty();
+        queryChangeDuty.put("cEmp",name);
 
         return queryChangeDuty;
     }

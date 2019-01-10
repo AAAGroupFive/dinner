@@ -41,8 +41,6 @@ public class RechargeController {
     @RequestMapping("/VipRechargeQuery")
     @ResponseBody
     public Map VipRechargeQuery(@RequestParam Map map, HttpServletRequest request){
-        System.out.println(map);
-
         Map temp=new HashMap();
 
         temp.put("code",0);
@@ -62,10 +60,10 @@ public class RechargeController {
     @ResponseBody
     public int VipRechargeAdd(@RequestParam Map map, HttpServletRequest request){
 
-        System.out.println(map);
+
         HttpSession session = request.getSession();
-        session.setAttribute("name","admin");
-        Object name = session.getAttribute("name");
+
+        Object name = session.getAttribute("userName");
         map.put("Empname",name);
         int i = rechargeSerive.RechargeAdd(map);
         System.out.println(i);

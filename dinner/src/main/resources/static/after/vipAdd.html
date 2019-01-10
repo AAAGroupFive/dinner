@@ -14,26 +14,24 @@
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
     <script type="text/javascript" src="/dinner/js/address.js" ></script>
     <script type="text/javascript" src="/dinner/js/jquery.min.js" ></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+
+		<script   type="text/javascript" src="/dinner/js/Validform_v5.3.2_min.js"></script>
+		<script type="text/javascript" src="/dinner/js/address.js"></script>
+
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 	<body>
-		<form class="layui-form">
-
-			<div class="layui-form-item">
-				<label class="layui-form-label">单行输入框</label>
-				<div class="layui-input-block">
-					<input name="title" class="layui-input" type="text" placeholder="请输入标题" autocomplete="off" lay-verify="title">
-				</div>
-			</div>
+		<form  class="layui-form" action="/dinner/VIP/VipAdd" method="post">
 
 			<div class="layui-form-item" >
 			    <label class="layui-form-label">会员姓名</label>
 			    <div class="layui-input-block">
-			      <input type="text" id="VIPname" name="VIPname" lay-verify="required" class="layui-input">
+			      <input type="text" id="VIPname" name="VIPname" datatype="s5-16" errormsg="昵称至少5个字符,最多16个字符！" class="layui-input">
 			    </div>
 		    
 		    </div>
@@ -41,19 +39,10 @@
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">手机号</label>
 			    <div class="layui-input-block">
-			      <input type="text" id="VIPnumber" name="VIPnumber" lay-verify="phone" class="layui-input">
+			      <input type="text" id="VIPnumber" name="VIPnumber" datatype="m" errormsg="请输入正确的手机号！" class="layui-input">
 			    </div>
 		    
 		    </div>
-		    
-		    <div class="layui-form-item" >
-			    <label class="layui-form-label">会员卡号</label>
-			    <div class="layui-input-block">
-			      <input type="text" id="VIPcard" name="VIPcard" lay-verify="number" class="layui-input">
-			    </div>
-		    
-		    </div>
-		    
 
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">单选框</label>
@@ -74,76 +63,138 @@
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">初始余额</label>
 			    <div class="layui-input-block">
-			      <input type="text" id="VIPbalance" name="VIPbalance" lay-verify="number" class="layui-input">
+			      <input type="text" id="VIPbalance" name="VIPbalance" datatype="n" errormsg="请输入！" class="layui-input">
 			    </div>
 		    
 		    </div>
 		    
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">联系地址</label>
-			    <div class="layui-input-block">
-			      <input type="text" id="VIPaddress" name="VIPaddress"  class="layui-input">
-			    </div>
+			   <!-- <div class="layui-input-block">
+					省:<select id="province"></select>
+					市:<select id="city"></select>
+					县:<select id="dist"></select>
+					<input  id="emp_address" required="true" class="easyui-validatebox" name="EmployeeAddress" data-options="validType:['chinese','length[1,20]']">
+			    </div>-->
 		    
 		    </div>
-		
-		    <button class="layui-btn layui-btn-fluid" id="zhuce" lay-filter="zhuce">注册会员</button>
+
+            <input class="layui-btn layui-btn-fluid" value="注册会员" type="submit" />
+			<!--<button class="layui-btn layui-btn-fluid" id="zhuce" value="注册会员">注册会员</button>-->
 		</form>
 
 	</body>
-	<script type="text/javascript">  
-		
+	<script type="text/javascript">
+        $(document).ready(function(){//加载事件。页面加载完毕后执行function内的代码
+            $("#province").append("<option value=''>-----请选择----</option>");
+            //默认显示所有省
+            $.each(pdata,function(){
+                if(this.level=='0'){
+                    $("#province").append("<option value="+this.code+">"+this.names+"</option>");
+                }
+            });
+
+            $("#province").change(function(){
+                var province=$("#province").val();
+                var proSub=province.substring(0,2);
+                //$("#city").html('');
+                $("#city").empty();
+                $("#city").append("<option value=''>-----请选择----</option>");
+                $.each(pdata,function(){
+                    if(this.level=='1'&&this.code.substring(0,2)==proSub){
+                        $("#city").append("<option value="+this.code+">"+this.names+"</option>");
+                    }
+                });
+                getAddr();
+            });
+
+            $("#city").change(function(){
+                var city=$("#city").val();
+                var cityS=city.substring(0,4);
+                //$("#city").html('');
+                $("#dist").empty();
+                $("#dist").append("<option value=''>-----请选择----</option>");
+                $.each(pdata,function(){
+                    if(this.level=='2'&&this.code.substring(0,4)==cityS){
+                        $("#dist").append("<option value="+this.code+">"+this.names+"</option>");
+                    }
+                });
+                getAddr();
+            });
+
+            $("#dist").change(function(){
+                getAddr();
+            });
+        });
+        function getAddr(){
+            var sheng=$("#province option:selected").text();
+            var shi=$("#city option:selected").text();
+            var xian=$("#dist option:selected").text();
+            $("#emp_address").val(sheng+shi+xian);
+        }
+
+
+
+        $(".layui-form").Validform({
+            tiptype:3,
+
+        });
 
 		//日期
-    	layui.use('laydate', function(){
+    	layui.use(['laydate','index'] ,function(){
         var laydate = layui.laydate;
-        
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
         });
+
+
       });
-
-
-        //监听提交
-        form.on('submit(zhuce)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
         /*$("#zhuce").click(function() {
             $.ajax({
                 url: "/dinner/VIP/VipAdd",
                 type: 'post',//method请求方式，get或者post
+                async:false,
                 dataType: 'json',//预期服务器返回的数据类型
                 data: {
                     "VIPname":$("#VIPname").val(),
                     "VIPnumber":$("#VIPnumber").val(),
                     "VIPcard":$("#VIPcard").val(),
                     "VIPbalance":$("#VIPbalance").val(),
-					"VIPaddress":$("#VIPaddress").val(),
-					"sex":$('input:radio:checked').val()
+                    "VIPaddress":$("#VIPaddress").val(),
+                    "sex":$('input:radio:checked').val()
 
-				},//表格数据序列化
+                },//表格数据序列化
 
                 success: function (data) {//res为相应体,function为回调函数
                     console.log(data.issuc);
 
                     if (data.issuc == true) {
-                        alert(data.issuc);
-                        layer.close(index);
+
 
                         layer.msg("修改成功", {icon: 6});
 
-               		 }
+                    }
                 },
                 error: function () {
                     layer.alert('操作失败！！！', {icon: 5});
                 }
             });
         })*/
+
+
+
+
+
+        /* //监听提交
+         form.on('submit(zhuce)', function(data){
+             layer.alert(JSON.stringify(data.field), {
+                 title: '最终的提交信息'
+             })
+             return false;
+         });*/
+
 
 
 
@@ -177,7 +228,7 @@
 		})
 
 
-        //自定义验证规则
+        /*//自定义验证规则
         form.verify({
             required: function(value){
                 if(value.length < 0){
@@ -197,7 +248,7 @@
             ,content: function(value){
                 layedit.sync(editIndex);
             }
-        });
+        });*/
 
 
 	</script>

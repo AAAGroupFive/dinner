@@ -47,8 +47,13 @@ public class VipServiceLmpl implements VipService {
 
     @Override
     public int VipAdd(Map map) {
+        if(map.get("VIPname")!=""&&map.get("VIPnumber")!=""&&map.get("sex")!=""&&map.get("VIPbalance")!=""&&map.get("VIPaddress")!="")
+        {
+            return vipDao.VipAdd(map);
+        }else { return -1;}
 
-        return vipDao.VipAdd(map);
+
+
     }
 
     @Override
@@ -66,7 +71,7 @@ public class VipServiceLmpl implements VipService {
 
     @Override
     public int VipDelete(Map map) {
-        System.out.println(map);
+
         Map temp = new HashMap();
         String VIP_ID =map.get("VIP_ID").toString();
         String[] split = VIP_ID.split(",");

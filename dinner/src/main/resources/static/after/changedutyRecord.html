@@ -18,11 +18,14 @@
     <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <style type="text/css">
 
+
+    </style>
 </head>
 <body>
 
-<div id="tableView" style="margin-top: 10px">
+<div id="tableView" style="margin-top: 10px;">
     <!--列表顶部搜索和工具条-->
     <el-row>
         <el-form :inline="true" :model="searchForm" class="demo-form-inline">
@@ -55,8 +58,9 @@
                 v-loading.body="loading"
                 border
                 @selection-change="selectionChange"
-                style="width: 100%">
+                style="width: 100%;height: 500px">
             <el-table-column
+
                     prop="TAB_CDUTY_ID"
                     type="selection"
                     width="40">

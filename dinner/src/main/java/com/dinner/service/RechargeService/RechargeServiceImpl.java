@@ -36,9 +36,6 @@ public class RechargeServiceImpl implements RechargeSerive {
 
     @Override
     public int RechargeAdd(Map map) {
-        System.out.println(map);
-
-
 
         int recharge= Integer.parseInt(map.get("RECHARGE").toString());
         int re_before_money= Integer.parseInt(map.get("RE_BEFORE_MONEY").toString());
@@ -50,10 +47,10 @@ public class RechargeServiceImpl implements RechargeSerive {
         }
 
         int balance=recharge+re_before_money+re_give;
-        System.out.println(balance);
+
         map.put("balance",balance);
         int i = rechargeDao.RechargeUpdata(map);
-        System.out.println(i);
+
         return rechargeDao.RechargeAdd(map);
     }
 

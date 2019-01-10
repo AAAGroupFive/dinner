@@ -32,7 +32,7 @@
     </select>
     <!--分页总数量-->
     <select id="VipGetPageCount" resultType="int">
-        select count(*) from tab_vip
+        select count(*) from tab_vip where vip_state=0 or vip_state=1
     </select>
 
     <!--新增会员-->

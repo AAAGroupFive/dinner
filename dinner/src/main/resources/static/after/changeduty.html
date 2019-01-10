@@ -159,7 +159,7 @@
             })
         },
         methods:{
-            /*//表格重新加载数据
+            //表格重新加载数据
             loadingData:function() {
                 var _self = this;
                 _self.loading = true;
@@ -182,7 +182,7 @@
                     console.info("加载数据成功");
                     _self.loading = false;
                 },300);
-            },*/
+            },
 
 
             //保存点击事件
@@ -197,8 +197,9 @@
 
                 axios.post('/dinner/changeDuty/saveChangeDuty',formData).then(function(response){
 
-                    if(response.data>0){
-
+                    if(response.data>-1){
+                        _self.editFormVisible = false;
+                        _self.loadingData();//重新加载数据
 
                     }
                 });
