@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,11 @@ public class EmpController {
     @RequestMapping("/toTest")
     public String toTest(){
         return "after/test";
+    }
+
+    @RequestMapping("/toPer")
+    public String toPer(){
+        return "after/PerInformation";
     }
 
     @RequestMapping("/list")
@@ -95,5 +102,34 @@ public class EmpController {
             tempMap.put("issuc", false);
         }
         return tempMap;
+    }
+
+    /**
+     * 个人信息
+     * @param session
+     * @return
+     */
+    @RequestMapping("/perInfo")
+    @ResponseBody
+    public Object perInfor(HttpSession session){
+        //System.out.println(session.getAttribute("userName"));
+        Integer empId = Integer.valueOf(session.getAttribute("empId")+"");
+        //System.out.println(empId);
+        if (empId!=null){
+            List<Map> maps = empService.perInfo(empId);
+            //System.out.println(maps);
+            return maps;
+        }
+        return null;
+    }
+
+    @RequestMapping("perUpdate")
+    @ResponseBody
+    public Object perUpdate(@RequestParam Map map){
+        //System.out.println(map);
+        if (map!=null&&map.size()>0){
+            empService.perUpdate(map);
+        }
+        return null;
     }
 }

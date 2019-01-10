@@ -84,6 +84,16 @@ public class EmpServiceImpl implements EmpService {
         return treeNodesList;
     }
 
+    @Override
+    public List<Map> perInfo(int empId) {
+        return empDao.perInfo(empId);
+    }
+
+    @Override
+    public int perUpdate(Map map) {
+        return empDao.perUpdate(map);
+    }
+
     /**
      * 递归绑定子节点
      * @param treeNode
