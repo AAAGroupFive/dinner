@@ -40,4 +40,9 @@ public interface VipService {
      * @return
      */
     int VipDelete(Map map);
+    /**
+     * 统计会员
+     * @return
+     */
+    int countVip();
 }

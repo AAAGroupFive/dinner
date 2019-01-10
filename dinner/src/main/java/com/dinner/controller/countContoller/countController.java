@@ -94,14 +94,14 @@ public class countController {
     public int close(@RequestParam Map map) {
         String o = (String) map.get("sum");
         int sum = Integer.valueOf(o);
-        if (map.get("vip") != null) {
+        if (map.get("vip") != null && map.get("vip")!="") {
+            System.out.println(map.get("vip"));
             int checkMoney = orderService.checkMoney(map);
-            if (checkMoney < sum) {
-                return 0;
-            } else {
-                orderService.vip(map);
-            }
-        } else {
+                if (checkMoney < sum) {
+                    return 0;
+                } else {
+                    return orderService.vip(map);
+                }
 
         }
         return orderService.close(map);

@@ -30,4 +30,10 @@ public interface foodDao {
      * @return
      */
     int updateFood(Map map);
+
+    /**
+     * 统计菜品
+     * @return
+     */
+    int countFood();
 }

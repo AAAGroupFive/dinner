@@ -141,7 +141,9 @@ public class GoodsController {
     }
     @RequestMapping("/addPutRecord2")
     @ResponseBody
-    public Object addPutRecord2(@RequestParam Map map){
+    public Object addPutRecord2(@RequestParam Map map,HttpSession session){
+        Object userName = session.getAttribute("userName");
+        map.put("Account",userName);
         int result =goodsService.addPutRecord2(map);
         Map tempMap = new HashMap();
         if (result==-1) {
