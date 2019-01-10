@@ -5,48 +5,55 @@
     <title>雇员添加</title>
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
     <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/address.js"></script>
     <script src="../js/jquery.min.js"></script>
 </head>
 <body>
 <span id="userInfo" style="color: red;"></span>
-<form class="layui-form" lay-filter="demo" action="../emp/add">
+<form class="layui-form-item" lay-filter="demo" action="../emp/add">
     <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
             <input type="text" id="EmpName" name="EmpName" required  lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+            <span id="enameMsg" style="color: red"></span>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">单选框</label>
-        <div class="layui-input-block" id="sex">
-            <input type="radio" name="sex" value="0" title="男">
-            <input type="radio" name="sex" value="1" title="女" checked>
+        <div class="layui-input-block">
+            <select id="sex" name="sex">
+                <option value="0">男</option>
+                <option value="1">女</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
-            <input type="text" id="userName" name="userName"  lay-verify="required|username" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+            <input type="text" id="userName" name="userName" required lay-verify="required|username" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+            <span id="userMsg" style="color: red"></span>
         </div>
 
     </div>
     <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="password" id="password" name="password"  lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="password" id="password" name="password"  required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <span id="pwdMsg" style="color: red"></span>
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">出生年月</label>
         <div class="layui-input-block">
-            <input type="text" name="birth" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input">
+            <input type="text" name="birth" id="date" required lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
         <label class="layui-form-label">手机号</label>
         <div class="layui-input-block">
-            <input type="text" id="phone" name="phone"  lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            <input type="text" id="phone" name="phone" required lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            <span id="phoneMsg" style="color: red"></span>
         </div>
     </div>
     <div class="layui-form-item" style="width: 500px">
@@ -64,12 +71,16 @@
     <div class="layui-form-item" style="width: 700px">
         <label class="layui-form-label">地址</label>
         <div class="layui-input-block">
-            <input type="text" id="addr" name="addr"  lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
+            省:<select id="province"></select>
+            市:<select id="city"></select>
+            县:<select id="dist"></select>
+            <input type="text" id="addr" name="addr" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit  onclick="add()">立即提交</button>
+            <button class="layui-btn" id="submit" lay-submit  onclick="add()">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -108,6 +119,115 @@
 
         });
     });
+
+
+    $(function () {//加载事件。页面加载完毕后执行function内的代码
+        var jy = true;
+        $("#province").append("<option value=''>-----请选择----</option>");
+        //默认显示所有省
+        $.each(pdata,function(){
+            if(this.level=='0'){
+                $("#province").append("<option value="+this.code+">"+this.names+"</option>");
+            }
+        });
+
+        $("#province").change(function(){
+            //alert("你好");
+            var province=$("#province").val();
+            var proSub=province.substring(0,2);
+            //console.log(proSub+"省的名字");
+            //$("#city").html('');
+            $("#city").empty();
+            $("#city").append("<option value=''>-----请选择----</option>");
+            $.each(pdata,function(){
+                if(this.level=='1'&&this.code.substring(0,2)==proSub){
+                    $("#city").append("<option value="+this.code+">"+this.names+"</option>");
+                }
+            });
+            getAddr();
+        });
+        $("#city").change(function(){
+            var city=$("#city").val();
+            var cityS=city.substring(0,4);
+            //$("#city").html('');
+            $("#dist").empty();
+            $("#dist").append("<option value=''>-----请选择----</option>");
+            $.each(pdata,function(){
+                if(this.level=='2'&&this.code.substring(0,4)==cityS){
+                    $("#dist").append("<option value="+this.code+">"+this.names+"</option>");
+                }
+            });
+            getAddr();
+        });
+        $("#dist").change(function(){
+            getAddr();
+        });
+
+        /**
+         * 姓名校验
+         */
+        $("#EmpName").change(function () {
+            var myreg=/^[\u4E00-\u9FA5A-Za-z]+$/;
+            if (!myreg.test($("#EmpName").val())){
+                //console.log("============")
+                $("#enameMsg").html("只能输入中文和英文");
+                $("#submit").attr("disabled",true);
+            }else {
+                $("#enameMsg").html("");
+                $("#submit").attr("disabled",false);
+            }
+        })
+        /**
+         * 用户名校验
+         */
+        $("#userName").change(function () {
+            var myreg=/^[a-zA-Z0-9_-]{4,16}$/;
+            if (!myreg.test($("#userName").val())){
+                //console.log("============")
+                $("#userMsg").html("用户名4到16位（字母，数字，下划线，减号）");
+                $("#submit").attr("disabled",true);
+            }else {
+                $("#userMsg").html("");
+                $("#submit").attr("disabled",false);
+            }
+        })
+        /**
+         * 密码校验
+         */
+        $("#password").change(function () {
+            var myreg=/^[a-zA-Z0-9]{4,10}$/;
+            if (!myreg.test($("#password").val())){
+                //console.log("============")
+                $("#pwdMsg").html("密码不能含有非法字符，长度在4-10之间");
+                $("#submit").attr("disabled",true);
+            }else {
+                $("#pwdMsg").html("");
+                $("#submit").attr("disabled",false);
+            }
+        })
+        /**
+         * 手机号校验
+         */
+        $("#phone").change(function () {
+            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!myreg.test($("#phone").val())){
+                //console.log("============")
+                $("#phoneMsg").html("请输入正确的手机号");
+                $("#submit").attr("disabled",true);
+            }else {
+                $("#phoneMsg").html("");
+                $("#submit").attr("disabled",false);
+            }
+        })
+
+
+    });
+    function getAddr(){
+        var sheng=$("#province option:selected").text();
+        var shi=$("#city option:selected").text();
+        var xian=$("#dist option:selected").text();
+        $("#addr").val(sheng+shi+xian);
+    }
 
 </script>
 <script>
