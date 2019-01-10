@@ -50,4 +50,10 @@
     <select id="login" resultType="map">
         select * from TAB_EMP where EMP_USER=#{userName} and EMP_PASS=#{passWord}
     </select>
+    <select id="perInfo" resultType="map">
+        select * from tab_emp where EMP_ID=${empId}
+    </select>
+    <update id="perUpdate" parameterType="map">
+        update TAB_EMP set EMP_NAME=#{ename},EMP_PASS=#{pass},EMP_PHONE=#{phone},EMP_ADDR=#{addr} where EMP_ID=#{empId}
+    </update>
 </mapper>
