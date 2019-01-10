@@ -99,15 +99,15 @@
                     , {field: 'sex', title: '会员性别', width: 150}
                     , {field: 'VIP_BALANCE', title: '会员余额', width: 120, sort: true}
                     , {field: 'VIP_ADDRESS',title:'联系地址', width: 200 }
-                    , {field: 'VIP_STATE',title:'状态', width: 120
-                        ,templet: function(d){
+                    , {field: 'STATE',title:'状态', width: 120
+                        /*,templet: function(d){
                         if(d.VIP_STATE==1){
                             return '<button class="layui-btn layui-btn-danger" id="jinyong">禁用</button>'
                         }else {
                             return '<button class="layui-btn " id="qiyong">启用</button>'
                         }
-                          /*  return 'ID：'+ d.id +'，标题：<span style="color: #c00;">'+ d.title +'</span>'*/
-                        }
+                          /!*  return 'ID：'+ d.id +'，标题：<span style="color: #c00;">'+ d.title +'</span>'*!/
+                        }*/
                     }
 
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
@@ -149,7 +149,7 @@
                             $("#VIP_NAME").val(data.VIP_NAME);
                             $("#VIP_PHONE").val(data.VIP_PHONE);
                             $("#VIP_CARD").val(data.VIP_CARD);
-                            $("#VIP_STATE").val(data.VIP_STATE);
+                            $("#VIP_STATE").val(data.STATE);
                             $("#sex").val(data.sex);
                             $("#VIP_BALANCE").val(data.VIP_BALANCE);
                             $("#VIP_ADDRESS").val(data.VIP_ADDRESS);
@@ -403,7 +403,7 @@
                     </div>
                 </div>
 
-                <br/>
+
 
                 <div class="layui-inline">
                     <label class="layui-form-label">会员卡号</label>
@@ -418,6 +418,7 @@
                         <input name="VIP_STATE" class="layui-input" id="VIP_STATE">
                     </div>
                 </div>
+
                 <div class="layui-inline">
                     <label class="layui-form-label">会员性别</label>
                     <div class="layui-input-inline">
@@ -425,7 +426,7 @@
                     </div>
                 </div>
 
-                <br/>
+
 
                 <div class="layui-inline">
                     <label class="layui-form-label">会员余额</label>
@@ -434,7 +435,7 @@
                     </div>
                 </div>
 
-                <div class="layui-inline">
+                <!--<div class="layui-inline">
                     <label class="layui-form-label">联系地址</label>
                     <div class="layui-input-inline">
                         省:<select id="province"></select>
@@ -443,13 +444,13 @@
                         <input  id="VIP_ADDRESS" required="true" class="layui-input" name="VIP_ADDRESS" data-options="validType:['chinese','length[1,20]']">
 
                     </div>
-                </div>
-               <!-- <div class="layui-inline">
+                </div>-->
+                <div class="layui-inline">
                     <label class="layui-form-label">联系地址</label>
                     <div class="layui-input-inline">
                         <input name="VIP_ADDRESS" class="layui-input" id="VIP_ADDRESS">
                     </div>
-                </div>-->
+                </div>
 
             </div>
         </form>
@@ -505,61 +506,6 @@
         </div>
     </script>
 
-  <script type="text/javascript">
-      $(function () {//加载事件。页面加载完毕后执行function内的代码
-          $("#province").append("<option value=''>-----请选择----</option>");
-          //默认显示所有省
-          $.each(pdata,function(){
-              if(this.level=='0'){
-                  $("#province").append("<option value="+this.code+">"+this.names+"</option>");
-              }
-          });
-
-          $("#province").change(function(){
-
-              var province=$("#province").val();
-              var proSub=province.substring(0,2);
-
-              //$("#city").html('');
-              $("#city").empty();
-              $("#city").append("<option value=''>-----请选择----</option>");
-              $.each(pdata,function(){
-                  if(this.level=='1'&&this.code.substring(0,2)==proSub){
-                      $("#city").append("<option value="+this.code+">"+this.names+"</option>");
-                  }
-              });
-              getAddr();
-          });
-
-          $("#city").change(function(){
-              var city=$("#city").val();
-              var cityS=city.substring(0,4);
-              //$("#city").html('');
-              $("#dist").empty();
-              $("#dist").append("<option value=''>-----请选择----</option>");
-              $.each(pdata,function(){
-                  if(this.level=='2'&&this.code.substring(0,4)==cityS){
-                      $("#dist").append("<option value="+this.code+">"+this.names+"</option>");
-                  }
-              });
-              getAddr();
-          });
-
-          $("#dist").change(function(){
-              getAddr();
-          });
-
-
-
-      });
-      function getAddr(){
-          var sheng=$("#province option:selected").text();
-          var shi=$("#city option:selected").text();
-          var xian=$("#dist option:selected").text();
-          $("#VIP_ADDRESS").val(sheng+shi+xian);
-      }
-
-  </script>
   </body>
 
 </html>
