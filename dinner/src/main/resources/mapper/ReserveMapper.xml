@@ -5,18 +5,20 @@
 <mapper namespace="com.dinner.dao.reserve.ReserveDao">
 
     <!--查询预订列表-->
+    <select id="reList" resultType="map">
+        select RE_NAME,RE_EMAIL,RE_PHONE,RE_NUMBER,to_char(RE_DATE,'yyyy-mm-dd')AS RE_DATE,RE_MESSAGE from TAB_RESERVE
+    </select>
+
+    <!--根据日期查询预订列表-->
     <select id="reserveList" resultType="map">
-        select RE_NUMBER from TAB_RESERVE where to_char(sysdate,'yyyy-mm-dd')=to_char(RE_DATE,'yyyy-mm-dd')
+        select RE_NUMBER,state from TAB_RESERVE where to_char(RE_DATE,'yyyy-mm-dd')=#{selectDate}
     </select>
 
     <!--增加预定记录-->
     <insert id="addReserve" parameterType="map">
         insert into TAB_RESERVE
-        values(SEQ_TAB_RESERVE_ID.nextval,#{name},#{email},#{phone},#{number},to_date(#{date},'yyyy-mm-dd'),#{message})
+        values(SEQ_TAB_RESERVE_ID.nextval,#{name},#{email},#{phone},#{number},to_date(#{date},'yyyy-mm-dd'),#{message},2)
     </insert>
 
-    <!--改变桌子状态-->
-    <update id="updateState" parameterType="map">
-        update TAB_TABLE set TAB_STATE=2 where TAB_ID=#{number}
-    </update>
+
 </mapper>

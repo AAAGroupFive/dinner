@@ -1,5 +1,7 @@
 package com.dinner.dao.reserve;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +13,17 @@ import java.util.Map;
  */
 public interface ReserveDao {
 
-
     /**
-     * 预订列表
+     * 查询预订列表
      * @return
      */
-    List<Map> reserveList();
+    List<Map> reList();
+
+    /**
+     * 根据日期查询预订列表
+     * @return
+     */
+    List<Map> reserveList(@Param("selectDate") String selectDate);
 
     /**
      * 添加预定信息

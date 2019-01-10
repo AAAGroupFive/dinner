@@ -42,7 +42,7 @@
     <!--结账详情-->
     <select id="countDetails" parameterType="map" resultType="map">
         select c.FOOD_NAME,c.FOOD_PRICE from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
-        where b.CON_ROOM=#{number} and a.CON_STATE=0
+        where b.CON_ROOM=#{number}
     </select>
 
     <!--关闭桌子-->

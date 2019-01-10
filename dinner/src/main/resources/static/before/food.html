@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
                                 <div class="checkbox">
-                                    <label><input type="checkbox" class="blue">记住我 &nbsp;&nbsp;&nbsp;<a href="#">忘记密码？</a></label>
+                                    <label><input type="checkbox" class="blue">记住我 &nbsp;&nbsp;&nbsp;</label>
                                 </div>
                                 <div class="control-group">
                                     <div class="controls section-top-10">
@@ -307,7 +307,7 @@
     <div class="row">
         <ul  class="foodList">
             <li th:each="data:${data}">
-                <img width="60px;" height="60px;" th:src="@{'/before/show?fileName='+${data.FOOD_PIC}}">
+                <img width="60px;" height="60px;" th:src="@{'/food/showFtp?fileName='+${data.FOOD_PIC}}">
                 <p th:text="${data.FOOD_NAME}"></p>
                 <a href="/dinner/locationTo/bbbc" style="float: right;color: #24AA7A">现在预订</a>
             </li>

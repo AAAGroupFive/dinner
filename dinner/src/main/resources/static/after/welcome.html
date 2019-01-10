@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
-        <title>欢迎页面-X-admin2.0</title>
+        <title>欢迎</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -24,6 +24,14 @@
                         $("#Session").html(ss);
                     }
                 })
+              //  var myDate = new Date();
+               // alert(111)
+                var selectDate = '[[${selectDate}]]';
+                if(selectDate=='')
+                    $("#test1").val(getNowDate());
+                else
+                    $("#test1").val(selectDate);
+
             })
             $(function(){
                 setInterval("getTime();",1000); //每隔一秒运行一次
@@ -31,18 +39,62 @@
             //取得系统当前时间
             function getTime(){
                 var myDate = new Date();
-                var date = myDate.toLocaleDateString();
+                var year = myDate.getFullYear();
+                var month =  myDate.getMonth()+1;
+                var date = myDate.getDate();
                 var hours = myDate.getHours();
                 var minutes = myDate.getMinutes();
                 var seconds = myDate.getSeconds();
-                $("#showDate").html(date+" "+hours+":"+minutes+":"+seconds); //将值赋给
+                month = month<10?"0"+month:month;
+                date = date<10?"0"+date:date;
+                hours = hours<10?"0"+hours:hours;
+                seconds=seconds<10?"0"+seconds:seconds;
+                $("#showDate").html(year+"-"+month+"-"+date+" "+hours+":"+minutes+":"+seconds); //将值赋给
+            }
+            function toOpen(t){
+                var v =  $(t).attr("value");
+                var v1 =  $(t).attr("value1");
+                if($("#test1").val()!=getNowDate()){
+                    alert("当前日期不是今天不能开桌");
+                }else{
+                    if(v1==0){
+                        x_admin_show('开桌','/dinner/order/begin?number='+v,800,750)
+                    }else if (v1==1) {
+                        var a = $("#fourId").text();
+                        x_admin_show('增加消费','/dinner/order/food?number='+v,800,750)
+                    }else if (v1 == 2) {
+                        x_admin_show('开桌','/dinner/order/begin?number='+v,800,750)
+                    }
+
+                }
+            }
+            layui.use('laydate', function(){
+                var laydate = layui.laydate;
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#test1' //指定元素
+                });
+            });
+            function myFunction(){
+               // alert($("#test1").val());
+                window.location.href=  "/dinner/toMain?selectDate="+$("#test1").val()
+            }
+            function getNowDate(){
+                var myDate = new Date();
+                var year = myDate.getFullYear();
+                var month =  myDate.getMonth()+1;
+                var date = myDate.getDate();
+                month = month<10?"0"+month:month;
+                date = date<10?"0"+date:date;
+                var nowDate=year+'-'+month+'-'+date;
+                return nowDate;
             }
         </script>
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
-        <blockquote class="layui-elem-quote">欢迎管理员：
-            <span class="x-red" id="Session"></span>！当前时间:<span id="showDate"></span></blockquote>
+        <blockquote class="layui-elem-quote">当前时间:<span id="showDate"> </span><span style="float: right"> <input style="border: 0px;width: 90px;" type="text"   id="test1"  > <input type="button" value="查询预订" onclick="myFunction()"> </span></blockquote>
         <fieldset class="layui-elem-field">
             <legend>散座</legend>
             <div class="layui-field-box">
@@ -53,64 +105,13 @@
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
 
-                                        <li class="layui-col-xs2">
+                                        <li class="layui-col-xs2" th:each="tb : ${tbList}" th:if="${tb.TAB_TYPE==1}">
                                             <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>1号桌</h3>
+                                                <h3 th:text="${tb.TAB_ID}+'号桌'"> </h3>
                                                 <p>
-                                                    <cite style="color: #73716e" th:if="${type0 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=1',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type0 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=1',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type0 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=1',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:void(0)" class="x-admin-backlog-body">
-                                                <h3>2号桌</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type1 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=2',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type1 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=2',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type1 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=2',800,750)">已预定</cite>
-
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>3号桌</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type2 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=3',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type2 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=3',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type2 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=3',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>4号桌</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type3 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=4',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type3 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=4',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type3 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=4',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>5号桌</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type4 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=5',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type4 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=5',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type4 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=5',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>6号桌</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type5 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=6',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type5 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=6',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type5 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=6',800,750)">已预定</cite>
+                                                    <cite style="color: #73716e" th:if="${tb.TAB_STATE == 0}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${tb.TAB_STATE == 1}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">使用中</cite>
+                                                    <cite style="color: #79b72f" th:if="${tb.TAB_STATE == 2}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">已预定</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -131,63 +132,13 @@
                             <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
-                                        <li class="layui-col-xs2" >
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间1</h3>
+                                        <li class="layui-col-xs2"   th:each="tb : ${tbList}" th:if="${tb.TAB_TYPE}==2">
+                                            <a href="javascript:;" class="x-admin-backlog-body" >
+                                                <h3 th:text="'包间'+${tb.TAB_ID}"> </h3>
                                                 <p>
-                                                    <cite style="color: #73716e" th:if="${type6 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=7',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type6 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=7',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type6 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=7',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间2</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type7 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=8',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type7 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=8',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type7 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=8',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间3</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type8 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=9',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type8 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=9',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type8 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=9',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间4</h3></span>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type9 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=10',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type9 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=10',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type9 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=10',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间5</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type10 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=11',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type10 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=11',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type10 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=11',800,750)">已预定</cite>
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs2">
-                                            <a href="javascript:;" class="x-admin-backlog-body">
-                                                <h3>包间6</h3>
-                                                <p>
-                                                    <cite style="color: #73716e" th:if="${type11 == 0}" onclick="x_admin_show('开桌','/dinner/order/begin?number=12',800,750)">空闲中</cite>
-                                                    <cite style="color: #d3583a" th:if="${type11 == 1}" onclick="x_admin_show('增加消费','/dinner/order/food?number=12',800,750)">使用中</cite>
-                                                    <cite style="color: #79b72f" th:if="${type11 == 2}" onclick="x_admin_show('增加消费','/dinner/order/food?number=12',800,750)">已预定</cite>
+                                                    <cite style="color: #73716e" th:if="${tb.TAB_STATE == 0}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">空闲中</cite>
+                                                    <cite style="color: #d3583a" th:if="${tb.TAB_STATE == 1}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">使用中</cite>
+                                                    <cite style="color: #79b72f" th:if="${tb.TAB_STATE == 2}"  th:value="${tb.TAB_ID}" th:value1="${tb.TAB_STATE}" onclick="toOpen(this)">已预定</cite>
                                                 </p>
                                             </a>
                                         </li>
@@ -199,85 +150,6 @@
                 </div>
             </div>
         </fieldset>
-        <!--<fieldset class="layui-elem-field">
-            <legend>系统通知</legend>
-            <div class="layui-field-box">
-                <table class="layui-table" lay-skin="line">
-                    <tbody>
-                        <tr>
-                            <td >
-                                <a class="x-a" href="/" target="_blank">新版x-admin 2.0上线了</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >
-                                <a class="x-a" href="/" target="_blank">交流qq群:(519492808)</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-        <fieldset class="layui-elem-field">
-            <legend>系统信息</legend>
-            <div class="layui-field-box">
-                <table class="layui-table">
-                    <tbody>
-                        <tr>
-                            <th>xxx版本</th>
-                            <td>1.0.180420</td></tr>
-                        <tr>
-                            <th>服务器地址</th>
-                            <td>x.xuebingsi.com</td></tr>
-                        <tr>
-                            <th>操作系统</th>
-                            <td>WINNT</td></tr>
-                        <tr>
-                            <th>运行环境</th>
-                            <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
-                        <tr>
-                            <th>PHP版本</th>
-                            <td>5.6.27</td></tr>
-                        <tr>
-                            <th>PHP运行方式</th>
-                            <td>cgi-fcgi</td></tr>
-                        <tr>
-                            <th>MYSQL版本</th>
-                            <td>5.5.53</td></tr>
-                        <tr>
-                            <th>ThinkPHP</th>
-                            <td>5.0.18</td></tr>
-                        <tr>
-                            <th>上传附件限制</th>
-                            <td>2M</td></tr>
-                        <tr>
-                            <th>执行时间限制</th>
-                            <td>30s</td></tr>
-                        <tr>
-                            <th>剩余空间</th>
-                            <td>86015.2M</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-        <fieldset class="layui-elem-field">
-            <legend>开发团队</legend>
-            <div class="layui-field-box">
-                <table class="layui-table">
-                    <tbody>
-                        <tr>
-                            <th>版权所有</th>
-                            <td>xxxxx(xxxx)
-                                <a href="http://www.xxx.com/" class='x-a' target="_blank">访问官网</a></td>
-                        </tr>
-                        <tr>
-                            <th>开发者</th>
-                            <td>马志斌(113664000@qq.com)</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-        <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote>-->
     </div>
         <script>
         var _hmt = _hmt || [];
