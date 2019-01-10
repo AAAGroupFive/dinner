@@ -35,7 +35,7 @@ public class VipController {
         Map temp=new HashMap();
         HttpSession session = request.getSession();
         Object name = session.getAttribute("userName");
-       temp.put("Empname",name.toString());
+       temp.put("Empname",name);
         return temp;
     }
     /**

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+      <script type="text/javascript" src="/dinner/js/address.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -139,7 +140,7 @@
                     layer.open({
                         title: '会员信息'
                         ,type: 1
-                        ,area: ['500px', '440px']
+                        ,area: ['800px', '600px']
                         ,anim: 1//修改弹出层动画
                         ,content:$("#editDemo").html()
                         ,success:function(layero,index){
@@ -432,12 +433,23 @@
                         <input name="VIP_BALANCE" class="layui-input" id="VIP_BALANCE">
                     </div>
                 </div>
+
                 <div class="layui-inline">
+                    <label class="layui-form-label">联系地址</label>
+                    <div class="layui-input-inline">
+                        省:<select id="province"></select>
+                        市:<select id="city"></select>
+                        县:<select id="dist"></select>
+                        <input  id="VIP_ADDRESS" required="true" class="layui-input" name="VIP_ADDRESS" data-options="validType:['chinese','length[1,20]']">
+
+                    </div>
+                </div>
+               <!-- <div class="layui-inline">
                     <label class="layui-form-label">联系地址</label>
                     <div class="layui-input-inline">
                         <input name="VIP_ADDRESS" class="layui-input" id="VIP_ADDRESS">
                     </div>
-                </div>
+                </div>-->
 
             </div>
         </form>
@@ -492,6 +504,62 @@
             <input type="button" value="取消" id="cancel1" class="layui-btn layui-btn-sm layui-btn-normal" />
         </div>
     </script>
+
+  <script type="text/javascript">
+      $(function () {//加载事件。页面加载完毕后执行function内的代码
+          $("#province").append("<option value=''>-----请选择----</option>");
+          //默认显示所有省
+          $.each(pdata,function(){
+              if(this.level=='0'){
+                  $("#province").append("<option value="+this.code+">"+this.names+"</option>");
+              }
+          });
+
+          $("#province").change(function(){
+
+              var province=$("#province").val();
+              var proSub=province.substring(0,2);
+
+              //$("#city").html('');
+              $("#city").empty();
+              $("#city").append("<option value=''>-----请选择----</option>");
+              $.each(pdata,function(){
+                  if(this.level=='1'&&this.code.substring(0,2)==proSub){
+                      $("#city").append("<option value="+this.code+">"+this.names+"</option>");
+                  }
+              });
+              getAddr();
+          });
+
+          $("#city").change(function(){
+              var city=$("#city").val();
+              var cityS=city.substring(0,4);
+              //$("#city").html('');
+              $("#dist").empty();
+              $("#dist").append("<option value=''>-----请选择----</option>");
+              $.each(pdata,function(){
+                  if(this.level=='2'&&this.code.substring(0,4)==cityS){
+                      $("#dist").append("<option value="+this.code+">"+this.names+"</option>");
+                  }
+              });
+              getAddr();
+          });
+
+          $("#dist").change(function(){
+              getAddr();
+          });
+
+
+
+      });
+      function getAddr(){
+          var sheng=$("#province option:selected").text();
+          var shi=$("#city option:selected").text();
+          var xian=$("#dist option:selected").text();
+          $("#VIP_ADDRESS").val(sheng+shi+xian);
+      }
+
+  </script>
   </body>
 
 </html>

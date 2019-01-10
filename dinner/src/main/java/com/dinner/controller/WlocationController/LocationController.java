@@ -24,7 +24,7 @@ public class LocationController {
      * 跳转到首页
      * @return
      */
-    @RequestMapping("/bbbf")
+    @RequestMapping("/index")
     public String chengelocation6(){
         return "before/Bindex1";
     }
