@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery3.3.1.min.js"></script>
+</head>
+<script>
+    $(function () {
+        $.ajax({
+            url:"/dinner/emp/perInfo",
+            type:"post",
+            dataType:"json",
+            async:false,
+            success:function (data) {
+                //console.log(data[0].EMP_NAME)
+                if (data[0]!=null && data[0]!=""){
+                    //console.log("============")
+                    $("#empId").val(data[0].EMP_ID);
+                    $("#ename").val(data[0].EMP_NAME);
+                    $("#pass").val(data[0].EMP_PASS);
+                    $("#phone").val(data[0].EMP_PHONE);
+                    $("#addr").val(data[0].EMP_ADDR);
+                    if (data[0].EMP_ROLE==0){
+                        $("#role").val("服务员");
+                    }else if (data[0].EMP_ROLE==1){
+                        $("#role").val("收银");
+                    }else if (data[0].EMP_ROLE==2){
+                        $("#role").val("仓库");
+                    }else if (data[0].EMP_ROLE==3){
+                        $("#role").val("老板");
+                    }
+                }
+            }
+        })
+    })
+    function closeCurrentPage() {
+        var index = parent.layer.getFrameIndex(window.name);
+        //关闭当前frame
+        parent.layer.close(index);
+    }
+</script>
+<body>
+<form class="form-horizontal" style="text-align: center" action="../emp/perUpdate" method="post">
+    <input type="text" name="empId" id="empId" style="display: none">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">姓名</label>
+        <div class="col-sm-10">
+            <input type="text" name="ename" id="ename" class="form-control" style="width: 400px">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="text" name="pass" id="pass" class="form-control" style="width: 400px">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">电话</label>
+        <div class="col-sm-10">
+            <input type="text" name="phone" id="phone" class="form-control" style="width: 400px">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">地址</label>
+        <div class="col-sm-10">
+            <input type="text" name="addr" id="addr" class="form-control" style="width: 400px;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">职位</label>
+        <div class="col-sm-10">
+            <input type="text" id="role" class="form-control" style="width: 400px" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit"onclick="closeCurrentPage()" class="btn btn-default">保存并关闭</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

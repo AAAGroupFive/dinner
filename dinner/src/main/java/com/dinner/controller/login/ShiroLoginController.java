@@ -173,13 +173,15 @@ public class ShiroLoginController {
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
+                    session.setAttribute("empId",userList.get(0).get("EMP_ID"));
                     session.setMaxInactiveInterval(600000);
                     List<TreeRole> roleList = empService.roleList(Integer.valueOf(userList.get(0).get("EMP_ID") + ""));
                     if (roleList!=null && roleList.size()>0){
                         model.addAttribute("menuList", roleList);
-                        model.addAttribute("userName",map.get("userName"));
+                        model.addAttribute("EmpName",userList.get(0).get("EMP_NAME"));
                         model.addAttribute("baidu","www.baidu.com");
                         //System.out.println("aaaaaaaaaaaaaaa");
+                        //System.out.println(userList.get(0).get("EMP_NAME"));
                         return "after/index";
                     }else {
                         return "after/403";

@@ -75,4 +75,18 @@ public interface EmpService {
      * @return
      */
     List<TreeRole> roleList(int id);
+
+    /**
+     * 获取个人信息
+     * @param empId
+     * @return
+     */
+    List<Map> perInfo(int empId);
+
+    /**
+     * 个人信息修改
+     * @param map
+     * @return
+     */
+    int perUpdate(Map map);
 }
