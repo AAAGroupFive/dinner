@@ -19,6 +19,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private  GoodsDao goodsDao;
 
+    /**
+     * 商品列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> goodsList(Map map) {
         int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo")+"");
@@ -32,6 +37,11 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.countFoodsList();
     }
 
+    /**
+     * 盘点处理
+     * @param map
+     * @return
+     */
     @Override
     public int updateInventory(Map map) {
 /*        String userName = session.getAttribute("userName");
@@ -49,16 +59,31 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    /**
+     * 盘点列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> inventoryList(Map map) {
         return goodsDao.inventoryList(map);
     }
 
+    /**
+     * 盘点详情列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> inventoryDetails(Map map) {
         return goodsDao.inventoryDetails(map);
     }
 
+    /**
+     * 需要进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutGoods(Map map) {
         Map userName = goodsDao.selectUser(map);
@@ -66,6 +91,11 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.addPutGoods(map);
     }
 
+    /**
+     * 进货列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> putGoodsList(Map map) {
         int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo")+"");
@@ -80,6 +110,11 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.countPutList();
     }
 
+    /**
+     * 成功进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutRecord(Map map) {
         Map userName = goodsDao.selectUser(map);
@@ -93,7 +128,11 @@ public class GoodsServiceImpl implements GoodsService {
             return 0;
         }
     }
-
+    /**
+     * 失败进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutRecord2(Map map) {
         Map userName = goodsDao.selectUser(map);

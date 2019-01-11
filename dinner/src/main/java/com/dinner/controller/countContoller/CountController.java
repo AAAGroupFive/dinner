@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/count")
-public class countController {
+public class CountController {
 
     @Autowired
     private OrderService orderService;
@@ -104,6 +104,7 @@ public class countController {
                 }
 
         }
-        return orderService.close(map);
+        orderService.close(map);
+        return orderService.closeTable(map);
     }
 }

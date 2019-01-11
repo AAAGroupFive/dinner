@@ -152,7 +152,12 @@
 
 
             }
-
+            var index = parent.layer.getFrameIndex(window.name);
+            //关闭当前frame及父frame
+            parent.layer.close(index);
+            parent.parent.layer.close(index);
+            //刷新欢迎页面
+            window.parent.parent.location.href=window.parent.parent.location.href;
         });
     });
 </script>

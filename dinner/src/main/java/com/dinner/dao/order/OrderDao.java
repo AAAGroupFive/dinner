@@ -60,6 +60,8 @@ public interface OrderDao {
      */
     int close(Map map);
 
+    int closeTable(Map map);
+
     /**
      * 收钱记入账单
      * @param map

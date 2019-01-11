@@ -67,10 +67,8 @@
     </div>
     <script>
 
-      layui.use(['form','layer'], function(){
-            $ = layui.jquery;
+      layui.use('form', function(){
           var form = layui.form
-          ,layer = layui.layer;
           //监听提交
 		      form.on('submit(add)', function(data){
 		        $.ajax({

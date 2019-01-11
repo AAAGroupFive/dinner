@@ -28,7 +28,7 @@ public class VipServiceLmpl implements VipService {
 
         for (Map map1 : maps) {
             String STATE= String.valueOf(map1.get("VIP_STATE")+"");
-            if(STATE.equals(0)){
+            if(STATE.equals("0")){
                 map1.put("STATE","启用");
 
             }else {
@@ -36,7 +36,7 @@ public class VipServiceLmpl implements VipService {
             }
 
             String SEX= String.valueOf(map1.get("VIP_SEX")+"");
-            if(SEX.equals(0)){
+            if(SEX.equals("0")){
                 map1.put("sex","男");
             }else {
                 map1.put("sex","女");

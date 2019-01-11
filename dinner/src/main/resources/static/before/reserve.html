@@ -400,11 +400,15 @@
         var number = $("#number").val();
         var date = $("#date").val();
         var message = $("#message").val();
+        var contrller = "大厅";
+        var number = number;
+        var person = 5;
+
         $.ajax({
             url:"/dinner/reserve",
             type: "post",
             datatype:"json",
-            data:{"name":name,"email":email,"phone":phone,"number":number,"date":date,"message":message},
+            data:{"name":name,"email":email,"phone":phone,"number":number,"date":date,"message":message,"contrller":contrller,"person":person},
         })
         alert("预定成功");
         window.location.href = "/dinner/locationTo/index";
