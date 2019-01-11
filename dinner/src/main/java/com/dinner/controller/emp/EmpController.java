@@ -158,48 +158,13 @@ public class EmpController {
     }
 
     /**
-     * 用户名校验
+     * 唯一性校验
      * @return
      */
     @RequestMapping("/user")
     @ResponseBody
     public Object checkUser(@RequestParam Map map){
         //System.out.println(map.get("userName"));
-        if (map.get("userName")!=null){
-            List<Map> maps = empService.checkUser(map);
-            if (maps!=null&&maps.size()>0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-        if (map.get("ename")!=null){
-            List<Map> maps = empService.checkUser(map);
-            if (maps!=null&&maps.size()>0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-        if (map.get("phone")!=null){
-            List<Map> maps = empService.checkUser(map);
-            if (maps!=null&&maps.size()>0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 姓名校验
-     * @param map
-     * @return
-     */
-    @RequestMapping("/ename")
-    @ResponseBody
-    public Object checkName(@RequestParam Map map){
         if (map!=null&&map.size()>0){
             List<Map> maps = empService.checkUser(map);
             if (maps!=null&&maps.size()>0){
@@ -208,6 +173,8 @@ public class EmpController {
                 return 0;
             }
         }
+
         return null;
     }
+
 }
