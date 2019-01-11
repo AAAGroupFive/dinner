@@ -43,6 +43,12 @@ public class GoodsController {
     public String toPutgoods(){
         return "after/put-goods";
     }
+
+    /**
+     * 菜品列表
+     * @param map
+     * @return
+     */
     @RequestMapping("/goodsList")
     @ResponseBody
     public Object getOrderList(@RequestParam Map map){
@@ -54,6 +60,12 @@ public class GoodsController {
         tempMap.put("data",goodsService.goodsList(map));
         return tempMap;
     }
+
+    /**
+     * 盘点列表
+     * @param map
+     * @return
+     */
     @RequestMapping("/inventoryList")
     @ResponseBody
     public Object inventoryList(@RequestParam Map map){
@@ -68,6 +80,12 @@ public class GoodsController {
         //tempMap.put("total",page.getTotal());
         return tempMap;
     }
+
+    /**
+     * 进货列表
+     * @param map
+     * @return
+     */
     @RequestMapping("/putGoodsList")
     @ResponseBody
     public Object putGoodsList(@RequestParam Map map){
@@ -79,6 +97,12 @@ public class GoodsController {
         tempMap.put("data",goodsService.putGoodsList(map));
         return tempMap;
     }
+
+    /**
+     * 进货记录
+     * @param map
+     * @return
+     */
     @RequestMapping("/putRecord")
     @ResponseBody
     public Object putRecord(@RequestParam Map map){
@@ -90,12 +114,25 @@ public class GoodsController {
         tempMap.put("data",goodsService.putRecord(map));
         return tempMap;
     }
+
+    /**
+     * 盘点详情
+     * @param map
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/inventoryDetails")
     public Object inventoryDetails(@RequestParam Map map){
         List<Map> aaa = goodsService.inventoryDetails(map);
         return aaa;
     }
+
+    /**
+     * 更新盘点列表
+     * @param map
+     * @param session
+     * @return
+     */
     @RequestMapping("/updateInventory")
     @ResponseBody
     public Object updateInventory(@RequestParam Map map, HttpSession session){
@@ -111,6 +148,13 @@ public class GoodsController {
         }
         return tempMap;
     }
+
+    /**
+     * 需要添加商品
+     * @param map
+     * @param session
+     * @return
+     */
     @RequestMapping("/addPutGoods")
     @ResponseBody
     public Object addPutGoods(@RequestParam Map map,HttpSession session){
@@ -125,6 +169,13 @@ public class GoodsController {
         }
         return tempMap;
     }
+
+    /**
+     * 成功记录
+     * @param map
+     * @param session
+     * @return
+     */
     @RequestMapping("/addPutRecord")
     @ResponseBody
     public Object addPutRecord(@RequestParam Map map,HttpSession session){
@@ -139,9 +190,18 @@ public class GoodsController {
         }
         return tempMap;
     }
+
+    /**
+     * 失败记录
+     * @param map
+     * @param session
+     * @return
+     */
     @RequestMapping("/addPutRecord2")
     @ResponseBody
-    public Object addPutRecord2(@RequestParam Map map){
+    public Object addPutRecord2(@RequestParam Map map,HttpSession session){
+        Object userName = session.getAttribute("userName");
+        map.put("Account",userName);
         int result =goodsService.addPutRecord2(map);
         Map tempMap = new HashMap();
         if (result==-1) {

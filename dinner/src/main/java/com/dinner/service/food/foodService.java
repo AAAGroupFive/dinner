@@ -32,4 +32,10 @@ public interface foodService {
      * @return
      */
     int updateFood(Map map);
+
+    /**
+     * 统计菜品
+     * @return
+     */
+    int countFood();
 }

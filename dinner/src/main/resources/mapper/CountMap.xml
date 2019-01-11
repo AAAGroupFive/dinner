@@ -4,6 +4,6 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.projectCountDao.ProjoectCountDao">
 <select id="getMoneyCount" resultType="map">
-        select to_char(con_time,'yyyy-mm') as month,sum(con_money) as money from TAB_CONSUME where con_state=1 group by to_char(con_time,'yyyy-mm')
+        select to_char(con_time,'yyyy-mm-dd') as month,sum(con_money) as money from TAB_CONSUME where con_state=1 group by to_char(con_time,'yyyy-mm-dd')
     </select>
 </mapper>

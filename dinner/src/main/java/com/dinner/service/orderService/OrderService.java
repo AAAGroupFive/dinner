@@ -23,7 +23,7 @@ public interface OrderService {
      * @param list
      * @return
      */
-    int order(Map map/*,List list*/);
+    int order(Map map);
 
 
     /**
@@ -61,10 +61,14 @@ public interface OrderService {
      */
     int close(Map map);
 
+    int closeTable(Map map);
+
     /**
      * vip扣费
      * @param map
      * @return
      */
     int vip(Map map);
+
+    int checkMoney(Map map);
 }

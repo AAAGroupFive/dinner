@@ -47,14 +47,22 @@
 
     <!--关闭桌子-->
     <update id="close">
+        update TAB_RESERVE set STATE=0 where RE_NUMBER=#{number}
+    </update>
+    <!--关闭桌子-->
+    <update id="closeTable">
         update TAB_TABLE set TAB_STATE=0 where TAB_ID=#{number}
     </update>
-
     <!--收钱记入账单-->
     <update id="put">
         update TAB_CONSUME set CON_STATE=1,CON_MONEY=#{sum} where CON_ROOM=#{number}
     </update>
 
+    <!--查询会员内金额-->
+    <select id="checkMoney" resultType="java.lang.Integer">
+        select VIP_BALANCE from TAB_VIP where VIP_CARD=#{vip}
+    </select>
+    
     <!--vip扣费-->
     <update id="vip">
         update TAB_VIP set VIP_BALANCE=VIP_BALANCE-#{sum} where VIP_CARD=#{vip}

@@ -114,7 +114,8 @@
     })
 
     //Demo
-    layui.use('form', function(){
+    layui.use(['form','layer'], function(){
+        var layer = layui.layer;
         var form = layui.form;
 
         //监听提交
@@ -130,17 +131,33 @@
                 var vip = data.field.vip
                 $.ajax({
                     url :'/dinner/count/close?number='+number+'&sum='+sum+'&vip='+vip,
+                    success :function (data) {
+                        if (data == 0) {
+                            alert("卡内余额不足！请充值！！");
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame及父frame
+                            parent.layer.close(index);
+                            parent.parent.layer.close(index);
+                        } else {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame及父frame
+                            parent.layer.close(index);
+                            parent.parent.layer.close(index);
+                            //刷新欢迎页面
+                            window.parent.parent.location.href=window.parent.parent.location.href;
+                        }
+                    }
                 });
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame及父frame
-                parent.layer.close(index);
-                parent.parent.layer.close(index);
-                //刷新欢迎页面
-                window.parent.parent.location.href=window.parent.parent.location.href;
+
 
             }
-
+            var index = parent.layer.getFrameIndex(window.name);
+            //关闭当前frame及父frame
+            parent.layer.close(index);
+            parent.parent.layer.close(index);
+            //刷新欢迎页面
+            window.parent.parent.location.href=window.parent.parent.location.href;
         });
     });
 </script>
