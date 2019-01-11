@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>做菜</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/dinner/css/font.css">
+    <link rel="stylesheet" href="/dinner/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+</head>
+
+</head>
+<body>
+<div style="height: 400px;width: 1500px; margin-left:208px;margin-top:30px;">
+    <div style="height: 100%;width: 100%;" align="center">
+        <table class="layui-hide" id="cookList" lay-filter="demo"></table>
+    </div>
+</div>
+<div align="center">
+    <table class="layui-hide" id="cookedList" lay-filter="demo"></table>
+</div>
+<script type="text/javascript">
+    layui.use('table', function(){
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+            elem: '#cookList'
+            ,title: '待做菜品'
+            ,height:400
+            ,width:1500
+            ,url: '/dinner/cookList' //数据接口
+            ,toolbar: '#toolbarDemoone'
+            ,page: false
+            ,even: true
+            ,size: 'lg'
+            ,cols: [ [ //表头
+                 {field: 'FOOD_NAME', title: '菜品', width:165, sort: true}
+                ,{field: 'NUMBERR', title: '数量', width:165}
+                ,{field: 'STATE', title: '状态', width:165}
+                ,{field: 'right', title:'操作', toolbar: '#barDemo', width:165}
+            ] ]
+            ,id: 'testReload'
+        })
+        //监听工具条
+        table.on('tool(demo)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'subone') {
+                layer.confirm('确定要提交吗', function (index) {
+                    $.ajax({
+                        url: "updateCook",
+                        type: "post",
+                        data: {
+                            "CON_GOODS": data.CON_GOODS
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.issuc == true) {
+                                obj.del();
+                                layer.close(index);
+                                layer.msg("成功", {icon: 6});
+                                window.location.reload();
+                            } else {
+                                layer.msg("失败", {icon: 5});
+                            }
+                        }
+                    });//ajax
+                });
+            }
+        });
+
+        });//layui use
+
+</script>
+<script type="text/javascript">
+    layui.use('table', function(){
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+            elem: '#cookedList'
+            ,title: '待上桌菜品'
+            ,height:400
+            ,width:1500
+            ,url: '/dinner/cookedList' //数据接口
+            ,toolbar: '#toolbarDemotwo'
+            ,page: false
+            ,even: true
+            ,size: 'lg'
+            ,cols: [ [ //表头
+                 {field: 'CON_ROOM', title: '桌号', width:165, sort: true}
+                ,{field: 'FOOD_NAME', title: '菜品', width:165}
+                ,{field: 'STATE', title: '状态', width:165}
+                /*,{field: 'right', title:'操作', toolbar: '#barDemoone', width:165}*/
+            ] ]
+            ,id: 'testReload'
+        })
+    });//layui use
+
+</script>
+<script type="text/html" id="toolbarDemoone">
+    <div class="layui-btn-container">
+        <span style="font-family: '微软雅黑';font-size: 17px;">待做菜品</span>
+    </div>
+</script>
+<script type="text/html" id="toolbarDemotwo">
+    <div class="layui-btn-container">
+        <span style="font-family: '微软雅黑';font-size: 17px;">已做菜品</span>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn" lay-event="subone">确定</a>
+</script>
+</body>
+</html>

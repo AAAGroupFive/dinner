@@ -34,7 +34,7 @@ public class PowerController {
         return "after/role";
     }
     /**
-     *
+     *跳转
      * @return
      */
     @RequestMapping("/toList")
@@ -148,7 +148,7 @@ public class PowerController {
     public String indexList(Model model,@RequestParam Integer id){
         //System.out.println(id);
         List<TreeRole> list = powerService.getList();
-        System.out.println(list.size());
+        //System.out.println(list.size());
         if (list==null&&list.size()==0){
             return "after/403";
         }else {

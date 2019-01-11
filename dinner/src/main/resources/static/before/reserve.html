@@ -34,10 +34,12 @@
                     //
                     // console.log(data);
                     if (data.length==1&&data[0]==1) {
+                        alert("您未登录 无发预定！")
+
                         var html=" ";
 
                         html+='     <span class="signin" data-toggle="modal" data-target="#myModal"> ';
-                        html+='     <span class="hidden-xs">登录</span> ';
+                        html+='     <span class="hidden-xs" id="denglu" >登录</span> ';
                         html+='     <i class="fa fa-sign-in visible-xs-block" aria-hidden="true"></i> ';
                         html+='     </span> ';
                         html+='     <span class="register" data-toggle="modal" data-target="#myModal"> ';
@@ -45,6 +47,7 @@
                         html+='     <i class="fa fa-user-plus visible-xs-block" aria-hidden="true"></i> ';
                         html+='    </span> ';
                         $("#beforeLogin").append(html);
+                        $("#denglu").trigger("click");
                     }
                     if (data.length==2){
                         var html=" ";
@@ -58,6 +61,7 @@
                         html+='    <span ><a href="../beforeUserLogin/singout">注销登陆</a></span> ';
                         html+='    </span> ';
                         $("#beforeLogin").append(html);
+                        $("#phone").val(data[0]);
                     }
                 }
 
@@ -173,7 +177,7 @@
             <br>
             <div class="bs-example bs-example-tabs">
                 <ul id="myTab" class="nav nav-tabs ">
-                    <li id="signin_tab" class="active"><a href="#signin" data-toggle="tab">登录</a></li>
+                    <li id="signin_tab" class="active"><a  href="#signin" data-toggle="tab">登录</a></li>
                     <li id="reg_tab"><a href="#signup" data-toggle="tab">注册</a></li>
                 </ul>
             </div>
@@ -237,7 +241,7 @@
                                         :</label>
                                     <div class="controls">
 
-                                        <input id="user" name="phone" class="form-control input-large aa" req="req" phone="phone" placeholder="请输入您的手机号码.." >
+                                        <input id="user" name="phone"  class="form-control input-large aa" req="req" phone="phone" placeholder="请输入您的手机号码.." >
                                     </div>
                                 </div>
                                 <div class="control-group section-top-10" id="div2">
@@ -318,17 +322,17 @@
 		                            <div class="col-xs-12"><h4 class="heading_left">预订信息 </h4></div>
 		                            <div class="form-group col-xs-12 section-top-10">
 		                            	姓名
-		                                <input type="text" class="form-control" name="name" placeholder="姓名 *" id="name" required="required">
+		                                <input type="text" class="form-control bb" name="name" placeholder="姓名 *" id="name" required="required">
 		                             </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
-		                            <div class="form-group col-sm-6 col-xs-12">
+		                            <div class="form-group col-sm-6 col-xs-12  ">
 		                            	邮箱
-		                                <input type="email" class="form-control" name="email" placeholder="邮箱 *" id="email" required="required">
+		                                <input type="email" class="form-control  bb" name="email" placeholder="邮箱 *" id="email" required="required">
 		                            </div>
 		                            <div class="form-group col-sm-6 col-xs-12">
 		                            	手机号
-		                                <input type="text" class="form-control" name="number" pattern="[0-9]{11}"
-		                                       placeholder="手机号码 *" id="phone"  required="required">
+		                                <input type="text" class="form-control bb" name="number" pattern="[0-9]{11}"
+		                                    disabled="disabled"  req1="req1"  placeholder="手机号码（不能为空） *" id="phone"  required="required">
 		                            </div>
                                     <div class="form-group col-sm-6 col-xs-12">
                                         桌号
@@ -349,7 +353,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 col-xs-12">
                                         预定时间
-                                        <input type="text" class="layui-input" id="date" required="required" placeholder="请选择预定日期 *">
+                                        <input type="text" class="layui-input bb"  id="date" req1="req1" placeholder="请选择预定日期 （必选）*">
                                     </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
 		                            <div class="col-xs-12 form-group">
@@ -358,7 +362,7 @@
 		                            </div>
 		                            <div class="clearfix visible-sm-block visible-md-block visible-xs-block"></div>
 		                            <div class="col-md-12 text-center section-bottom-15">
-		                                <button id="save" class="btn btn-success">预定</button>
+		                                <a id="save" class="btn btn-success">预定</a>
 		                            </div>
 		                        </form>
                 </div>
@@ -400,18 +404,41 @@
         var number = $("#number").val();
         var date = $("#date").val();
         var message = $("#message").val();
-        var contrller = "大厅";
-        var number = number;
-        var person = 2;
-
+        $(".aa").trigger("blur");
         $.ajax({
-            url:"/dinner/reserve",
-            type: "post",
-            datatype:"json",
-            data:{"name":name,"email":email,"phone":phone,"number":number,"date":date,"message":message,"contrller":contrller,"person":person},
+            type:'post',
+            url:'../beforeUserLogin/loginCheck',
+            dataType:"json",
+            success:function (data) {
+
+                if (data.length==1&&data[0]==1) {
+                    alert("请登录");
+                    $("#denglu").trigger("click");
+                }
+                    else{
+                        if(quanju2==true) {
+                            $.ajax({
+                                url: "/dinner/reserve",
+                                type: "post",
+                                datatype: "json",
+                                data: {
+                                    "name": name,
+                                    "email": email,
+                                    "phone": phone,
+                                    "number": number,
+                                    "date": date,
+                                    "message": message
+                                },
+                            })
+                            alert("预定成功");
+                                window.location.href = "/dinner/locationTo/index";
+                                }else{
+                                    alert("请填写日期或手机！");
+                                 }
+                    }
+                }
+
         })
-        alert("预定成功");
-        window.location.href = "/dinner/locationTo/index";
 	})
 
     //图片验证码
@@ -423,8 +450,30 @@
         $('#verifyCodeImage').attr('src',
             '../VerCode/getVerifyCode?timestamp=' + genTimestamp());
     }
+    //预定校验
+    var quanju2=false;
+    $(".bb").blur(function(){
+        var jQ=$(this);
+        var value=jQ.val();
+        var req1=jQ.attr("req1");
+        var state2=true;
+        if (req1=="req1"){
+            if (value==null||value.trim()==""){
+                state2=false
+            }
+        }
+        if(state2==false){
+            jQ.attr("style","background:red");
+            quanju2=false;
+        }else{
+            jQ.attr("style","background:white");
+            quanju2=true;
+        }
+
+    })
     // 表单校验
     var quanju=false;
+
     $(".aa").blur(function(){
 
         var jQ=$(this);
@@ -437,11 +486,13 @@
         var req=jQ.attr("req");
         //  console.log(req);
         var state=true;
+
         if (req=="req"){
             if (value==null||value.trim()==""){
                 state=false
             }
         }
+
         if (phone=="phone"){
             var reg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
             if (!reg.test(value)){
@@ -482,6 +533,7 @@
             jQ.attr("style","background:white");
             quanju=true;
         }
+
     });
     //注册
     $("#confirmsignup").click(function(){
@@ -539,7 +591,7 @@
                     success:function (data) {
                         if(data==1){
                             //  alert("该用户已经存在，请勿重复注册！");
-                            window.location.href="../locationTo/index";
+                            window.location.href="../locationTo/bbbc";
                         }
                         if (data==0){
                             alert("输入有误！请检查确认！");

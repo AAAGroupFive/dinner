@@ -60,6 +60,7 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             if(obj.event === 'edit'){
+                //$(this).prop("disabled","disabled");
                 layer.open({
                     title: '盘点剩余数量'
                     ,type: 1
@@ -73,6 +74,7 @@
                         $("#GOODS_STOCK").val(data.GOODS_STOCK);
                         $("#GOODS_UNIT").val(data.GOODS_UNIT);
                         $("#sbt").click(function(){
+
                             $.ajax({
                                 url: "updateInventory",
                                 type: "post",
@@ -95,6 +97,7 @@
                                     }
                                 }   //success
                             });  //ajax
+
                         });  //#sbt
 
                         //弹出层取消按钮
@@ -104,6 +107,7 @@
                     }  //success(layero)
 
                 }) //open
+
             }else if(obj.event === 'edit1'){
                 layer.open({
                     title: '预估增添'
