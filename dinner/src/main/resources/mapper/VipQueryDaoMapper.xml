@@ -60,4 +60,8 @@
         </foreach>
 
     </delete>
+    <!--统计会员个数-->
+    <select id="countVip" resultType="int">
+        select count (*) from TAB_VIP
+    </select>
 </mapper>

@@ -60,6 +60,8 @@ public interface OrderDao {
      */
     int close(Map map);
 
+    int closeTable(Map map);
+
     /**
      * 收钱记入账单
      * @param map
@@ -73,4 +75,6 @@ public interface OrderDao {
      * @return
      */
     int vip(Map map);
+
+    int checkMoney(Map map);
 }

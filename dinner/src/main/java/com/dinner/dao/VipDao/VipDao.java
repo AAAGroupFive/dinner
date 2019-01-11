@@ -51,5 +51,14 @@ public interface VipDao {
      * @param map
      * @return
      */
+
     int VipDelete(List map);
+
+
+    /**
+     * 统计会员
+     * @return
+     */
+    int countVip();
+
 }

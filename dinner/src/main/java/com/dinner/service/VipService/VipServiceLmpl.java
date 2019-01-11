@@ -104,13 +104,10 @@ public class VipServiceLmpl implements VipService {
 
 
 
+    }
 
-
-
-
-
-
-
-
+    @Override
+    public int countVip() {
+        return vipDao.countVip();
     }
 }

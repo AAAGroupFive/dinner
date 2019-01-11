@@ -18,4 +18,9 @@
     <update id="updateFood">
         update TAB_FOOD set FOOD_NAME=#{FOOD_NAME},FOOD_PRICE=#{FOOD_PRICE},FOOD_PIC=#{FOOD_PIC} where FOOD_ID=#{FOOD_ID}
     </update>
+
+    <!--统计菜品-->
+    <select id="countFood" resultType="int">
+        select count (*) from TAB_FOOD
+    </select>
 </mapper>

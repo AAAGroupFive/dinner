@@ -89,4 +89,11 @@ public interface EmpService {
      * @return
      */
     int perUpdate(Map map);
+
+    /**
+     * 用户名校验
+     * @param map
+     * @return
+     */
+    List<Map> checkUser(Map map);
 }

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -536,15 +536,15 @@
                 <h4 class="text-white">高品质服务</h4>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12  text-center text-white">
-                <span class="statics_options" id="Investors">1600</span>
-                <h4 class="text-white">人来过</h4>
+                <span class="statics_options" id="Investors" th:text="${countVip}"></span>
+                <h4 class="text-white">人注册过</h4>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 text-center text-white">
-                <span class="statics_options" id="Client">1400</span>
-                <h4 class="text-white">家服务支持</h4>
+                <span class="statics_options" id="Client" th:text="${countFood}"></span>
+                <h4 class="text-white">样菜品</h4>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 text-center text-white">
-                <span class="statics_options" id="Success">97 </span><span class="text-white statics_options">%</span>
+                <span class="statics_options" id="Success">100 </span><span class="text-white statics_options">%</span>
                 <h4 class="text-white">好评度</h4>
             </div>
         </div>

@@ -1,10 +1,14 @@
 package com.dinner.controller.WlocationController;
 
+import com.dinner.service.VipService.VipService;
 import com.dinner.service.registerService.RegisterService;
+import com.dinner.service.food.foodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -18,14 +22,26 @@ import java.util.Map;
 @RequestMapping("/locationTo")
 public class LocationController {
     @Autowired
+    private VipService vipService;
+
+    @Autowired
     private RegisterService registerService;
+
+    @Autowired
+    private foodService food;
 
     /**
      * 跳转到首页
      * @return
      */
     @RequestMapping("/index")
-    public String chengelocation6(){
+    public String chengelocation6(Model model){
+        int countVip = vipService.countVip();
+        int countFood = food.countFood();
+        Map map = new HashMap();
+        map.put("countVip", countVip);
+        map.put("countFood", countFood);
+        model.addAllAttributes(map);
         return "before/Bindex1";
     }
     /**
