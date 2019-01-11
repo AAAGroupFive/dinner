@@ -26,7 +26,7 @@ public class BeforeUserLoginController {
     @Autowired
     private BeforeUserLoginService beforeUserLoginService;
     /**
-     * 登录逻辑 验证码校验
+     * 登录逻辑
      */
     @RequestMapping("/CodeCheck")
     @ResponseBody
