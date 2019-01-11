@@ -54,7 +54,7 @@ public class ShiroConfig {
         filterMap.put("/login/getVerifyCode","anon");
         //授权过滤器
         filterMap.put("/test","perms[user:update,add]");
-//        filterMap.put("/sb/user/update","perms[user:update]");
+//        filterMap.put("/sb/user/update","perms [user:update]");
         filterMap.put("after/*","authc");
 //        filterMap.put("/question/*","authc");
 //        filterMap.put("/exam/*","authc");

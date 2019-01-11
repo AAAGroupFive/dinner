@@ -92,5 +92,5 @@ public interface GoodsDao {
      */
     List<Map> putRecord(Map map);
     int countPutRecordList();
-
+    Map selectUser(Map map);
 }

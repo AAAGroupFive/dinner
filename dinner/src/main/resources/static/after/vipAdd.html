@@ -31,7 +31,7 @@
 			<div class="layui-form-item" >
 			    <label class="layui-form-label">会员姓名</label>
 			    <div class="layui-input-block">
-			      <input type="text" id="VIPname" name="VIPname" datatype="s5-16" errormsg="昵称至少5个字符,最多16个字符！" class="layui-input">
+			      <input type="text" id="VIPname" name="VIPname" datatype="s1-5" errormsg="昵称至少5个字符,最多16个字符！" class="layui-input">
 			    </div>
 		    
 		    </div>
@@ -47,8 +47,10 @@
 		    <div class="layui-form-item" >
 			    <label class="layui-form-label">单选框</label>
 			    <div class="layui-input-block">
-			      <input type="radio" name="sex" value="0" title="男">
-			      <input type="radio" name="sex" value="1" title="女" checked>
+			      <input type="radio" name="sex" value="0">
+                    男
+			      <input type="radio" name="sex" value="1" checked>
+                    女
 			    </div>
 		   	</div>
 		   	
@@ -74,7 +76,7 @@
 					省:<select id="province"></select>
 					市:<select id="city"></select>
 					县:<select id="dist"></select>
-					<input  id="emp_address" required="true" class="layui-input" name="EmployeeAddress" data-options="validType:['chinese','length[1,20]']">
+					<input  id="VIPaddress" required="true" class="layui-input" name="VIPaddress" data-options="validType:['chinese','length[1,20]']">
 			    </div>
 		    
 		    </div>
@@ -95,10 +97,10 @@
             });
 
             $("#province").change(function(){
-                alert("你好");
+
                 var province=$("#province").val();
                 var proSub=province.substring(0,2);
-                console.log(proSub+"省的名字");
+
                 //$("#city").html('');
                 $("#city").empty();
                 $("#city").append("<option value=''>-----请选择----</option>");
@@ -136,16 +138,8 @@
                     $(this).val(""); //清空上次input框里的数据
 
 
-                    var array = new Array();
-                    //遍历，先获取，然后map在array中是栈，先进后出，因此pop出来。
-
-                    $.each(res,function(i,val){
-                        array.push(val);
-                    });
-                    var q1 = JSON.stringify(array.pop());
-                    console.log(res.EmpName)
-
-                    $("#EmpName").val(q1);
+                    
+                    $("#EmpName").val(res.Empname);
                 },
                 error:function(){
                     layer.alert('操作失败！！！',{icon:5});
@@ -157,7 +151,7 @@
             var sheng=$("#province option:selected").text();
             var shi=$("#city option:selected").text();
             var xian=$("#dist option:selected").text();
-            $("#emp_address").val(sheng+shi+xian);
+            $("#VIPaddress").val(sheng+shi+xian);
         }
 
         $(".myform").Validform({

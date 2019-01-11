@@ -4,6 +4,7 @@ import com.dinner.dao.goodsDao.GoodsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private  GoodsDao goodsDao;
 
+    /**
+     * 商品列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> goodsList(Map map) {
         int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo")+"");
@@ -31,8 +37,19 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.countFoodsList();
     }
 
+    /**
+     * 盘点处理
+     * @param map
+     * @return
+     */
     @Override
     public int updateInventory(Map map) {
+/*        String userName = session.getAttribute("userName");
+        map.put("userName",userName);*/
+        //System.out.println(map.get("Account")+"前面处来的账号");
+        Map userName = goodsDao.selectUser(map);
+        map.put("userName",String.valueOf(userName.get("EMP_NAME")));
+
         int result = goodsDao.addInventory(map);
         int result1 = goodsDao.updateGoods(map);
         if (result!=-1&&result1!=-1){
@@ -42,21 +59,43 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    /**
+     * 盘点列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> inventoryList(Map map) {
         return goodsDao.inventoryList(map);
     }
 
+    /**
+     * 盘点详情列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> inventoryDetails(Map map) {
         return goodsDao.inventoryDetails(map);
     }
 
+    /**
+     * 需要进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutGoods(Map map) {
+        Map userName = goodsDao.selectUser(map);
+        map.put("userName",String.valueOf(userName.get("EMP_NAME")));
         return goodsDao.addPutGoods(map);
     }
 
+    /**
+     * 进货列表
+     * @param map
+     * @return
+     */
     @Override
     public List<Map> putGoodsList(Map map) {
         int pageNo = map.get("pageNo") == null ? 1 : Integer.valueOf(map.get("pageNo")+"");
@@ -71,8 +110,15 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.countPutList();
     }
 
+    /**
+     * 成功进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutRecord(Map map) {
+        Map userName = goodsDao.selectUser(map);
+        map.put("userName",String.valueOf(userName.get("EMP_NAME")));
         int result = goodsDao.addPutRecord(map);
         int result1= goodsDao.updateGoods2(map);
         int result2= goodsDao.deletePut(map);
@@ -82,9 +128,15 @@ public class GoodsServiceImpl implements GoodsService {
             return 0;
         }
     }
-
+    /**
+     * 失败进货
+     * @param map
+     * @return
+     */
     @Override
     public int addPutRecord2(Map map) {
+        Map userName = goodsDao.selectUser(map);
+        map.put("userName",String.valueOf(userName.get("EMP_NAME")));
         int result = goodsDao.addPutRecord2(map);
         int result1= goodsDao.deletePut(map);
         if (result1!=-1&&result!=-1) {

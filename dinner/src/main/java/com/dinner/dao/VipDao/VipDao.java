@@ -44,4 +44,10 @@ public interface VipDao {
      * @return
      */
     int VipDelete(String[] map);
+
+    /**
+     * 统计会员
+     * @return
+     */
+    int countVip();
 }

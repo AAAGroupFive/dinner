@@ -13,6 +13,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/dinner/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/dinner/js/xadmin.js"></script>
+      <script type="text/javascript" src="/dinner/js/address.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -98,15 +99,15 @@
                     , {field: 'sex', title: '会员性别', width: 150}
                     , {field: 'VIP_BALANCE', title: '会员余额', width: 120, sort: true}
                     , {field: 'VIP_ADDRESS',title:'联系地址', width: 200 }
-                    , {field: 'VIP_STATE',title:'状态', width: 120
-                        ,templet: function(d){
+                    , {field: 'STATE',title:'状态', width: 120
+                        /*,templet: function(d){
                         if(d.VIP_STATE==1){
                             return '<button class="layui-btn layui-btn-danger" id="jinyong">禁用</button>'
                         }else {
                             return '<button class="layui-btn " id="qiyong">启用</button>'
                         }
-                          /*  return 'ID：'+ d.id +'，标题：<span style="color: #c00;">'+ d.title +'</span>'*/
-                        }
+                          /!*  return 'ID：'+ d.id +'，标题：<span style="color: #c00;">'+ d.title +'</span>'*!/
+                        }*/
                     }
 
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
@@ -139,7 +140,7 @@
                     layer.open({
                         title: '会员信息'
                         ,type: 1
-                        ,area: ['500px', '440px']
+                        ,area: ['800px', '600px']
                         ,anim: 1//修改弹出层动画
                         ,content:$("#editDemo").html()
                         ,success:function(layero,index){
@@ -148,7 +149,7 @@
                             $("#VIP_NAME").val(data.VIP_NAME);
                             $("#VIP_PHONE").val(data.VIP_PHONE);
                             $("#VIP_CARD").val(data.VIP_CARD);
-                            $("#VIP_STATE").val(data.VIP_STATE);
+                            $("#VIP_STATE").val(data.STATE);
                             $("#sex").val(data.sex);
                             $("#VIP_BALANCE").val(data.VIP_BALANCE);
                             $("#VIP_ADDRESS").val(data.VIP_ADDRESS);
@@ -347,7 +348,7 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-        //禁用启用
+       /* //禁用启用
         $("#jinyong").on('click', function(){
             $.ajax({
                 url:'/dinner/VIP/State',
@@ -367,7 +368,7 @@
                 }
             });
 
-        });
+        });*/
   });
 
     </script>
@@ -402,7 +403,7 @@
                     </div>
                 </div>
 
-                <br/>
+
 
                 <div class="layui-inline">
                     <label class="layui-form-label">会员卡号</label>
@@ -417,6 +418,7 @@
                         <input name="VIP_STATE" class="layui-input" id="VIP_STATE">
                     </div>
                 </div>
+
                 <div class="layui-inline">
                     <label class="layui-form-label">会员性别</label>
                     <div class="layui-input-inline">
@@ -424,7 +426,7 @@
                     </div>
                 </div>
 
-                <br/>
+
 
                 <div class="layui-inline">
                     <label class="layui-form-label">会员余额</label>
@@ -432,6 +434,17 @@
                         <input name="VIP_BALANCE" class="layui-input" id="VIP_BALANCE">
                     </div>
                 </div>
+
+                <!--<div class="layui-inline">
+                    <label class="layui-form-label">联系地址</label>
+                    <div class="layui-input-inline">
+                        省:<select id="province"></select>
+                        市:<select id="city"></select>
+                        县:<select id="dist"></select>
+                        <input  id="VIP_ADDRESS" required="true" class="layui-input" name="VIP_ADDRESS" data-options="validType:['chinese','length[1,20]']">
+
+                    </div>
+                </div>-->
                 <div class="layui-inline">
                     <label class="layui-form-label">联系地址</label>
                     <div class="layui-input-inline">
@@ -457,6 +470,7 @@
                         <input name="VIP_ID" class="layui-input" id="RE_VIPCARD"  readonly>
                     </div>
                 </div>
+                <br>
                 <div class="layui-inline">
                     <label class="layui-form-label">会员姓名</label>
                     <div class="layui-input-inline">
@@ -464,18 +478,21 @@
                     </div>
                 </div>
 
+                <br>
                 <div class="layui-inline">
                     <label class="layui-form-label">余额（元）</label>
                     <div class="layui-input-inline">
                         <input name="VIP_PHONE" class="layui-input" id="RE_BEFORE_MONEY">
                     </div>
                 </div>
+                <p></p>
                 <div class="layui-inline">
                     <label class="layui-form-label">赠送金额</label>
                     <div class="layui-input-inline">
                         <input name="VIP_PHONE" class="layui-input" id="RE_GIVE">
                     </div>
                 </div>
+                <p></p>
                 <div class="layui-inline">
                     <label class="layui-form-label">充值金额</label>
                     <div class="layui-input-inline">
@@ -492,6 +509,7 @@
             <input type="button" value="取消" id="cancel1" class="layui-btn layui-btn-sm layui-btn-normal" />
         </div>
     </script>
+
   </body>
 
 </html>

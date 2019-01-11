@@ -1,4 +1,4 @@
-package com.dinner.controller.VerificationCodeController;
+package com.dinner.controller.verificationCodeController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -16,9 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 /**
- * className:VerificationCodeController
+ * className:verificationCodeController
  * discriptoin:验证码生成
  * author:wxz
  * createTime:2018-11-24 13:48
