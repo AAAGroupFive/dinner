@@ -36,7 +36,7 @@ public interface PowerDao {
      * 雇员表
      * @return
      */
-    @Select({"<script>select * from (select rownum rn,t.emp_id as empId,t.emp_user as userName,t.emp_pass as passWord,t.emp_phone as phone,t.emp_role as role from tab_emp t <where>" +
+    @Select({"<script>select * from (select rownum rn,t.emp_id as empId,t.emp_name as EmpName,t.emp_user as userName,t.emp_pass as passWord,t.emp_phone as phone,t.emp_role as role from tab_emp t <where>" +
             "<if test=\"end!=null and end!=''\"> and rownum &lt; #{end} </if>" +
             "<if test=\"userName!=null and userName!=''\"> and emp_user like '%'||#{userName}||'%' </if>" +
             "<if test=\"phone!=null and phone!=''\"> and emp_phone like '%'||#{phone}||'%' </if> "  +

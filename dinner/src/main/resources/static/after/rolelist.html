@@ -42,17 +42,19 @@
                     label="雇员ID"
                     width="105">
             </el-table-column>
+
+            <el-table-column
+                    prop="empName"
+                    label="姓名"
+                    width="150">
+            </el-table-column>
+
             <el-table-column
                     prop="userName"
                     label="用户名"
                     width="150">
             </el-table-column>
 
-            <el-table-column
-                    prop="passWord"
-                    label="密码"
-                    width="120">
-            </el-table-column>
             <el-table-column
                     prop="phone"
                     label="手机号"
@@ -175,7 +177,7 @@
             //console.log(this.searchForm.userName)
             var create = {'start':start,'end':end}
             axios.post('../power/empList',create).then(function(response){
-                //console.log(response.data);
+                console.log(response.data);
                 //alert(response.data.total);
                 self.total=response.data.total;
                 self.tableData = response.data.data;
