@@ -187,7 +187,7 @@
 //                self.options = response.data;
 //            })
            axios.post('../power/list').then(function(response){
-               console.log(response.data)
+               //console.log(response.data)
                 self.treeData = response.data;
             })
            // alert(JSON.stringify(aa));
@@ -195,7 +195,7 @@
         methods:{
             change:function (row) {
                 var role = row.role;
-                console.log(role)
+                //console.log(role)
             },
             getSelected:function(e){
                 var ids="";
@@ -231,7 +231,7 @@
                this.goUrl="/emp/update";
                _self=this;
 
-               console.log(_self.treeData)
+               //console.log(_self.treeData)
                //this.$refs.tree.setCheckedNodes([]);
                //alert(this.checkedKeys);
                 //this.checkedKeys=[];
@@ -350,7 +350,7 @@
                  }*/
                 //  alert(JSON.stringify(val));
                 this.multipleSelection = val;
-                console.info(val);
+                //console.info(val);
             },
 //            //删除所选，批量删除
 //            removeSelection:function() {
