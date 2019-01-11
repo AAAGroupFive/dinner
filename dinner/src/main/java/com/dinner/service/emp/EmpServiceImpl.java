@@ -94,6 +94,11 @@ public class EmpServiceImpl implements EmpService {
         return empDao.perUpdate(map);
     }
 
+    @Override
+    public List<Map> checkUser(Map map) {
+        return empDao.checkUser(map);
+    }
+
     /**
      * 递归绑定子节点
      * @param treeNode

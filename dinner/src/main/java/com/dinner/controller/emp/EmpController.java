@@ -48,6 +48,11 @@ public class EmpController {
         return "after/PerInformation";
     }
 
+    /**
+     * 员工列表
+     * @param map
+     * @return
+     */
     @RequestMapping("/list")
     @ResponseBody
     public Object getEmp(@RequestParam Map map){//g
@@ -63,7 +68,11 @@ public class EmpController {
         return tempMap;
     }
 
-
+    /**
+     * 员工添加
+     * @param map
+     * @return
+     */
     @RequestMapping("/add")
     public Object empAdd(@RequestParam Map map){
         //System.out.println("QAQ`");
@@ -77,6 +86,11 @@ public class EmpController {
         }
     }
 
+    /**
+     * 员工删除
+     * @param EMPID
+     * @return
+     */
     @RequestMapping("/del")
     @ResponseBody
     public Object empDel(@RequestParam int EMPID){
@@ -90,6 +104,11 @@ public class EmpController {
         return tempMap;
     }
 
+    /**
+     * 员工修改
+     * @param map
+     * @return
+     */
     @RequestMapping("/update")
     @ResponseBody
     public Object empUpdate(@RequestParam Map map){
@@ -123,12 +142,71 @@ public class EmpController {
         return null;
     }
 
+    /**
+     * 个人信息修改
+     * @param map
+     * @return
+     */
     @RequestMapping("perUpdate")
     @ResponseBody
     public Object perUpdate(@RequestParam Map map){
         //System.out.println(map);
         if (map!=null&&map.size()>0){
             empService.perUpdate(map);
+        }
+        return null;
+    }
+
+    /**
+     * 用户名校验
+     * @return
+     */
+    @RequestMapping("/user")
+    @ResponseBody
+    public Object checkUser(@RequestParam Map map){
+        //System.out.println(map.get("userName"));
+        if (map.get("userName")!=null){
+            List<Map> maps = empService.checkUser(map);
+            if (maps!=null&&maps.size()>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if (map.get("ename")!=null){
+            List<Map> maps = empService.checkUser(map);
+            if (maps!=null&&maps.size()>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if (map.get("phone")!=null){
+            List<Map> maps = empService.checkUser(map);
+            if (maps!=null&&maps.size()>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 姓名校验
+     * @param map
+     * @return
+     */
+    @RequestMapping("/ename")
+    @ResponseBody
+    public Object checkName(@RequestParam Map map){
+        if (map!=null&&map.size()>0){
+            List<Map> maps = empService.checkUser(map);
+            if (maps!=null&&maps.size()>0){
+                return 1;
+            }else{
+                return 0;
+            }
         }
         return null;
     }

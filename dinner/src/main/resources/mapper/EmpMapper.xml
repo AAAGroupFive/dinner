@@ -56,4 +56,18 @@
     <update id="perUpdate" parameterType="map">
         update TAB_EMP set EMP_NAME=#{ename},EMP_PASS=#{pass},EMP_PHONE=#{phone},EMP_ADDR=#{addr} where EMP_ID=#{empId}
     </update>
+    <select id="checkUser" resultType="map">
+        select * from TAB_EMP
+        <where>
+            <if test="userName!=null and userName!=''">
+                and EMP_USER=#{userName}
+            </if>
+            <if test="ename!=null and ename!=''">
+                and emp_name=#{ename}
+            </if>
+            <if test="phone!=null and phone!=''">
+                and emp_phone=#{phone}
+            </if>
+        </where>
+    </select>
 </mapper>
