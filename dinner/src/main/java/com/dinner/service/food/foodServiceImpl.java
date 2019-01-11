@@ -32,4 +32,9 @@ public class foodServiceImpl implements foodService {
     public int updateFood(Map map) {
         return foodDao.updateFood(map);
     }
+
+    @Override
+    public int countFood() {
+        return foodDao.countFood();
+    }
 }

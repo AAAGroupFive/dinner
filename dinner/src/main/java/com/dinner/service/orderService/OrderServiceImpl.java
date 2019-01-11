@@ -56,7 +56,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int closeTable(Map map) {
+        return orderDao.closeTable(map);
+    }
+
+    @Override
     public int vip(Map map) {
         return orderDao.vip(map);
+    }
+
+    @Override
+    public int checkMoney(Map map) {
+        return orderDao.checkMoney(map);
     }
 }
