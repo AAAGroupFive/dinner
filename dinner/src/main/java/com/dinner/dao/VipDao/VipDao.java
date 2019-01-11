@@ -39,11 +39,18 @@ public interface VipDao {
     int VipUpdate(Map map);
 
     /**
+     * 会员删除时进行判断
+     * @param map
+     * @return
+     */
+    List<Map> CheckDelete(String[] map);
+
+    /**
      * 会员删除
      * @param map
      * @return
      */
-    int VipDelete(String[] map);
+    int VipDelete(List map);
 
     /**
      * 统计会员

@@ -4,6 +4,7 @@ import com.dinner.dao.VipDao.VipDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,11 +80,27 @@ public class VipServiceLmpl implements VipService {
 
     @Override
     public int VipDelete(Map map) {
-
         Map temp = new HashMap();
+        List <Integer> splitDelete = new ArrayList<Integer>();
         String VIP_ID =map.get("VIP_ID").toString();
         String[] split = VIP_ID.split(",");
-        return  vipDao.VipDelete(split);
+        List<Map> maps = vipDao.CheckDelete(split);
+        for (Map Check:maps) {
+            if(Check.get("VIP_BALANCE")!=null&&Integer.valueOf(Check.get("VIP_BALANCE")+"")>0){
+                splitDelete.clear();
+            }else {
+                splitDelete.add(Integer.valueOf(Check.get("VIP_ID")+""));
+            }
+        }
+        if(splitDelete.isEmpty()){
+
+            return -1;
+        }else {
+            return vipDao.VipDelete(splitDelete) ;
+        }
+
+
+
     }
 
     @Override

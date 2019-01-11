@@ -55,6 +55,20 @@ public interface OrderService {
     List<Map> countDetails(Map map);
 
     /**
+     * 查询已经点的菜
+     * @param map
+     * @return
+     */
+    List<Map> alreadyList(Map map);
+
+    /**
+     * 上桌
+     * @param map
+     * @return
+     */
+    int foodUp(Map map);
+
+    /**
      * 关闭桌子
      * @param map
      * @return

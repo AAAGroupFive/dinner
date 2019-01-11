@@ -4,6 +4,8 @@ import com.dinner.dao.order.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,28 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Map> countDetails(Map map) {
         return orderDao.countDetails(map);
+    }
+
+    @Override
+    public List<Map> alreadyList(Map map) {
+        List<Map> map1 = new ArrayList<>();
+        map1=orderDao.alreadyList(map);
+        for (Map map2 : map1) {
+            String state = String.valueOf(map2.get("CON_STATE"));
+            if (state.equals("0")) {
+                map2.put("STATE", "未做");
+            } else if (state.equals("1")) {
+                map2.put("STATE", "已做");
+            } else {
+                map2.put("STATE", "已上桌");
+            }
+        }
+        return map1;
+    }
+
+    @Override
+    public int foodUp(Map map) {
+        return orderDao.foodUp(map);
     }
 
     @Override

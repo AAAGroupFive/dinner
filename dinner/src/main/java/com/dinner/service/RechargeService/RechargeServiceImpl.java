@@ -47,8 +47,8 @@ public class RechargeServiceImpl implements RechargeSerive {
 
 
         int re_give;
-        if(map.get("re_give")!=null){
-          re_give= Integer.parseInt(map.get("re_give").toString());
+        if(map.get("RE_GIVE")!=null){
+          re_give= Integer.parseInt(map.get("RE_GIVE").toString());
         }else {
             re_give=0;
         }

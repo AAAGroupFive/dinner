@@ -38,6 +38,40 @@ public class CountController {
     }
 
     /**
+     * 点的菜页面
+     * @return
+     */
+    @RequestMapping("/alreadyFood")
+    public String alreadyFood(@RequestParam Map map, Model model) {
+        model.addAttribute("number", map.get("number"));
+        return "after/alreadyFood";
+    }
+
+    /**
+     * 查询点的菜
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/alreadyList")
+    public Map alreadyList(@RequestParam Map map) {
+        Map tempMap = new HashMap();
+        tempMap.put("code", 0);
+        tempMap.put("msg", "");
+        tempMap.put("data",orderService.alreadyList(map));
+        return tempMap;
+    }
+
+    /**
+     * 上桌
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/foodUp")
+    public int foodUp(@RequestParam Map map) {
+        return orderService.foodUp(map);
+    }
+
+    /**
      * 消费记录
      * @param map
      * @return
