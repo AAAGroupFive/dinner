@@ -44,10 +44,18 @@
     <update id="VipUpdate">
         update tab_vip set VIP_PHONE=#{VIP_PHONE},VIP_ADDRESS=#{VIP_ADDRESS},VIP_STATE=#{state} where VIP_ID=#{VIP_ID}
     </update>
-    <!--会员删除-->
-    <delete id="VipDelete"  parameterType="java.util.ArrayList">
-        delete from tab_vip where VIP_ID in
+
+    <!--会员删除时进行判断-->
+    <select id="CheckDelete" parameterType="java.util.ArrayList" resultType="map">
+        select VIP_BALANCE ,VIP_ID from tab_vip where VIP_ID in
         <foreach collection="array"  index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--会员删除-->
+    <delete id="VipDelete"  parameterType="java.util.ArrayList" >
+        delete from tab_vip where VIP_ID in
+        <foreach collection="list"  index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
 

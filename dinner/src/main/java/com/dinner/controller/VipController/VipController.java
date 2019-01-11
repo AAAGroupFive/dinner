@@ -124,16 +124,11 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/VipDelete")
     public int VipDelete(@RequestParam Map map){
+        int i = vipService.VipDelete(map);
+        System.out.println(i);
 
-
-        return  vipService.VipDelete(map);
+        return  i;
     }
-    @ResponseBody
-    @RequestMapping("/State")
-    public int State(@RequestParam Map map){
 
-
-        return  1;
-    }
 
 }

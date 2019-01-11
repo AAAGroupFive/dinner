@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/projectCount")
-public class projectCountController {
+public class ProjectCountController {
     @Autowired
     private ProjectCountService projectService;
 
