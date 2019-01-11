@@ -177,7 +177,7 @@
             //console.log(this.searchForm.userName)
             var create = {'start':start,'end':end}
             axios.post('../power/empList',create).then(function(response){
-                console.log(response.data);
+                //console.log(response.data);
                 //alert(response.data.total);
                 self.total=response.data.total;
                 self.tableData = response.data.data;
