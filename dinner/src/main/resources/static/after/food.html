@@ -25,21 +25,7 @@
         <h2>{{ message }}</h2><br>
         桌号：<label th:text="${number}" id="number"></label>
     </div>
-
     <div id="tableView">
-        <!--列表顶部搜索和工具条-->
-        <!--<el-row>
-            <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-
-                <el-form-item label="名称">
-                    <el-input v-model="searchForm.name" placeholder="名称"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" icon="search" @click="searchClick">查询</el-button>
-                </el-form-item>
-            </el-form>
-        </el-row>-->
-        <!--列表-->
         <el-row>
             <el-table
                     :data="tableData"
@@ -49,17 +35,17 @@
                     style="width: 100%">
                 <el-table-column
                         type="selection"
-                        width="55">
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="FOOD_NAME"
                         label="菜名"
-                        width="300">
+                        width="350">
                 </el-table-column>
                 <el-table-column
                         prop="FOOD_PRICE"
                         label="单价"
-                        width="200">
+                        width="250">
                 </el-table-column>
                 <!--<el-table-column
                         label="操作">
@@ -76,24 +62,17 @@
             <el-col :span="6" >
                 <el-button :plain="true" type="primary" size="small" icon="el-icon-edit" @click="editSubmit">确认点菜</el-button>
             </el-col>
+
+            <el-col :span="6" >
+                <el-button :plain="true" type="warning" size="small" icon="el-icon-news" @click="already">点过的菜</el-button>
+            </el-col>
+
             <el-col :span="6" >
                 <el-button :plain="true" type="success" size="small" icon="el-icon-success" @click="jz">结账</el-button>
             </el-col>
-            <!--<el-col :span="18" >
-                <el-pagination
-                        style="float: right"
-                        @size-change="pageSizeChange"
-                        @current-change="currentPageChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 50]"
-                        :page-size="pageSize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="total">
-                </el-pagination>
-            </el-col>-->
         </el-row>
-
     </div>
+
 
     <script type="text/javascript">
 
@@ -188,6 +167,24 @@
                     this.multipleSelection = val;
                     console.info(val);
                 },
+                //已点的菜事件
+                already:function(val) {
+                    var number=$("#number").text();
+                    layer.open({
+                        title: '已点的菜'
+                        ,type: 2
+                        ,area: ['800px', '800px']
+                        ,anim: 1//修改弹出层动画
+                        ,content:'/dinner/count/alreadyFood?number='+number
+                        ,success:function(){
+                            //弹出层取消按钮
+                            $("#cancel").click(function(){
+                                layer.closeAll('page');
+                            })
+                        }
+                    })
+                },
+
                 //结账事件
                 jz:function(val) {
                     this.$confirm('确认结账吗?', '提示', {

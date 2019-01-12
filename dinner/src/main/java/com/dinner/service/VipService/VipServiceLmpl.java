@@ -85,16 +85,13 @@ public class VipServiceLmpl implements VipService {
         String VIP_ID =map.get("VIP_ID").toString();
         String[] split = VIP_ID.split(",");
         List<Map> maps = vipDao.CheckDelete(split);
-        System.out.println(maps.get(0).get("VIP_BALANCE"));
         for (Map Check:maps) {
-            System.out.println(Check);
             if(Check.get("VIP_BALANCE")!=null&&Integer.valueOf(Check.get("VIP_BALANCE")+"")>0){
                 splitDelete.clear();
             }else {
-               splitDelete.add(Integer.valueOf(Check.get("VIP_ID")+""));
+                splitDelete.add(Integer.valueOf(Check.get("VIP_ID")+""));
             }
         }
-        System.out.println(splitDelete);
         if(splitDelete.isEmpty()){
 
             return -1;

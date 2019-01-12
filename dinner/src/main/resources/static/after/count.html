@@ -83,7 +83,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">付款</label>
             <div class="layui-input-inline">
-                <input type="text" name="money" required lay-verify="required" placeholder="请输入付款金额" autocomplete="off" class="layui-input">
+                <input type="text" id="sum1" name="money" disabled="disabled" required lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -108,11 +108,22 @@
             success:function (data) {
                 if (data > 0) {
                     $("#sum").text(data);
+                    $("#sum1").val(data);
                 }
             }
         });
     })
-
+    $("#sum1").ready(function () {
+        var number=$("#number").text();
+        $.ajax({
+            url :'/dinner/count/sum?number='+number,
+            success:function (data) {
+                if (data > 0) {
+                    $("#sum1").val(data);
+                }
+            }
+        });
+    })
     //Demo
     layui.use(['form','layer'], function(){
         var layer = layui.layer;
@@ -140,10 +151,10 @@
                             parent.parent.layer.close(index);
                         } else {
                             // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
+                            var index = window.parent.layer.getFrameIndex(window.name);
                             //关闭当前frame及父frame
-                            parent.layer.close(index);
-                            parent.parent.layer.close(index);
+                            window.parent.layer.close(index);
+                            window.parent.parent.layer.close(index);
                             //刷新欢迎页面
                             window.parent.parent.location.href=window.parent.parent.location.href;
                         }
@@ -152,12 +163,7 @@
 
 
             }
-            var index = parent.layer.getFrameIndex(window.name);
-            //关闭当前frame及父frame
-            parent.layer.close(index);
-            parent.parent.layer.close(index);
-            //刷新欢迎页面
-            window.parent.parent.location.href=window.parent.parent.location.href;
+
         });
     });
 </script>

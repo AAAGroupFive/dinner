@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dinner.dao.cookDao.cookDao">
+    <!--待做菜品-->
+    <select id="cookList" resultType="map">
+        select a.FOOD_NAME,b.CON_STATE,b.CON_GOODS,count(a.FOOD_NAME) as NUMBERR from TAB_FOOD a join TAB_CON_RECORD b on a.food_id=b.con_goods
+        group by a.FOOD_NAME,b.CON_STATE,b.CON_GOODS having b.con_state=0
+    </select>
+    <!--已做菜品-->
+    <select id="cookedList" resultType="map">
+        select a.FOOD_NAME,b.CON_STATE,b.CON_ROOM from TAB_FOOD a join TAB_CON_RECORD b on a.food_id=b.con_goods
+        where b.con_state=1
+    </select>
+    <!--更新菜品状态-->
+    <update id="updateCook">
+        update TAB_CON_RECORD set CON_STATE=1 where CON_GOODS=#{CON_GOODS}
+    </update>
+</mapper>

@@ -60,5 +60,4 @@ public interface VipDao {
      * @return
      */
     int countVip();
-
 }

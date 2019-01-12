@@ -25,10 +25,10 @@
 
     <!--增加消费-->
     <insert id="insertChoose">
-        insert into TAB_CON_RECORD(CON_ROOM,CON_GOODS)
+        insert into TAB_CON_RECORD(CON_ROOM,CON_GOODS,CON_STATE)
         <foreach collection="list"  index="index" item="item" separator="union all">
             SELECT
-            #{item.num},#{item.id}
+            #{item.num},#{item.id},0
             FROM dual
         </foreach>
     </insert>
@@ -41,9 +41,20 @@
 
     <!--结账详情-->
     <select id="countDetails" parameterType="map" resultType="map">
-        select c.FOOD_NAME,c.FOOD_PRICE from TAB_CONSUME a join TAB_CON_RECORD b  on a.CON_ROOM=b.CON_ROOM join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
+        select c.FOOD_NAME,c.FOOD_PRICE from TAB_CON_RECORD b join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
+        where b.CON_ROOM=#{number} and b.CON_STATE=2
+    </select>
+
+    <!--已点菜列表-->
+    <select id="alreadyList" parameterType="map" resultType="map">
+        select c.FOOD_NAME,b.CON_STATE,b.CON_GOODS from TAB_CON_RECORD b join TAB_FOOD c on b.CON_GOODS=c.FOOD_ID
         where b.CON_ROOM=#{number}
     </select>
+
+    <!--上桌-->
+    <update id="foodUp" parameterType="map">
+        update TAB_CON_RECORD set CON_STATE=2 where CON_ROOM=#{number} and CON_GOODS=#{foodId}
+    </update>
 
     <!--关闭桌子-->
     <update id="close">
