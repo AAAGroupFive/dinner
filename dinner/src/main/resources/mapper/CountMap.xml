@@ -4,9 +4,9 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dinner.dao.projectCountDao.ProjoectCountDao">
     <select id="getMoneyCount" resultType="map">
-        select to_char(con_time,'yyyy-mm-dd') as month,sum(con_money) as money from TAB_CONSUME where con_state=1 group by to_char(con_time,'yyyy-mm-dd')
+        select to_char(con_time,'yyyy-mm-dd') as month,sum(con_money) as money from TAB_CONSUME where con_state=1 group by to_char(con_time,'yyyy-mm-dd') ORDER BY to_char(con_time,'yyyy-mm-dd') DESC
     </select>
     <select id="getVipMoneyCount" resultType="map">
-        select to_char(RE_TIME,'yyyy-mm-dd') as month,sum(RECHARGE+RE_GIVE) as money from tab_recharge group by to_char(RE_TIME,'yyyy-mm-dd')
+        select to_char(RE_TIME,'yyyy-mm-dd') as month,sum(RECHARGE+RE_GIVE) as money from tab_recharge group by to_char(RE_TIME,'yyyy-mm-dd') ORDER BY to_char(RE_TIME,'yyyy-mm-dd') DESC
     </select>
 </mapper>
