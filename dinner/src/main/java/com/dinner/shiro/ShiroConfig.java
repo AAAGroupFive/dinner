@@ -50,6 +50,7 @@ public class ShiroConfig {
         filterMap.put("/food/showFtp","anon");
         filterMap.put("/login/login","anon");
         filterMap.put("/locationTo/bbbf","anon");
+        filterMap.put("/checkToken","anon");
         //System.out.println("------------++-----------------");
         filterMap.put("/login/getVerifyCode","anon");
         //授权过滤器
