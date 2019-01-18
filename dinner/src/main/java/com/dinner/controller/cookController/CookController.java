@@ -1,4 +1,4 @@
-package com.dinner.controller.CookController;
+package com.dinner.controller.cookController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.util.Map;
  * createTime:2019-01-11 21:23
  */
 @Controller
-public class cookController {
+public class CookController {
     @Autowired
     private cookService cookService;
     @RequestMapping("/toCookList")

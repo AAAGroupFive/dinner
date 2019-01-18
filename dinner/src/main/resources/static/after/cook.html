@@ -54,8 +54,10 @@
                     $.ajax({
                         url: "updateCook",
                         type: "post",
+                        async: "false",
                         data: {
-                            "CON_GOODS": data.CON_GOODS
+                            "CON_GOODS": data.CON_GOODS,
+                            "CON_ROOM":data.CON_ROOM
                         },
                         dataType: "json",
                         success: function (data) {

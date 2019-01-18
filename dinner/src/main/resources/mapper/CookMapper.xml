@@ -5,8 +5,8 @@
 <mapper namespace="com.dinner.dao.cookDao.cookDao">
     <!--待做菜品-->
     <select id="cookList" resultType="map">
-        select a.FOOD_NAME,b.CON_STATE,b.CON_GOODS,count(a.FOOD_NAME) as NUMBERR from TAB_FOOD a join TAB_CON_RECORD b on a.food_id=b.con_goods
-        group by a.FOOD_NAME,b.CON_STATE,b.CON_GOODS having b.con_state=0
+        select b.CON_ROOM,a.FOOD_NAME,b.CON_STATE,b.CON_GOODS,count(a.FOOD_NAME) as NUMBERR from TAB_FOOD a join TAB_CON_RECORD b on a.food_id=b.con_goods
+        group by a.FOOD_NAME,b.CON_STATE,b.CON_GOODS ,b.CON_ROOM having b.con_state=0
     </select>
     <!--已做菜品-->
     <select id="cookedList" resultType="map">
@@ -15,6 +15,6 @@
     </select>
     <!--更新菜品状态-->
     <update id="updateCook">
-        update TAB_CON_RECORD set CON_STATE=1 where CON_GOODS=#{CON_GOODS}
+        update TAB_CON_RECORD set CON_STATE=1 where CON_GOODS=#{CON_GOODS} AND CON_ROOM=#{CON_ROOM}
     </update>
 </mapper>
