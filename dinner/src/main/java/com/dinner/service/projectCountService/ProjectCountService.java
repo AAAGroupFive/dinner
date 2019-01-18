@@ -17,4 +17,10 @@ public interface ProjectCountService {
      * @return
      */
     List<Map> getMoneyCount();
+    /**
+     * vip充值统计
+     *
+     * @return
+     */
+    List<Map> getVipMoneyCount();
 }

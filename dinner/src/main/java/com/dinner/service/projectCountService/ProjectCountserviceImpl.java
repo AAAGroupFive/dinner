@@ -22,4 +22,9 @@ public class ProjectCountserviceImpl implements ProjectCountService {
         // TODO Auto-generated method stub
         return projoectCountDao.getMoneyCount();
     }
+    @Override
+    public List<Map> getVipMoneyCount() {
+        // TODO Auto-generated method stub
+        return projoectCountDao.getVipMoneyCount();
+    }
 }

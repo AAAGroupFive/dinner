@@ -38,6 +38,7 @@ public interface VipDao {
      */
     int VipUpdate(Map map);
 
+
     /**
      * 会员删除时进行判断
      * @param map
@@ -50,7 +51,9 @@ public interface VipDao {
      * @param map
      * @return
      */
+
     int VipDelete(List map);
+
 
     /**
      * 统计会员

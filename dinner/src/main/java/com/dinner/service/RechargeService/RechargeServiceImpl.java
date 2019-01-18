@@ -36,8 +36,9 @@ public class RechargeServiceImpl implements RechargeSerive {
 
     @Override
     public int RechargeAdd(Map map) {
-        int recharge=0;
-        int re_before_money=0;
+        System.out.println(map);
+        int recharge =0;
+        int re_before_money =0;
         if(map.get("RECHARGE")!=""){
             recharge = Integer.parseInt(map.get("RECHARGE").toString());
         }

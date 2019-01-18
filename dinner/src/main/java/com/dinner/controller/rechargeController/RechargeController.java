@@ -1,4 +1,4 @@
-package com.dinner.controller.rechargeController;
+package com.dinner.controller.RechargeController;
 
 import com.dinner.service.RechargeService.RechargeSerive;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * className:rechargeController
+ * className:RechargeController
  * discription:
  * author:panjing
  * createTime:2018-12-03 13:56

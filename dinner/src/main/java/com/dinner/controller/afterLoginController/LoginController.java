@@ -1,4 +1,4 @@
-package com.dinner.controller.afterLoginController;
+package com.dinner.controller.AfterLoginController;
 
 import com.dinner.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

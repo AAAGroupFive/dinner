@@ -1,4 +1,4 @@
-package com.dinner.controller.vipController;
+package com.dinner.controller.VipController;
 
 
 import com.dinner.service.VipService.VipService;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * className:vipController
+ * className:VipController
  * discription:
  * author:panjing
  * createTime:2018-11-23 15:45
@@ -124,10 +124,10 @@ public class VipController {
     @ResponseBody
     @RequestMapping("/VipDelete")
     public int VipDelete(@RequestParam Map map){
+        int i = vipService.VipDelete(map);
+        System.out.println(i);
 
-
-        return  vipService.VipDelete(map);
+        return  i;
     }
-
 
 }

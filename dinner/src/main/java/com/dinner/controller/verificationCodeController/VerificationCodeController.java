@@ -1,4 +1,4 @@
-package com.dinner.controller.verificationCodeController;
+package com.dinner.controller.VerificationCodeController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;

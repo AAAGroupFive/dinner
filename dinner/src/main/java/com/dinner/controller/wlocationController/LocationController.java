@@ -1,4 +1,4 @@
-package com.dinner.controller.wlocationController;
+package com.dinner.controller.WlocationController;
 
 import com.dinner.service.VipService.VipService;
 import com.dinner.service.registerService.RegisterService;

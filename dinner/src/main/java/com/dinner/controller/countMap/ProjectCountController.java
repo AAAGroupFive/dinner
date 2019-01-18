@@ -23,7 +23,15 @@ public class ProjectCountController {
     private ProjectCountService projectService;
 
     /**
-     *跳转到图表统计页面
+     *跳转到营业额图表统计页面
+     */
+
+    @RequestMapping("/toVipCount")
+    public String toVipCount(){
+        return "after/countVipMap";
+    }
+    /**
+     *跳转到营业额图表统计页面
      */
 
     @RequestMapping("/toCount")
@@ -32,17 +40,27 @@ public class ProjectCountController {
     }
 
     /**
-     * 统计
+     * 消费统计
      * @return
      */
     @ResponseBody
     @RequestMapping("/testCount")
     public List<Map> testCount(){
-        System.out.println("11111111111");
-
         List<Map> moneyCount = projectService.getMoneyCount();
         System.out.println(moneyCount);
         return projectService.getMoneyCount();
+
+    }
+    /**
+     * vip充值统计
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/vipCount")
+    public List<Map> vipCount(){
+        List<Map> vipMoneyCount = projectService.getVipMoneyCount();
+        System.out.println(vipMoneyCount);
+        return projectService.getVipMoneyCount();
 
     }
 
