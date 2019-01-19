@@ -21,9 +21,9 @@
         <table class="layui-hide" id="cookList" lay-filter="demo"></table>
     </div>
 </div>
-<div align="center">
+<!--<div align="center">
     <table class="layui-hide" id="cookedList" lay-filter="demo"></table>
-</div>
+</div>-->
 <script type="text/javascript">
     layui.use('table', function(){
         var table = layui.table;
@@ -31,7 +31,7 @@
         table.render({
             elem: '#cookList'
             ,title: '待做菜品'
-            ,height:400
+            ,height:800
             ,width:1500
             ,url: '/dinner/cookList' //数据接口
             ,toolbar: '#toolbarDemoone'
@@ -48,22 +48,20 @@
         })
         //监听工具条
         table.on('tool(demo)', function(obj) {
-            var data = obj.data;
+
             if (obj.event === 'subone') {
-                layer.confirm('确定要提交吗', function (index) {
+                var data = obj.data;
+                console.log(data)
                     $.ajax({
-                        url: "updateCook",
+                        url: "/dinner/updateCook",
                         type: "post",
-                        async: "false",
                         data: {
-                            "CON_GOODS": data.CON_GOODS,
-                            "CON_ROOM":data.CON_ROOM
+                            "CON_GOODS":data.CON_GOODS
                         },
                         dataType: "json",
                         success: function (data) {
                             if (data.issuc == true) {
                                 obj.del();
-                                layer.close(index);
                                 layer.msg("成功", {icon: 6});
                                 window.location.reload();
                             } else {
@@ -71,7 +69,6 @@
                             }
                         }
                     });//ajax
-                });
             }
         });
 
@@ -79,7 +76,7 @@
 
 </script>
 <script type="text/javascript">
-    layui.use('table', function(){
+    /*layui.use('table', function(){
         var table = layui.table;
         //方法级渲染
         table.render({
@@ -96,11 +93,11 @@
                  {field: 'CON_ROOM', title: '桌号', width:165, sort: true}
                 ,{field: 'FOOD_NAME', title: '菜品', width:165}
                 ,{field: 'STATE', title: '状态', width:165}
-                /*,{field: 'right', title:'操作', toolbar: '#barDemoone', width:165}*/
+                /!*,{field: 'right', title:'操作', toolbar: '#barDemoone', width:165}*!/
             ] ]
             ,id: 'testReload'
         })
-    });//layui use
+    });//layui use*/
 
 </script>
 <script type="text/html" id="toolbarDemoone">
@@ -108,11 +105,11 @@
         <span style="font-family: '微软雅黑';font-size: 17px;">待做菜品</span>
     </div>
 </script>
-<script type="text/html" id="toolbarDemotwo">
+<!--<script type="text/html" id="toolbarDemotwo">
     <div class="layui-btn-container">
         <span style="font-family: '微软雅黑';font-size: 17px;">已做菜品</span>
     </div>
-</script>
+</script>-->
 <script type="text/html" id="barDemo">
     <a class="layui-btn" lay-event="subone">确定</a>
 </script>

@@ -33,6 +33,7 @@ public class ReserveController {
     @ResponseBody
     @RequestMapping("/reserve")
     public int reserve(@RequestParam Map map) {
+        System.out.println(map);
         orderService.order(map);
         return reserveService.addReserve(map);
     }

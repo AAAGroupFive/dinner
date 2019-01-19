@@ -49,9 +49,10 @@ public class CookController {
     @RequestMapping("/updateCook")
     @ResponseBody
     public Object updateCook(@RequestParam Map map){
+        System.out.println(map);
         int result =cookService.updateCook(map);
         Map tempMap = new HashMap();
-        if (result==-1) {
+        if (result==0) {
             tempMap.put("issuc", false);
         }else {
             tempMap.put("issuc", true);

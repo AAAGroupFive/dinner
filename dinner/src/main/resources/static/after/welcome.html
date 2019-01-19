@@ -78,7 +78,7 @@
             });
             function myFunction(){
                // alert($("#test1").val());
-                window.location.href=  "/dinner/toMain?selectDate="+$("#test1").val()
+                window.location.href = "/dinner/toMain?selectDate=" + $("#test1").val() + "&time=" + $("#time").val();
             }
             function getNowDate(){
                 var myDate = new Date();
@@ -94,7 +94,14 @@
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
-        <blockquote class="layui-elem-quote">当前时间:<span id="showDate"> </span><span style="float: right"> <input style="border: 0px;width: 90px;" type="text"   id="test1"  > <input type="button" value="查询预订" onclick="myFunction()"> </span></blockquote>
+        <blockquote class="layui-elem-quote">当前时间:<span id="showDate"> </span><span style="float: right">
+            <input style="border: 0px;width: 90px;" type="text"   id="test1"  >
+            <select id="time">
+                <option value="1">早餐</option>
+                <option value="2">中餐</option>
+                <option value="3">晚餐</option>
+            </select>
+            <input type="button" value="查询预订" onclick="myFunction()"> </span></blockquote>
         <fieldset class="layui-elem-field">
             <legend>散座</legend>
             <div class="layui-field-box">

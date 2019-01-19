@@ -15,7 +15,7 @@
         SELECT SEQ_TAB_ORDER_ID.NEXTVAL as orderId from DUAL
     </selectKey>
 
-        insert into TAB_CONSUME(CON_ID,CON_TYPE,CON_TIME,CON_ROOM,CON_PERSON,CON_STATE) values(#{orderId},#{contrller},sysdate,#{number},#{person},0)
+        insert into TAB_CONSUME(CON_ID,CON_TYPE,CON_TIME,CON_ROOM,CON_PERSON,CON_STATE,CON_DATE) values(#{orderId},#{contrller},sysdate,#{number},#{person},0,#{time})
     </insert>
 
     <!--开桌-->

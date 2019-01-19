@@ -33,11 +33,11 @@ public class TableController {
     }
 
     @RequestMapping("/toMain")
-    public String toMain(Model model,String  selectDate){
+    public String toMain(Model model,String  selectDate,Integer time){
         /*查桌子表*/
         List<Map> list = tableService.getList();
         /*查预订表*/
-        List<Map> list1 = reserveService.reserveList(selectDate);
+        List<Map> list1 = reserveService.reserveList(selectDate,time);
 
        /* for (int i = 0; i < list.size(); i++) {
             Object a = list.get(i).get("TAB_STATE");
@@ -66,6 +66,7 @@ public class TableController {
           //  model.addAttribute("type"+i,a);
         }
         model.addAttribute("selectDate", selectDate);
+        model.addAttribute("time", time);
         model.addAttribute("tbList", list);
         return "after/welcome";
     }

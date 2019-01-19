@@ -129,11 +129,12 @@ public class CountController {
         String o = (String) map.get("sum");
         int sum = Integer.valueOf(o);
         if (map.get("vip") != null && map.get("vip")!="") {
-            System.out.println(map.get("vip"));
             int checkMoney = orderService.checkMoney(map);
                 if (checkMoney < sum) {
                     return 0;
                 } else {
+                    orderService.close(map);
+                    orderService.closeTable(map);
                     return orderService.vip(map);
                 }
 

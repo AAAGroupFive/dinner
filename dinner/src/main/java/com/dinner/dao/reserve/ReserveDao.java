@@ -23,7 +23,7 @@ public interface ReserveDao {
      * 根据日期查询预订列表
      * @return
      */
-    List<Map> reserveList(@Param("selectDate") String selectDate);
+    List<Map> reserveList(@Param("selectDate") String selectDate,Integer time);
 
     /**
      * 添加预定信息

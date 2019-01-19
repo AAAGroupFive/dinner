@@ -25,11 +25,14 @@ public class ReserveServiceImpl implements ReserveService {
     private ReserveDao reserveDao;
 
     @Override
-    public List<Map> reserveList(String selectDate) {
+    public List<Map> reserveList(String selectDate,Integer time) {
         if(StringUtil.isEmpty(selectDate)){
             selectDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
-        return reserveDao.reserveList(selectDate);
+        if(time==null){
+            time=1;
+        }
+        return reserveDao.reserveList(selectDate,time);
     }
 
     @Override

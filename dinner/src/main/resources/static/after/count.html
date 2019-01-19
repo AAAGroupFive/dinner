@@ -153,7 +153,7 @@
                             // 获得frame索引
                             var index = window.parent.layer.getFrameIndex(window.name);
                             //关闭当前frame及父frame
-                            window.parent.layer.close(index);
+                            window.parent.parent.layer.close(index);
                             window.parent.parent.layer.close(index);
                             //刷新欢迎页面
                             window.parent.parent.location.href=window.parent.parent.location.href;

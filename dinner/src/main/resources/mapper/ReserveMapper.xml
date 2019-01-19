@@ -11,13 +11,13 @@
 
     <!--根据日期查询预订列表-->
     <select id="reserveList" resultType="map">
-        select RE_NUMBER,state from TAB_RESERVE where to_char(RE_DATE,'yyyy-mm-dd')=#{selectDate}
+        select RE_NUMBER,state from TAB_RESERVE where to_char(RE_DATE,'yyyy-mm-dd')=#{selectDate} and RE_TIME=#{time}
     </select>
 
     <!--增加预定记录-->
     <insert id="addReserve" parameterType="map">
         insert into TAB_RESERVE
-        values(SEQ_TAB_RESERVE_ID.nextval,#{name},#{email},#{phone},#{number},to_date(#{date},'yyyy-mm-dd'),#{message},2)
+        values(SEQ_TAB_RESERVE_ID.nextval,#{name},#{email},#{phone},#{number},to_date(#{date},'yyyy-mm-dd'),#{message},2,#{time})
     </insert>
 
 
